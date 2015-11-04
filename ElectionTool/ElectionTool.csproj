@@ -158,6 +158,18 @@
     <Compile Include="App_Start\BundleConfig.cs" />
     <Compile Include="App_Start\FilterConfig.cs" />
     <Compile Include="App_Start\RouteConfig.cs" />
+    <Compile Include="Entity Framework\AllowedToElect.cs">
+      <DependentUpon>ElectionDBEntities.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Entity Framework\Bundesland.cs">
+      <DependentUpon>ElectionDBEntities.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Entity Framework\CandidateList.cs">
+      <DependentUpon>ElectionDBEntities.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Entity Framework\Election.cs">
+      <DependentUpon>ElectionDBEntities.tt</DependentUpon>
+    </Compile>
     <Compile Include="Entity Framework\ElectionDBEntities.Context.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
@@ -172,6 +184,33 @@
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
       <DependentUpon>ElectionDBEntities.edmx</DependentUpon>
+    </Compile>
+    <Compile Include="Entity Framework\Erststimme.cs">
+      <DependentUpon>ElectionDBEntities.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Entity Framework\IsElectableCandidate.cs">
+      <DependentUpon>ElectionDBEntities.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Entity Framework\IsElectableParty.cs">
+      <DependentUpon>ElectionDBEntities.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Entity Framework\Party.cs">
+      <DependentUpon>ElectionDBEntities.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Entity Framework\PartyAffiliation.cs">
+      <DependentUpon>ElectionDBEntities.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Entity Framework\Person.cs">
+      <DependentUpon>ElectionDBEntities.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Entity Framework\PopulationBundesland.cs">
+      <DependentUpon>ElectionDBEntities.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Entity Framework\Wahlkrei.cs">
+      <DependentUpon>ElectionDBEntities.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Entity Framework\Zweitstimme.cs">
+      <DependentUpon>ElectionDBEntities.tt</DependentUpon>
     </Compile>
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
