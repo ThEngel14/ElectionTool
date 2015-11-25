@@ -15,7 +15,7 @@ namespace ElectionTool.Models
 
         public decimal? LastVotes { get; set; }
 
-        public decimal? LastVotesPercent { get { return LastVotes.HasValue ? 100*Math.Round((decimal) LastVotes, 3) : LastVotes.Value; } }
+        public decimal? LastVotesPercent { get { return LastVotes.HasValue ? 100*Math.Round((decimal) LastVotes, 3) : LastVotes; } }
         public int CompareTo(VoteViewModel other)
         {
             return other.Amount - Amount;

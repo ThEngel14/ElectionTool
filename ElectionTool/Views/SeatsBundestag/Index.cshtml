@@ -1,0 +1,30 @@
+﻿@model ElectionTool.Models.AllSeatsBundestagViewModel
+
+@{
+    ViewBag.Title = "Sitzverteilung des Bundestags";
+    ViewBag.Description = "Verteilung der Sitze im Bundestag";
+}
+
+<div class="row">
+    <table>
+        <thead>
+            <tr>
+                <th>Partei</th>
+                <th>Sitze</th>
+                <th>Prozent</th>
+                <th>Zuletzt</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var entry in Model.SeatsDistribution)
+            {
+                <tr>
+                    <td>@entry.Party</td>
+                    <td>@entry.Seats.Amount</td>
+                    <td>@entry.Seats.VotesPercent</td>
+                    <td>@entry.Seats.LastVotesPercent</td>
+                </tr>
+            }
+        </tbody>
+    </table>
+</div>

@@ -1,44 +1,90 @@
-﻿<!DOCTYPE html>
+﻿@using ElectionTool.Controllers
+@{
+    var electionId = 0;
+    
+    var url = HttpContext.Current.Request.Url.AbsolutePath;
+    var queryString = HttpContext.Current.Request.QueryString;
+
+    var queryString2009 = "";
+    var queryString2013 = "";
+
+    for (var i = 0; i < queryString.Count; i++)
+    {
+        var key = queryString.AllKeys[i];
+        var value = queryString.Get(i);
+
+        if (key.Equals("electionId"))
+        {
+            int.TryParse(value, out electionId);
+            
+            queryString2009 = string.Format("{0}&{1}=1", queryString2009, key);
+            queryString2013 = string.Format("{0}&{1}=2", queryString2013, key);
+        }
+        else
+        {
+            var add = string.Format("{0}={1}", key, value);
+            queryString2009 = string.Format("{0}&{1}", queryString2009, add);
+            queryString2013 = string.Format("{0}&{1}", queryString2013, add);
+        }
+    }
+
+    queryString2009 = queryString2009.Substring(1);
+    queryString2013 = queryString2013.Substring(1);
+
+    var link2009 = string.Format("{0}?{1}", url, queryString2009);
+    var link2013 = string.Format("{0}?{1}", url, queryString2013);
+}
+
+<!DOCTYPE html>
 <html>
 <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>@ViewBag.Title - My ASP.NET Application</title>
+    <title>@ViewBag.Title - ElectionTool</title>
     @Styles.Render("~/Content/css")
     @Scripts.Render("~/bundles/modernizr")
 
 </head>
 <body>
-    <div class="navbar navbar-inverse navbar-fixed-top">
-        <div class="container">
-            <div class="navbar-header">
-                <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
-                    <span class="icon-bar"></span>
-                    <span class="icon-bar"></span>
-                    <span class="icon-bar"></span>
-                </button>
-                @Html.ActionLink("Application name", "Index", "Home", new { area = "" }, new { @class = "navbar-brand" })
-            </div>
-            <div class="navbar-collapse collapse">
-                <ul class="nav navbar-nav">
-                    <li>@Html.ActionLink("Home", "Index", "Home")</li>
-                    <li>@Html.ActionLink("About", "About", "Home")</li>
-                    <li>@Html.ActionLink("Contact", "Contact", "Home")</li>
-                </ul>
-                @Html.Partial("_LoginPartial")
-            </div>
-        </div>
-    </div>
-    <div class="container body-content">
-        @RenderBody()
-        <hr />
-        <footer>
-            <p>&copy; @DateTime.Now.Year - My ASP.NET Application</p>
-        </footer>
+<div class="container body-content">
+    <div class="row" style="background-color: lightsalmon;">
+        <span>Wahlanalyse</span>
+        <span style="float: right; text-align: right;">
+            <a href=@link2009>
+                2009
+            </a>
+        </span>
+        <span style="float: right; text-align: right;">
+            <a href=@link2013>
+                2013
+            </a>
+        </span>
     </div>
 
-    @Scripts.Render("~/bundles/jquery")
-    @Scripts.Render("~/bundles/bootstrap")
-    @RenderSection("scripts", required: false)
+    <div class="col-md-2" style="background-color: lightblue;">
+        <div>
+            @Html.ActionLink("Sitzverteilung im Bundestag", "Index", "SeatsBundestag", new { electionId = @electionId}, null)
+        </div>
+        <div>Seite 2</div>
+        <div>Seite 3</div>
+        <div>...</div>
+    </div>
+
+    <div class="col-md-10">
+        <div class="row">
+            <h2>@ViewBag.Description</h2>
+        </div>
+
+        @RenderBody()
+    </div>
+    <hr/>
+    <footer>
+
+    </footer>
+</div>
+
+@Scripts.Render("~/bundles/jquery")
+@Scripts.Render("~/bundles/bootstrap")
+@RenderSection("scripts", required: false)
 </body>
 </html>
