@@ -1,0 +1,26 @@
+﻿@model ElectionTool.Models.AllWinnerFirstVotesModel
+
+@{
+    ViewBag.Title = "Direktmandate";
+}
+
+<table>
+    <thead>
+        <tr>
+            <th>Wahlkreis</th>
+            <th>Kandidat</th>
+            <th>Partei</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var entry in Model.Winner)
+        {
+            <tr>
+                <td>@entry.Wahlkreis</td>
+                <td>@entry.Person</td>
+                <td>@entry.Party</td>
+            </tr>
+        }
+    </tbody>
+</table>
+
