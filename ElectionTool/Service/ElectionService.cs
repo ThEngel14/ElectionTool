@@ -86,5 +86,43 @@ namespace ElectionTool.Service
 
             return model;
         }
+
+        public PartySelectionViewModel GetAllParties(int electionId)
+        {
+            var model = new PartySelectionViewModel
+            {
+                ElectionId = electionId
+            };
+
+            using (var context = new ElectionDBEntities())
+            {
+                var parties = context.Parties;
+
+                var pModel = ViewModelMap.ViewModelMap.GetPartyViewModels(parties).ToList();
+                model.Parties = pModel.OrderBy(r => r);
+            }
+
+            return model;
+        }
+
+        public ClosestWinnerForPartyViewModel GetClosestWinnerForParty(int electionId, int partyId)
+        {
+            ClosestWinnerForPartyViewModel model;
+            using (var context = new ElectionDBEntities())
+            {
+                var allForParty =
+                    context.ClosestErststimmeResults.Where(e => e.Election_Id == electionId && e.Party_Id == partyId);
+
+                var winner = allForParty.Where(e => e.Diff > 0).OrderBy(e => e.AbsDiff).Take(10);
+
+                var loser = allForParty.Where(e => e.Diff < 0).OrderBy(e => e.AbsDiff).Take(10);
+
+                var party = context.Parties.Single(p => p.Id == partyId);
+
+                model = ViewModelMap.ViewModelMap.GetClosestWinnerForPartyViewModel(electionId, party, winner, loser);
+            }
+
+            return model;
+        }
     }
 }

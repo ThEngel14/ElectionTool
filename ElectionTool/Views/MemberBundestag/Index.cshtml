@@ -1,0 +1,30 @@
+﻿@model ElectionTool.Models.AllMemberOfBundestagViewModel
+
+@{
+    ViewBag.Title = "Mitglieder des Bundestags";
+    ViewBag.Description = "Mitglieder des Bundestags";
+}
+
+<div class="row">
+    <table>
+        <thead>
+            <tr>
+                <th>Name</th>
+                <th>Partei</th>
+                <th>Bundesland</th>
+                <th>Wahlkreis</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var entry in Model.Members)
+            {
+                <tr>
+                    <td>@entry.Member.Person.Fullname</td>
+                    <td>@entry.Member.Party.Name</td>
+                    <td>@entry.Bundesland</td>
+                    <td>@entry.Wahlkreis</td>
+                </tr>
+            }
+        </tbody>
+    </table>
+</div>

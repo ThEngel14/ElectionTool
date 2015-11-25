@@ -61,16 +61,31 @@
         </span>
     </div>
 
-    <div class="col-md-2" style="background-color: lightblue;">
+    <div class="col-md-4" style="background-color: lightblue;">
         <div>
-            @Html.ActionLink("Sitzverteilung im Bundestag", "Index", "SeatsBundestag", new { electionId = @electionId}, null)
+            @Html.ActionLink("1. Sitzverteilung im Bundestag", "Index", "SeatsBundestag", new { electionId = @electionId}, null)
         </div>
-        <div>Seite 2</div>
-        <div>Seite 3</div>
-        <div>...</div>
+        <div>
+            @Html.ActionLink("2. Mitglieder im Bundestag", "Index", "MemberBundestag", new { electionId = @electionId }, null)
+        </div>
+        <div>
+            @Html.ActionLink("3. Direktmandate", "Index", "Direktmandate", new { electionId = @electionId }, null)
+        </div>
+        <div>
+            @Html.ActionLink("4. Überhangmandate", "Index", "Ueberhangmandate", new {electionId = @electionId}, null)
+        </div>
+        <div>
+            @Html.ActionLink("5. Ausgleichsmandate", "Index", "Ausgleichsmandate", new {electionId = @electionId}, null)
+        </div>
+        <div>
+            @Html.ActionLink("6. Wahlkreise", "Index", "Wahlkreis", new {electionId = @electionId}, null)
+        </div>
+        <div>
+            @Html.ActionLink("7. Knappste Sieger", "Index", "ClosestWinner", new { electionId = @electionId }, null)
+        </div>
     </div>
 
-    <div class="col-md-10">
+    <div class="col-md-8">
         <div class="row">
             <h2>@ViewBag.Description</h2>
         </div>

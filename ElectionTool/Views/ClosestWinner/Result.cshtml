@@ -1,0 +1,30 @@
+﻿@model ElectionTool.Models.ClosestWinnerForPartyViewModel
+           
+@{
+    ViewBag.Title = "Knappste Sieger";
+    ViewBag.Description = string.Format("Knappste Sieger: {0}", Model.Party.Name);
+}
+
+<div class="row">
+    <table>
+        <thead>
+            <tr>
+                <th>Name</th>
+                <th>Wahlkreis</th>
+                <th>Unterschied</th>
+                <th>Art</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var entry in Model.ClosestWinner)
+            {
+                <tr>
+                    <td>@entry.Person.Fullname</td>
+                    <td>@entry.Wahlkreis</td>
+                    <td>@entry.Difference</td>
+                    <td>@entry.KindOfResult</td>
+                </tr>
+            }
+        </tbody>
+    </table>
+</div>

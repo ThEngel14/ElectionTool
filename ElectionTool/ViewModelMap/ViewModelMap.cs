@@ -168,5 +168,46 @@ namespace ElectionTool.ViewModelMap
                 }
             });
         }
+
+        public static IEnumerable<PartyViewModel> GetPartyViewModels(IEnumerable<Party> parties)
+        {
+            return parties.Select(p => new PartyViewModel
+            {
+                Id = p.Id,
+                Name = p.Name
+            });
+        }
+
+        public static ClosestWinnerForPartyViewModel GetClosestWinnerForPartyViewModel(int electionId, Party party,
+            IEnumerable<ClosestErststimmeResult> winner, IEnumerable<ClosestErststimmeResult> loser)
+        {
+            return new ClosestWinnerForPartyViewModel
+            {
+                ElectionId = electionId,
+                Party = new PartyViewModel
+                {
+                    Id = party.Id,
+                    Name = party.Name
+                },
+                ClosestWinner = GetClosestWinnerEntryViewModels(winner.Any() ? winner : loser).ToList().OrderBy(r => r)
+            };
+        }
+
+        public static IEnumerable<ClosestWinnerEntryViewModel> GetClosestWinnerEntryViewModels(
+            IEnumerable<ClosestErststimmeResult> entries)
+        {
+            return entries.Select(e => new ClosestWinnerEntryViewModel
+            {
+                Person = new PersonViewModel
+                {
+                    Id = e.Person_Id ?? -1,
+                    Title = e.Title,
+                    Firstname = e.Firstname,
+                    Lastname = e.Lastname
+                },
+                Difference = e.Diff ?? 0,
+                Wahlkreis = e.Wahlkreis_Name
+            });
+        }
     }
 }

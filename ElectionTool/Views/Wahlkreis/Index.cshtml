@@ -1,0 +1,24 @@
+﻿@model ElectionTool.Models.WahlkreisSelectionViewModel
+           
+@{
+    ViewBag.Title = "Wahlkreise";
+    ViewBag.Description = "Wählen sie einen Wahlkreis";
+}
+
+<div class="row">
+    @foreach (var entry in Model.Bundeslands)
+    {
+        <div style="font-size: 14px;">@entry.BundeslandName</div>
+
+        <div class="row">
+            @foreach (var wk in entry.Wahlkreise)
+            {
+                <div>
+                    @Html.ActionLink(wk.WahlkreisName, "Overview", "Wahlkreis", new { electionId = Model.ElectionId, wahlkreisId = wk.WahlkreisId}, null);
+                </div>
+            }
+        </div>
+        
+        <div></div>
+    }
+</div>
