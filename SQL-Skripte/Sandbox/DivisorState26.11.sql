@@ -1,7 +1,7 @@
 USE [ElectionDB]
 GO
 
-/****** Object:  UserDefinedFunction [dbo].[DivisorState]    Script Date: 28.11.2015 20:22:50 ******/
+/****** Object:  UserDefinedFunction [dbo].[DivisorState]    Script Date: 26.11.2015 14:27:49 ******/
 SET ANSI_NULLS ON
 GO
 
@@ -9,12 +9,21 @@ SET QUOTED_IDENTIFIER ON
 GO
 
 
-ALTER  FUNCTION [dbo].[DivisorState](@Election_ID int, @Bundesland_ID int,@Seats int) RETURNS int AS
+
+
+
+
+--drop function Divisor;
+--GO
+ALTER  FUNCTION [dbo].[DivisorState](@Election_ID int, @Bundesland_ID int) RETURNS int AS
 
 /*THIS FUNCTION IS A CLONE | APPLY CHANGES IN THE TEMPLATE TO ALL OTHER DIVISOR FUNCTIONS*/
 
 BEGIN
-
+	declare @Seats int = (Select s.Seats
+							from SeatsPerState s
+							where s.Election_Id = @Election_ID 
+							and s.Bundesland_ID=@Bundesland_ID);
 	declare @SumOfSeats int;
 	declare @TempDivisor int;
 
@@ -65,9 +74,6 @@ BEGIN
 
 	return @TempDivisor;
 END;--function
-
-
-
 
 
 

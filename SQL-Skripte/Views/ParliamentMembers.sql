@@ -1,13 +1,12 @@
 USE [ElectionDB]
 GO
 
-/****** Object:  View [dbo].[ParliamentMembers]    Script Date: 16.11.2015 13:21:03 ******/
+/****** Object:  View [dbo].[ParliamentMembers]    Script Date: 28.11.2015 20:26:20 ******/
 SET ANSI_NULLS ON
 GO
 
 SET QUOTED_IDENTIFIER ON
 GO
-
 
 ALTER View [dbo].[ParliamentMembers] (Election_Id, FirstName, LastName, HowCome, State, Party) as 
 
@@ -16,19 +15,30 @@ with SeatsGainedByZweitstimme1 as  (
 /*clone from SeatsGainedByZweitstimme-View. variying DivisorFunction**/
 
 select votes.Election_Id as Election_Id, votes.Bundesland_Id as Bundesland_Id, votes.party_Id as Party_Id, 
-	round(1.0*votes.Amount/dbo.divisorParty(votes.Election_Id, votes.Party_ID),0)  as seats
- from  ZweitstimmenState votes 
-where votes.Party_ID in (select p.Id from Parties5 p
+	cast(round(1.0*votes.Amount/dbo.divisorParty(votes.Election_Id, votes.Party_ID, s.SeatsParty),0)as int)  as seats
+ from  ZweitstimmenState votes, Sitzverteilung s 
+where s.Election_Id=votes.Election_Id 
+and s.Party_Id = votes.Party_ID
+and votes.Party_ID in (select p.Id from Parties5 p
 						where p.Election_Id=votes.Election_ID)),
+
+SeatsGainedByErststimme1 as (
+select * from SeatsGainedbyErststimme
+
+union
+--Parties, who did not gain seats by erststimme with numberOfVictories 0
+select p5.Election_Id as Election_Id, b.Id as Bundesland_Id, p5.Id as Party_Id, 0 as numberOfVictories
+from Parties5 p5, Bundesland b
+where p5.Id not in (select Party_Id from SeatsGainedByErststimme winners 
+					where p5.Election_Id=winners.Election_Id 
+					and winners.Bundesland_Id=b.Id)),
 
 
 fillUp(Number, Election_Id, Bundesland_Id, Party_Id) as (
 		select
-			 case when (z.seats - e.numberOfVictories)<1 then 0 
-			else z.seats-e.numberOfVictories
-			end,
-			z.Election_Id, z.Bundesland_Id, z.Party_Id
-		from SeatsGainedByZweitstimme1 z, SeatsGainedByErststimme e
+			 iif(z.seats> e.numberOfVictories, z.seats-e.numberOfVictories, 0),
+			 z.Election_Id, z.Bundesland_Id, z.Party_Id
+		from SeatsGainedByZweitstimme1 z, SeatsGainedByErststimme1 e
 		where z.Election_Id = e.Election_Id
 		and z.Bundesland_Id = e.Bundesland_Id
 		and z.Party_Id = e.Party_Id),
@@ -60,29 +70,19 @@ union
 
 --|Seats for a Party in a state| - |seats not available anymore, because already demanded by bistrict winner|
 
-
-/*
-	select fu.Election_Id as Election_Id,Vorname as FirstName, Nachname as Lastname, HowCome, BName as state, PName as Party  
-	from  fillUp fu cross apply LoopInserterFunction(fu.Election_Id, fu.Bundesland_Id, fu.Party_Id, fu.Number)
-	*/
-
-	Select  candidates.Election_Id as Election_Id, pers.Firstname as FirstName, pers.Lastname as LastName, 
+Select  candidates.Election_Id as Election_Id, pers.Firstname as FirstName, pers.Lastname as LastName, 
 		'Listenplatz' as HowCome, b.Name as State, part.Name as Party 
 	from fillUp fu, CandidateTemp candidates, Person pers, Bundesland b, Party part
-	where fu.Election_Id = candidates.Election_Id
+	where --join
+		fu.Election_Id = candidates.Election_Id
 	and fu.Bundesland_Id = candidates.Bundesland_Id
-	and fu.Party_Id = candidates.Party_Id 
+	and fu.Party_Id = candidates.Party_Id
+	--join for select information 
 	and pers.Id= candidates.Person_Id
 	and part.Id= candidates.Party_Id
 	and b.Id = candidates.Bundesland_Id
+	--logic
 	and candidates.Rang <= fu.Number
-
---Number-mal
-	/*Select fu.Election_Id, 'Person mit Listenplatz n', 'Nachname Person', 'Parteizugehoerigkeit', b.Name,p.Name 
-	from fillUp fu, Bundesland b, Party p
-	where b.Id=fu.Bundesland_Id
-	and p.Id= fu.Party_Id
-	*/
 
 
 

@@ -1,7 +1,7 @@
 USE [ElectionDB]
 GO
 
-/****** Object:  UserDefinedFunction [dbo].[Divisor]    Script Date: 23.11.2015 19:43:27 ******/
+/****** Object:  UserDefinedFunction [dbo].[Divisor]    Script Date: 28.11.2015 20:21:33 ******/
 SET ANSI_NULLS ON
 GO
 
@@ -10,16 +10,18 @@ GO
 
 
 
+
+
 --drop function Divisor;
 --GO
-ALTER  FUNCTION [dbo].[Divisor](@Election_ID int) RETURNS int AS
+ALTER  FUNCTION [dbo].[Divisor](@Election_ID int) RETURNS int with schemabinding AS
 BEGIN
 	declare @Seats int = 598;
 	declare @SumOfSeats int;
 	declare @TempDivisor int;
 
 	--initial value of Divisor by naive Divison: Population/available_seats
-	set @TempDivisor = (Select sum(poB.Count) from PopulationBundesland poB
+	set @TempDivisor = (Select sum(poB.Count) from dbo.PopulationBundesland poB
 				where poB.Election_Id = @Election_ID
 			  ) / @Seats;
 
@@ -28,7 +30,7 @@ BEGIN
 	/*this is a clone*/
 	set @SumOfSeats = (select Sum(temp.seats)
 						from (select round(1.0* poB.Count/@TempDivisor, 0) as seats
-								from PopulationBundesland poB 
+								from dbo.PopulationBundesland poB 
 								where poB.Election_Id= @Election_ID) temp); 
 
 
@@ -47,13 +49,15 @@ BEGIN
 		/*this is a clone from above*/
 	set @SumOfSeats = (select Sum(temp.seats)
 						from (select round(1.0* poB.Count/@TempDivisor, 0) as seats
-								from PopulationBundesland poB 
+								from dbo.PopulationBundesland poB 
 								where poB.Election_Id= @Election_ID) temp
 			);
 	end--while
 
 	return @TempDivisor;
 END;--function
+
+
 
 
 GO
