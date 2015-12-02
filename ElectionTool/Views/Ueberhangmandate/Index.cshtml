@@ -1,0 +1,28 @@
+﻿@model ElectionTool.Models.UeberhangmandatViewModel
+           
+@{
+    ViewBag.Title = "Überhangmandate";
+    ViewBag.Description = "Anzahl der Überhangmandate";
+}
+
+<div class="row">
+    <table>
+        <thead>
+            <tr>
+                <th>Bundesland</th>
+                <th>Partei</th>
+                <th>Anzahl</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var entry in Model.Mandate)
+            {
+                <tr>
+                    <td>@entry.Bundesland.Name</td>
+                    <td>@entry.Party.Name</td>
+                    <td>@entry.Amount</td>
+                </tr>
+            }
+        </tbody>
+    </table>
+</div>

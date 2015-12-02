@@ -39,51 +39,48 @@ namespace ElectionTool.ViewModelMap
                 {
                     Person = new PersonViewModel
                     {
-                         //TODO: add person_id and title to view
-                        Id = 0,
-                        Title = null,
-
+                        Id = member.Id,
+                        Title = member.Title,
                         Firstname = member.FirstName,
                         Lastname = member.LastName
                     },
                     Party = new PartyViewModel
                     {
-                        // TODO: add party id to view
-                        Id = 0,
-
-                        Name = member.Party
+                        Id = member.Party_Id,
+                        Name = member.Party_Name
                     }
                 },
-                Bundesland = member.State,
-
-                //TODO: add wahlkreis to view
-                Wahlkreis = member.HowCome,
+                Bundesland = member.Bundesland_Name,
+                Wahlkreis = member.Wahlkreis_Name
             });
         }
 
-        public static IEnumerable<BundeslandListViewModel> GetBundeslandListViewModels(IEnumerable<Bundesland> bundeslands,
+        public static IEnumerable<BundeslandWithWahlkreiseViewModel<WahlkreisViewModel>> GetBundeslandListViewModels(IEnumerable<Bundesland> bundeslands,
             IEnumerable<Wahlkrei> wahlkreise)
         {
             return bundeslands.Select(b => GetBundeslandListViewModel(b, wahlkreise.Where(w => w.Bundesland_Id == b.Id)));
         }
 
-        public static BundeslandListViewModel GetBundeslandListViewModel(Bundesland bundesland,
+        public static BundeslandWithWahlkreiseViewModel<WahlkreisViewModel> GetBundeslandListViewModel(Bundesland bundesland,
             IEnumerable<Wahlkrei> wahlkreise)
         {
-            return new BundeslandListViewModel
+            return new BundeslandWithWahlkreiseViewModel<WahlkreisViewModel>
             {
-                BundeslandId = bundesland.Id,
-                BundeslandName = bundesland.Name,
+                Bundesland = new BundeslandViewModel
+                {
+                    Id  = bundesland.Id,
+                    Name = bundesland.Name
+                },
                 Wahlkreise = GetWahlkreisListViewModels(wahlkreise).ToList().OrderBy(r => r)
             };
         }
 
-        public static IEnumerable<WahlkreisListViewModel> GetWahlkreisListViewModels(IEnumerable<Wahlkrei> wahlkreis)
+        public static IEnumerable<WahlkreisViewModel> GetWahlkreisListViewModels(IEnumerable<Wahlkrei> wahlkreis)
         {
-            return wahlkreis.Select(w => new WahlkreisListViewModel
+            return wahlkreis.Select(w => new WahlkreisViewModel
             {
-                WahlkreisId = w.Id,
-                WahlkreisName = w.Name
+                Id = w.Id,
+                Name = w.Name
             });
         }
 
@@ -209,5 +206,69 @@ namespace ElectionTool.ViewModelMap
                 Wahlkreis = e.Wahlkreis_Name
             });
         }
+
+        public static IEnumerable<UeberhangmandatEntryViewModel> GetUeberhangmandatEntryViewModels(
+            IEnumerable<Ueberhangmandate> entries)
+        {
+            return entries.Select(e => new UeberhangmandatEntryViewModel
+            {
+                ElectionId = e.Election_Id,
+                Bundesland = new BundeslandViewModel
+                {
+                    Id = e.Bundesland_Id,
+                    Name = e.Bundesland_Name
+                },
+                Party = new PartyViewModel
+                {
+                    Id = e.Party_Id ?? -1,
+                    Name = e.Party_Name
+                },
+                Amount = e.Number ?? 0
+            });
+        }
+
+        public static IEnumerable<BundeslandWithWahlkreiseViewModel<WahlkreisWithWinnerViewModel>>
+            GetWinnerWahlkreiseViewModel(IEnumerable<Bundesland> bundeslands, IEnumerable<WinnerFirstAndSecondVote> entries)
+        {
+            return bundeslands.Select(b => new BundeslandWithWahlkreiseViewModel<WahlkreisWithWinnerViewModel>
+            {
+                Bundesland = new BundeslandViewModel
+                {
+                    Id = b.Id,
+                    Name = b.Name
+                },
+                Wahlkreise = GetWahlkreisWithWinnerViewModels(entries.Where(e => e.Bundesland_Id == b.Id)).ToList().OrderBy(r => r)
+            });
+        }
+
+        public static IEnumerable<WahlkreisWithWinnerViewModel> GetWahlkreisWithWinnerViewModels(
+            IEnumerable<WinnerFirstAndSecondVote> entries)
+        {
+            return entries.Select(e => new WahlkreisWithWinnerViewModel
+            {
+                Id = e.Wahlkreis_Id,
+                Name = e.Wahlkreis_Name,
+                FirstVotes = new PersonWithPartyViewModel
+                {
+                    Person = new PersonViewModel
+                    {
+                        Id = e.Person_Id ?? -1,
+                        Title = e.Title,
+                        Firstname = e.Firstname,
+                        Lastname = e.Lastname
+                    },
+                    Party = new PartyViewModel
+                    {
+                        Id = e.FirstVote_Party_Id,
+                        Name = e.FirstVote_Party_Name
+                    }
+                },
+                SecondVotes = new PartyViewModel
+                {
+                    Id = e.SecondVote_Party_Id ?? -1,
+                    Name = e.SecondVote_Party_Name
+                }
+            });
+        } 
     }
 }

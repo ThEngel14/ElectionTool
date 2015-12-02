@@ -1,0 +1,36 @@
+﻿@model ElectionTool.Models.WinnerWahlkreiseViewModel
+           
+@{
+    ViewBag.Title = "Wahlkreissieger";
+    ViewBag.Description = "Sieger der einzelnen Wahlkreise";
+}
+
+@foreach (var bLand in Model.Bundeslands)
+{
+    <div class="row">
+        <div>@bLand.Bundesland.Name</div>
+        <div></div>
+
+        <table>
+            <thead>
+                <tr>
+                    <th>Wahlkreis</th>
+                    <th>Erststimme: Partei</th>
+                    <th>Erststimme: Person</th>
+                    <th>Zweiststimme: Partei</th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var wk in bLand.Wahlkreise)
+                {
+                    <tr>
+                        <td>@wk.Name</td>
+                        <td>@wk.FirstVotes.Party.Name</td>
+                        <td>@wk.FirstVotes.Person.Fullname</td>
+                        <td>@wk.SecondVotes.Name</td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    </div>
+}

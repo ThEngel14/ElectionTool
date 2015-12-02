@@ -66,22 +66,19 @@
             @Html.ActionLink("1. Sitzverteilung im Bundestag", "Index", "SeatsBundestag", new { electionId = @electionId}, null)
         </div>
         <div>
-            @Html.ActionLink("2. Mitglieder im Bundestag", "Index", "MemberBundestag", new { electionId = @electionId }, null)
+            @Html.ActionLink("2. Mitglieder im Bundestag", "Index", "MemberBundestag", new {electionId = @electionId}, null)
         </div>
         <div>
-            @Html.ActionLink("3. Direktmandate", "Index", "Direktmandate", new { electionId = @electionId }, null)
+            @Html.ActionLink("3. Wahlkreise", "Index", "Wahlkreis", new { electionId = @electionId }, null)
         </div>
         <div>
-            @Html.ActionLink("4. Überhangmandate", "Index", "Ueberhangmandate", new {electionId = @electionId}, null)
+            @Html.ActionLink("4. Wahlkreissieger", "Index", "Winner", new { electionId = @electionId }, null)
         </div>
         <div>
-            @Html.ActionLink("5. Ausgleichsmandate", "Index", "Ausgleichsmandate", new {electionId = @electionId}, null)
+            @Html.ActionLink("5. Überhangmandate", "Index", "Ueberhangmandate", new {electionId = @electionId}, null)
         </div>
         <div>
-            @Html.ActionLink("6. Wahlkreise", "Index", "Wahlkreis", new {electionId = @electionId}, null)
-        </div>
-        <div>
-            @Html.ActionLink("7. Knappste Sieger", "Index", "ClosestWinner", new { electionId = @electionId }, null)
+            @Html.ActionLink("6. Knappste Sieger", "Index", "ClosestWinner", new { electionId = @electionId }, null)
         </div>
     </div>
 

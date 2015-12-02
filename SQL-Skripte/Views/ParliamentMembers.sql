@@ -1,15 +1,4 @@
-USE [ElectionDB]
-GO
-
-/****** Object:  View [dbo].[ParliamentMembers]    Script Date: 16.11.2015 13:21:03 ******/
-SET ANSI_NULLS ON
-GO
-
-SET QUOTED_IDENTIFIER ON
-GO
-
-
-ALTER View [dbo].[ParliamentMembers] (Election_Id, FirstName, LastName, HowCome, State, Party) as 
+﻿create View [dbo].[ParliamentMembers] as 
 
 
 with SeatsGainedByZweitstimme1 as  (
@@ -48,8 +37,12 @@ and partyAff.Person_Id not in (select wks.Person_Id from Wahlkreissieger wks whe
 
 
 --alle Wahlkreissieger
-select wks.ElectionID as ELection_Id, pers.Firstname as FirstName, pers.Lastname as LastName,
- 'Erststimme' as HowCome, b.Name as State, coalesce(p.Name,'Parteilos') as Party 
+select wks.ElectionID as Election_Id, 
+	   pers.Id as Person_Id, pers.Title, pers.Firstname, pers.Lastname,
+       'Erststimme' as HowCome, 
+	   p.Id as Party_Id, p.Name as Party_Name,
+	   b.Id as Bundesland_Id, b.Name as Bundesland_Name,
+	   wk.Id as Wahlkreis_Id, wk.Name as Wahlkreis_Name
 from Wahlkreissieger wks, Person pers, Party p, Wahlkreis wk, Bundesland b
 where pers.Id=wks.Person_Id
 and wks.MemberOfParty=p.Id
@@ -66,26 +59,17 @@ union
 	from  fillUp fu cross apply LoopInserterFunction(fu.Election_Id, fu.Bundesland_Id, fu.Party_Id, fu.Number)
 	*/
 
-	Select  candidates.Election_Id as Election_Id, pers.Firstname as FirstName, pers.Lastname as LastName, 
-		'Listenplatz' as HowCome, b.Name as State, part.Name as Party 
-	from fillUp fu, CandidateTemp candidates, Person pers, Bundesland b, Party part
-	where fu.Election_Id = candidates.Election_Id
-	and fu.Bundesland_Id = candidates.Bundesland_Id
-	and fu.Party_Id = candidates.Party_Id 
-	and pers.Id= candidates.Person_Id
-	and part.Id= candidates.Party_Id
-	and b.Id = candidates.Bundesland_Id
-	and candidates.Rang <= fu.Number
-
---Number-mal
-	/*Select fu.Election_Id, 'Person mit Listenplatz n', 'Nachname Person', 'Parteizugehoerigkeit', b.Name,p.Name 
-	from fillUp fu, Bundesland b, Party p
-	where b.Id=fu.Bundesland_Id
-	and p.Id= fu.Party_Id
-	*/
-
-
-
-GO
-
-
+Select  candidates.Election_Id as Election_Id, 
+        pers.Id as Person_Id, pers.Title, pers.Firstname, pers.Lastname, 
+	    'Listenplatz' as HowCome, 
+		part.Id as Party_Id, part.Name as Party_Name,
+		b.Id as Bundesland_Id, b.Name as Bundesland_Name,
+		null as Wahlkreis_Id, null as Wahlkreis_Name
+from fillUp fu, CandidateTemp candidates, Person pers, Bundesland b, Party part
+where fu.Election_Id = candidates.Election_Id
+and fu.Bundesland_Id = candidates.Bundesland_Id
+and fu.Party_Id = candidates.Party_Id 
+and pers.Id= candidates.Person_Id
+and part.Id= candidates.Party_Id
+and b.Id = candidates.Bundesland_Id
+and candidates.Rang <= fu.Number

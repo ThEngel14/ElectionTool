@@ -124,5 +124,45 @@ namespace ElectionTool.Service
 
             return model;
         }
+
+        public UeberhangmandatViewModel GetUeberhangmandate(int electionId)
+        {
+            var model = new UeberhangmandatViewModel
+            {
+                ElectionId = electionId
+            };
+
+            using (var context = new ElectionDBEntities())
+            {
+                var entries = context.Ueberhangmandates.Where(u => u.Election_Id == electionId && u.Number > 0);
+
+                var mandate = ViewModelMap.ViewModelMap.GetUeberhangmandatEntryViewModels(entries).ToList();
+                model.Mandate = mandate.OrderBy(r => r);
+            }
+
+            return model;
+        }
+
+        public WinnerWahlkreiseViewModel GetWinnerWahlkreise(int electionId)
+        {
+            var model = new WinnerWahlkreiseViewModel
+            {
+                ElectionId = electionId
+            };
+
+            using (var context = new ElectionDBEntities())
+            {
+                var bundeslands = context.Bundeslands;
+
+                var winnerEntries = context.WinnerFirstAndSecondVotes.Where(w => w.Election_Id == electionId);
+
+                var bLands = ViewModelMap.ViewModelMap.GetWinnerWahlkreiseViewModel(bundeslands,
+                    winnerEntries).ToList();
+
+                model.Bundeslands = bLands.OrderBy(r => r);
+            }
+
+            return model;
+        }
     }
 }
