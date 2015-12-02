@@ -39,10 +39,10 @@ namespace ElectionTool.ViewModelMap
                 {
                     Person = new PersonViewModel
                     {
-                        Id = member.Id,
+                        Id = member.Person_Id,
                         Title = member.Title,
-                        Firstname = member.FirstName,
-                        Lastname = member.LastName
+                        Firstname = member.Firstname,
+                        Lastname = member.Lastname
                     },
                     Party = new PartyViewModel
                     {

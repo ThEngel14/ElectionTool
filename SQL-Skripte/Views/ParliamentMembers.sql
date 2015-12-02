@@ -1,4 +1,4 @@
-﻿create View [dbo].[ParliamentMembers] as 
+﻿CREATE View [dbo].[ParliamentMembers] (Election_Id, Person_Id, Title, Firstname, Lastname, HowCome, Party_Id, Party_Name, Bundesland_Id, Bundesland_Name, Wahlkreis_Id, Wahlkreis_Name) as 
 
 
 with SeatsGainedByZweitstimme1 as  (

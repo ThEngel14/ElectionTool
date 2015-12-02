@@ -8,6 +8,6 @@ namespace ElectionTool.Models
     public class WahlkreisSelectionViewModel
     {
         public int ElectionId { get; set; }
-        public IEnumerable<BundeslandWithWahlkreiseViewModel> Bundeslands { get; set; } 
+        public IEnumerable<BundeslandWithWahlkreiseViewModel<WahlkreisViewModel>> Bundeslands { get; set; } 
     }
 }
