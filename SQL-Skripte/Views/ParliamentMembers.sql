@@ -1,18 +1,21 @@
-<<<<<<< HEAD
 USE [ElectionDB]
 GO
 
-/****** Object:  View [dbo].[ParliamentMembers]    Script Date: 28.11.2015 20:26:20 ******/
+/****** Object:  View [dbo].[ParliamentMembers]    Script Date: 03.12.2015 13:51:38 ******/
 SET ANSI_NULLS ON
 GO
 
 SET QUOTED_IDENTIFIER ON
 GO
 
-ALTER View [dbo].[ParliamentMembers] (Election_Id, FirstName, LastName, HowCome, State, Party) as 
-=======
-﻿CREATE View [dbo].[ParliamentMembers] (Election_Id, Person_Id, Title, Firstname, Lastname, HowCome, Party_Id, Party_Name, Bundesland_Id, Bundesland_Name, Wahlkreis_Id, Wahlkreis_Name) as 
->>>>>>> 9256e2a50a9fb0100791566d9d4a22c396e03d58
+
+
+
+
+
+
+
+ALTER View [dbo].[ParliamentMembers] (Election_Id, Person_Id, Title, Firstname, Lastname, HowCome, Party_Id, Party_Name, Bundesland_Id, Bundesland_Name, Wahlkreis_Id, Wahlkreis_Name) as 
 
 
 with SeatsGainedByZweitstimme1 as  (
@@ -62,13 +65,14 @@ and partyAff.Person_Id not in (select wks.Person_Id from Wahlkreissieger wks whe
 
 
 --alle Wahlkreissieger
+
 select wks.ElectionID as Election_Id, 
 	   pers.Id as Person_Id, pers.Title, pers.Firstname, pers.Lastname,
        'Erststimme' as HowCome, 
 	   p.Id as Party_Id, p.Name as Party_Name,
 	   b.Id as Bundesland_Id, b.Name as Bundesland_Name,
 	   wk.Id as Wahlkreis_Id, wk.Name as Wahlkreis_Name
-from Wahlkreissieger wks, Person pers, Party p, Wahlkreis wk, Bundesland b
+ from Wahlkreissieger wks, Person pers, Party p, Wahlkreis wk, Bundesland b
 where pers.Id=wks.Person_Id
 and wks.MemberOfParty=p.Id
 and wks.Wahlkreis_Id = wk.Id
@@ -77,10 +81,14 @@ and wk.Bundesland_Id= b.Id
 union
 
 --|Seats for a Party in a state| - |seats not available anymore, because already demanded by bistrict winner|
+  
 
-<<<<<<< HEAD
-Select  candidates.Election_Id as Election_Id, pers.Firstname as FirstName, pers.Lastname as LastName, 
-		'Listenplatz' as HowCome, b.Name as State, part.Name as Party 
+Select  candidates.Election_Id as Election_Id, 
+        pers.Id as Person_Id, pers.Title, pers.Firstname, pers.Lastname, 
+	    'Listenplatz' as HowCome, 
+		part.Id as Party_Id, part.Name as Party_Name,
+		b.Id as Bundesland_Id, b.Name as Bundesland_Name,
+		null as Wahlkreis_Id, null as Wahlkreis_Name
 	from fillUp fu, CandidateTemp candidates, Person pers, Bundesland b, Party part
 	where --join
 		fu.Election_Id = candidates.Election_Id
@@ -95,28 +103,7 @@ Select  candidates.Election_Id as Election_Id, pers.Firstname as FirstName, pers
 
 
 
+
 GO
 
 
-=======
-
-/*
-	select fu.Election_Id as Election_Id,Vorname as FirstName, Nachname as Lastname, HowCome, BName as state, PName as Party  
-	from  fillUp fu cross apply LoopInserterFunction(fu.Election_Id, fu.Bundesland_Id, fu.Party_Id, fu.Number)
-	*/
-
-Select  candidates.Election_Id as Election_Id, 
-        pers.Id as Person_Id, pers.Title, pers.Firstname, pers.Lastname, 
-	    'Listenplatz' as HowCome, 
-		part.Id as Party_Id, part.Name as Party_Name,
-		b.Id as Bundesland_Id, b.Name as Bundesland_Name,
-		null as Wahlkreis_Id, null as Wahlkreis_Name
-from fillUp fu, CandidateTemp candidates, Person pers, Bundesland b, Party part
-where fu.Election_Id = candidates.Election_Id
-and fu.Bundesland_Id = candidates.Bundesland_Id
-and fu.Party_Id = candidates.Party_Id 
-and pers.Id= candidates.Person_Id
-and part.Id= candidates.Party_Id
-and b.Id = candidates.Bundesland_Id
-and candidates.Rang <= fu.Number
->>>>>>> 9256e2a50a9fb0100791566d9d4a22c396e03d58
