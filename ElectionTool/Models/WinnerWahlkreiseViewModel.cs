@@ -5,9 +5,10 @@ using System.Web;
 
 namespace ElectionTool.Models
 {
-    public class WahlkreisSelectionViewModel
+    public class WinnerWahlkreiseViewModel
     {
         public int ElectionId { get; set; }
-        public IEnumerable<BundeslandWithWahlkreiseViewModel<WahlkreisViewModel>> Bundeslands { get; set; } 
+
+        public IEnumerable<BundeslandWithWahlkreiseViewModel<WahlkreisWithWinnerViewModel>> Bundeslands { get; set; } 
     }
 }

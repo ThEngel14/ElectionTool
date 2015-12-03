@@ -12,36 +12,39 @@ namespace ElectionTool.Controllers
         // GET: SeatsBundestag
         public ActionResult Index(int electionId)
         {
-            var model = new AllSeatsBundestagViewModel
-            {
-                ElectionId = electionId,
-                SeatsDistribution = new List<SeatsBundestagViewModel>
-                {
-                    new SeatsBundestagViewModel
-                    {
-                        ElectionId = electionId,
-                        PartyId = 1,
-                        Party = "Partei1",
-                        Seats = new VoteViewModel
-                        {
-                            Amount = 100*electionId,
-                            Votes = (decimal) 0.38
-                        }
-                    },
-                    new SeatsBundestagViewModel
-                    {
-                        ElectionId = electionId,
-                        PartyId = 2,
-                        Party = "Partei2",
-                        Seats = new VoteViewModel
-                        {
-                            Amount = 100*electionId,
-                            Votes = (decimal) 0.62,
-                            LastVotes = (decimal) 0.55
-                        }
-                    }
-                }
-            };
+            // Work around for displaying a simple example
+            //var model = new AllSeatsBundestagViewModel
+            //{
+            //    ElectionId = electionId,
+            //    SeatsDistribution = new List<SeatsBundestagViewModel>
+            //    {
+            //        new SeatsBundestagViewModel
+            //        {
+            //            ElectionId = electionId,
+            //            PartyId = 1,
+            //            Party = "Partei1",
+            //            Seats = new VoteViewModel
+            //            {
+            //                Amount = 100*electionId,
+            //                Votes = (decimal) 0.38
+            //            }
+            //        },
+            //        new SeatsBundestagViewModel
+            //        {
+            //            ElectionId = electionId,
+            //            PartyId = 2,
+            //            Party = "Partei2",
+            //            Seats = new VoteViewModel
+            //            {
+            //                Amount = 100*electionId,
+            //                Votes = (decimal) 0.62,
+            //                LastVotes = (decimal) 0.55
+            //            }
+            //        }
+            //    }
+            //};
+
+            var model = Service.GetAllSeatsBundestag(electionId);
 
             return View(model);
         }
