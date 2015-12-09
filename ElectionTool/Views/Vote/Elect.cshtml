@@ -1,0 +1,34 @@
+﻿@model ElectionTool.Models.ElectionVoteViewModel
+           
+@{
+    ViewBag.Title = "Wählen";
+    ViewBag.Description = "Bitte geben Sie ihre Stimme ab.";
+
+    var peopleList = Model.People.Select(p => new SelectListItem
+    {
+        Value = "" + p.Person.Id,
+        Text = string.Format("{0} ({1})", p.Person.Fullname, p.Party.Name)
+    });
+
+    var partyList = Model.Parties.Select(p => new SelectListItem
+    {
+        Value = "" + p.Id,
+        Text = p.Name
+    });
+}
+
+@using (Html.BeginForm("PerformVote", "Vote"))
+{
+    @Html.HiddenFor(m => m.TokenString)
+    <div>
+        @Html.DropDownListFor(m => m.VotedPersonId, peopleList)
+    </div>
+
+    <div>
+        @Html.DropDownListFor(m => m.VotedPartyId, partyList)
+    </div>
+
+    <div>
+        <input type="submit" value="Wählen" /> 
+    </div>
+}

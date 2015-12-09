@@ -28,6 +28,11 @@ CREATE TABLE [dbo].[Person] (
     PRIMARY KEY CLUSTERED ([Id] ASC)
 );
 
+CREATE TABLE [dbo].[UsedToken]
+(
+	[TokenString] VARCHAR(127) NOT NULL PRIMARY KEY
+)
+
 CREATE TABLE [dbo].[Wahlkreis] (
     [Id]            INT            NOT NULL,
     [Name]          NVARCHAR (127) NOT NULL UNIQUE,

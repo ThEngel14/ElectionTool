@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Net;
 using System.Web;
 using ElectionTool.Entity_Framework;
 using ElectionTool.Models;
@@ -9,6 +10,86 @@ namespace ElectionTool.Service
 {
     public class ElectionService
     {
+        private readonly TokenHandler TokenHandler = new TokenHandler();
+
+        public ElectionVoteViewModel ValidateToken(string tokenString, string ip)
+        {
+            var token = TokenHandler.BuildToken(tokenString, ip);
+
+            var model = new ElectionVoteViewModel
+            {
+                TokenString = tokenString
+            };
+
+            var electionId = token.GetElectionId();
+            var wahlkreisId = token.GetWahlkreisId();
+
+            using (var context = new ElectionDBEntities())
+            {
+                var election = context.Elections.Single(e => e.Id == electionId);
+
+                var wahlkreis = context.Wahlkreis.Single(w => w.Id == wahlkreisId);
+
+                var allParties = context.Parties
+                                    .Include("IsElectableParties");
+
+                var parties =
+                    allParties.Where(
+                        p =>
+                            p.IsElectableParties.Any(
+                                e =>
+                                    e.Election_Id == electionId && e.Bundesland_Id == wahlkreis.Bundesland_Id));
+
+                var people =
+                    context.People
+                        .Include("IsElectableCandidates")
+                        .Include("PartyAffiliations")
+                        .Where(
+                            p =>
+                                p.IsElectableCandidates.Any(
+                                    e => e.Election_Id == electionId && e.Wahlkreis_Id == wahlkreisId));
+
+                var partyVm = ViewModelMap.ViewModelMap.GetPartyViewModels(parties).ToList();
+                var peopleVm = ViewModelMap.ViewModelMap.GetPersonWithPartyViewModels(electionId, people, allParties).ToList();
+
+                model.Election = ViewModelMap.ViewModelMap.GetElectionViewModel(election);
+                model.Wahlkreis = ViewModelMap.ViewModelMap.GetWahlkreisViewModel(wahlkreis);
+                model.Parties = partyVm.OrderBy(r => r.Name);
+                model.People = peopleVm.OrderBy(r => r.Party.Name);
+            }
+
+            return model;
+        }
+
+        public bool PerformVote(ElectionVoteViewModel model, string ip)
+        {
+            var token = TokenHandler.BuildToken(model.TokenString, ip);
+
+            using (var context = new ElectionDBEntities())
+            {
+                // Election_Id is always set to 3 so that the generated votes for past elections are not changed
+                context.Erststimmes.Add(new Erststimme
+                {
+                    Election_Id = 3, //token.GetElectionId(),
+                    Wahlkreis_Id = token.GetWahlkreisId(),
+                    Person_Id = model.VotedPersonId,
+                });
+
+                context.Zweitstimmes.Add(new Zweitstimme
+                {
+                    Election_Id = 3, //token.GetElectionId(),
+                    Wahlkreis_Id = token.GetWahlkreisId(),
+                    Party_Id = model.VotedPartyId
+                });
+
+                context.SaveChanges();
+
+                TokenHandler.FinishedToken(token);
+            }
+
+            return true;
+        }
+
         public AllSeatsBundestagViewModel GetAllSeatsBundestag(int electionId)
         {
             var model = new AllSeatsBundestagViewModel

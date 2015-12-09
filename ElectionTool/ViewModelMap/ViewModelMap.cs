@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
@@ -9,6 +10,52 @@ namespace ElectionTool.ViewModelMap
 {
     public class ViewModelMap
     {
+        public static ElectionViewModel GetElectionViewModel(Election election)
+        {
+            return new ElectionViewModel
+            {
+                Id = election.Id,
+                Date = election.Date,
+                SeatsBundestag = election.SeatsBundestag
+            };
+        }
+
+        public static IEnumerable<PersonWithPartyViewModel> GetPersonWithPartyViewModels(int electionId, IEnumerable<Person> people, IEnumerable<Party> allParties)
+        {
+            return people.Select(p => GetPersonWithPartyViewModel(electionId, p, allParties));
+        }
+
+        public static PersonWithPartyViewModel GetPersonWithPartyViewModel(int electionId, Person person,
+            IEnumerable<Party> allParties)
+        {
+            var partyId = person.PartyAffiliations.Single(a => a.Election_Id == electionId).Party_Id;
+
+            return new PersonWithPartyViewModel
+            {
+                Person = new PersonViewModel
+                {
+                    Id = person.Id,
+                    Title = person.Title,
+                    Firstname = person.Firstname,
+                    Lastname = person.Lastname
+                },
+                Party = new PartyViewModel
+                {
+                    Id = partyId,
+                    Name = allParties.Single(pa => pa.Id == partyId).Name
+                }
+            };
+        }
+
+        public static WahlkreisViewModel GetWahlkreisViewModel(Wahlkrei wahlkreis)
+        {
+            return new WahlkreisViewModel
+            {
+                Id = wahlkreis.Id,
+                Name = wahlkreis.Name
+            };
+        }
+
         public static IEnumerable<SeatsBundestagViewModel> GetSeatsBundestagViewModels(
             IEnumerable<Sitzverteilung> seatsParty)
         {

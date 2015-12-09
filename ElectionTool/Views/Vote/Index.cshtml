@@ -1,0 +1,10 @@
+﻿@{
+    ViewBag.Title = "Wählen";
+    ViewBag.Description = "Bitte geben Sie ihren Token an.";
+}
+
+@using (Html.BeginForm("Elect", "Vote"))
+{
+    @Html.TextBox("tokenString")
+    <input type="submit" value="Weiter" />
+}

@@ -28,8 +28,8 @@
         }
     }
 
-    queryString2009 = queryString2009.Substring(1);
-    queryString2013 = queryString2013.Substring(1);
+    queryString2009 = queryString2009.Length > 0 ? queryString2009.Substring(1) : queryString2009;
+    queryString2013 = queryString2013.Length > 0 ? queryString2013.Substring(1) : queryString2013;
 
     var link2009 = string.Format("{0}?{1}", url, queryString2009);
     var link2013 = string.Format("{0}?{1}", url, queryString2013);
