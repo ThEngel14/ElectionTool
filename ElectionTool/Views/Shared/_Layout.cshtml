@@ -34,7 +34,13 @@
     var link2009 = string.Format("{0}?{1}", url, queryString2009);
     var link2013 = string.Format("{0}?{1}", url, queryString2013);
 
-    var isVote = url.StartsWith("/Vote/");
+    var isVote = url.StartsWith("/Vote");
+
+    var messageBag = TempData["Messages"] as ElectionTool.Models.MessageBag;
+    if (messageBag == null)
+    {
+        messageBag = new ElectionTool.Models.MessageBag();
+    }
 }
 
 <!DOCTYPE html>
@@ -94,6 +100,12 @@
                 <div class="container body-content well">
                     <div style="padding-left: 20px;">
                         <div class="row">
+                            <div class="col-md-12" id="messagebag">
+                                @Html.DisplayFor(model => messageBag)
+                            </div>
+                        </div>
+
+                        <div class="row">
                             <div class="description-analysis">@ViewBag.Description</div>
                         </div>
 
@@ -107,6 +119,21 @@
             <div class="col-md-12">
                 <div class="container body-content well">
                     <div style="padding-left: 20px;">
+                        <div class="row">
+                            <div class="col-md-12" id="messagebag">
+                                @Html.Partial("MessageBag", messageBag)
+                                @*<div class="alert alert-danger alert-dismissable fade in">
+                                    <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
+                                    <ul class="list-unstyled">
+                                        @foreach (var message in messageBag.Danger)
+                                        {
+                                            <li style="white-space:pre-wrap">@Html.Raw(message)</li>
+                                        }
+                                    </ul>
+                                </div>*@
+                            </div>
+                        </div>
+
                         <div class="row">
                             <div class="description-vote">@ViewBag.Description</div>
                         </div>

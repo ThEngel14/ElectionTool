@@ -1,0 +1,72 @@
+﻿@model ElectionTool.Models.MessageBag
+
+@{
+    var messageBagClass = "";
+    if ((ViewBag.ShowMessagesInPlace as bool?) == false)
+    {
+        messageBagClass = "messagebag-message";
+    }
+    else
+    {
+        messageBagClass = "inplace-message";
+    }
+}
+
+@if (Model.Danger.Any())
+{
+    <div class="@(messageBagClass) alert alert-danger alert-dismissable fade in">
+        <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
+        <ul class="list-unstyled">
+            @foreach (var message in Model.Danger)
+            {
+                <li style="white-space:pre-wrap">@Html.Raw(message)</li>
+            }
+        </ul>
+    </div>
+}
+
+@if (Model.Warning.Any())
+{
+    <div class="@(messageBagClass) alert alert-warning alert-dismissable fade in">
+        <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
+        <ul class="list-unstyled">
+            @foreach (var message in Model.Warning)
+            {
+                <li style="white-space:pre-wrap">@Html.Raw(message)</li>
+            }
+        </ul>
+    </div>
+}
+
+@if (Model.Success.Any())
+{
+    <div class="@(messageBagClass) alert alert-success alert-dismissable fade in">
+        <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
+        <ul class="list-unstyled">
+            @foreach (var message in Model.Success)
+            {
+                <li style="white-space:pre-wrap">@Html.Raw(message)</li>
+            }
+        </ul>
+    </div>
+}
+
+@if (Model.Info.Any())
+{
+    <div class="@(messageBagClass) alert alert-info alert-dismissable fade in">
+        <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
+        <ul class="list-unstyled">
+            @foreach (var message in Model.Info)
+            {
+                <li style="white-space:pre-wrap">@Html.Raw(message)</li>
+            }
+        </ul>
+    </div>
+}
+
+@{
+    Model.Danger.Clear();
+    Model.Warning.Clear();
+    Model.Success.Clear();
+    Model.Info.Clear();
+}

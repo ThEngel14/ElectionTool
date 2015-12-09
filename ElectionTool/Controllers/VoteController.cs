@@ -18,18 +18,40 @@ namespace ElectionTool.Controllers
 
         public ActionResult Elect(string tokenString)
         {
-            var model = Service.ValidateToken(tokenString, Request.UserHostAddress);
+            ElectionVoteViewModel model = null;
+            try
+            {
+                model = Service.ValidateToken(tokenString, Request.UserHostAddress);
+            }
+            catch (Exception e)
+            {
+                AddException(e);
+            }
 
-            return View(model);
+            if (model != null)
+            {
+                return View(model);   
+            }
+
+            return RedirectToAction("Index");
         }
 
         public ActionResult PerformVote(ElectionVoteViewModel model)
         {
-            var successful = Service.PerformVote(model, Request.UserHostAddress);
+            var successful = false;
+            try
+            {
+                successful = Service.PerformVote(model, Request.UserHostAddress);
+            }
+            catch (Exception e)
+            {
+                AddException(e);
+            }
 
             if (successful)
             {
-                return View();
+                GetMessageBag().Success.Add("Sie haben Ihre Stimme erfolgreich abgegeben.");
+                return RedirectToAction("Index");
             }
 
             return RedirectToAction("Elect", model.TokenString);
