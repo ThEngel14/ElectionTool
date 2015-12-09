@@ -33,6 +33,8 @@
 
     var link2009 = string.Format("{0}?{1}", url, queryString2009);
     var link2013 = string.Format("{0}?{1}", url, queryString2013);
+
+    var isVote = url.StartsWith("/Vote/");
 }
 
 <!DOCTYPE html>
@@ -43,57 +45,82 @@
     <title>@ViewBag.Title - ElectionTool</title>
     @Styles.Render("~/Content/css")
     @Scripts.Render("~/bundles/modernizr")
-
 </head>
 <body>
-<div class="container body-content">
-    <div class="row" style="background-color: lightsalmon;">
-        <span>Wahlanalyse</span>
-        <span style="float: right; text-align: right;">
-            <a href=@link2009>
-                2009
-            </a>
-        </span>
-        <span style="float: right; text-align: right;">
-            <a href=@link2013>
-                2013
-            </a>
-        </span>
+
+<div class="navbar navbar-inverse navbar-fixed-top">
+    <div class="container">
+        <div class="navbar-header">
+            <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </button>
+            @Html.ActionLink("Election-Tool", "Index", "Home", new { area = "" }, new { @class = "navbar-brand" })
+        </div>
+        @if (!isVote)
+        {
+            <div class="navbar-collapse collapse">
+                <ul class="nav navbar-nav navbar-right">
+                    <li>
+                        <a href=@link2009 class="navbar-brand">2009</a>
+                    </li>
+                    <li>
+                        <a href=@link2013 class="navbar-brand">2013</a>
+                    </li>
+                </ul>
+            </div>
+        }
     </div>
-
-    <div class="col-md-4" style="background-color: lightblue;">
-        <div>
-            @Html.ActionLink("1. Sitzverteilung im Bundestag", "Index", "SeatsBundestag", new { electionId = @electionId}, null)
-        </div>
-        <div>
-            @Html.ActionLink("2. Mitglieder im Bundestag", "Index", "MemberBundestag", new {electionId = @electionId}, null)
-        </div>
-        <div>
-            @Html.ActionLink("3. Wahlkreise", "Index", "Wahlkreis", new { electionId = @electionId }, null)
-        </div>
-        <div>
-            @Html.ActionLink("4. Wahlkreissieger", "Index", "Winner", new { electionId = @electionId }, null)
-        </div>
-        <div>
-            @Html.ActionLink("5. Überhangmandate", "Index", "Ueberhangmandate", new {electionId = @electionId}, null)
-        </div>
-        <div>
-            @Html.ActionLink("6. Knappste Sieger", "Index", "ClosestWinner", new { electionId = @electionId }, null)
-        </div>
-    </div>
-
-    <div class="col-md-8">
-        <div class="row">
-            <h2>@ViewBag.Description</h2>
-        </div>
-
-        @RenderBody()
-    </div>
-    <hr/>
-    <footer>
-
-    </footer>
 </div>
+
+<!-- Content -->
+<div class="container">
+    <div class="row">
+        @if (!isVote)
+        {
+            <div class="col-md-3">
+                <ol id="sidebar" class="nav nav-stacked affix well">
+                    <li>@Html.ActionLink("1. Sitzverteilung im Bundestag", "Index", "SeatsBundestag", new {electionId = @electionId}, null)</li>
+                    <li>@Html.ActionLink("2. Mitglieder im Bundestag", "Index", "MemberBundestag", new {electionId = @electionId}, null)</li>
+                    <li>@Html.ActionLink("3. Wahlkreise", "Index", "Wahlkreis", new {electionId = @electionId}, null)</li>
+                    <li>@Html.ActionLink("4. Wahlkreissieger", "Index", "Winner", new {electionId = @electionId}, null)</li>
+                    <li>@Html.ActionLink("5. Überhangmandate", "Index", "Ueberhangmandate", new {electionId = @electionId}, null)</li>
+                    <li>@Html.ActionLink("6. Knappste Sieger", "Index", "ClosestWinner", new {electionId = @electionId}, null)</li>
+                </ol>
+            </div>
+
+            <div class="col-md-9">
+                <div class="container body-content well">
+                    <div style="padding-left: 20px;">
+                        <div class="row">
+                            <div class="description-analysis">@ViewBag.Description</div>
+                        </div>
+
+                        @RenderBody()
+                    </div>
+                </div>
+            </div>
+        }
+        else
+        {
+            <div class="col-md-12">
+                <div class="container body-content well">
+                    <div style="padding-left: 20px;">
+                        <div class="row">
+                            <div class="description-vote">@ViewBag.Description</div>
+                        </div>
+
+                        @RenderBody()
+                    </div>
+                </div>
+            </div>
+        }
+    </div>
+</div>
+
+<hr />
+<footer></footer>
 
 @Scripts.Render("~/bundles/jquery")
 @Scripts.Render("~/bundles/bootstrap")

@@ -3,32 +3,58 @@
 @{
     ViewBag.Title = "Wählen";
     ViewBag.Description = "Bitte geben Sie ihre Stimme ab.";
+    
+    var invalidItem = new SelectListItem
+    {
+        Value = "0",
+        Text = "- (ungültig)"
+    };
 
     var peopleList = Model.People.Select(p => new SelectListItem
     {
         Value = "" + p.Person.Id,
         Text = string.Format("{0} ({1})", p.Person.Fullname, p.Party.Name)
-    });
+    }).ToList();
+    peopleList.Insert(0, invalidItem);
 
     var partyList = Model.Parties.Select(p => new SelectListItem
     {
         Value = "" + p.Id,
         Text = p.Name
-    });
+    }).ToList();
+    partyList.Insert(0, invalidItem);
 }
+
+<div class="font-md padding-bottom-md">
+    <div class="col-md-2">
+        <strong class="right">Bundestagswahl:</strong>
+        <strong class="right">Wahlkreis:</strong>
+    </div>
+    <div class="col-md-10">
+        <div>@Model.Election.Date.ToShortDateString()</div>
+        <div>@Model.Wahlkreis.Name</div>
+    </div>
+</div>
 
 @using (Html.BeginForm("PerformVote", "Vote"))
 {
-    @Html.HiddenFor(m => m.TokenString)
-    <div>
-        @Html.DropDownListFor(m => m.VotedPersonId, peopleList)
+    <div class="font-md margin-top-lg margin-bottom-lg">
+        <div class="col-md-2">
+            <strong class="right margin-bottom-md">Erststimme:</strong>
+            <strong class="right">Zweitstimme:</strong>
+        </div>
+        <div class="col-md-10">
+            @Html.HiddenFor(m => m.TokenString)
+            <div class="margin-bottom-md">
+                @Html.DropDownListFor(m => m.VotedPersonId, peopleList)
+            </div>
+            <div>
+                @Html.DropDownListFor(m => m.VotedPartyId, partyList)
+            </div>
+        </div>
     </div>
 
-    <div>
-        @Html.DropDownListFor(m => m.VotedPartyId, partyList)
-    </div>
-
-    <div>
-        <input type="submit" value="Wählen" /> 
+    <div class="margin-left-lg">
+        <input type="submit" value="Stimme abgeben" class="btn btn-primary margin-top-lg margin-left-lg"/>
     </div>
 }

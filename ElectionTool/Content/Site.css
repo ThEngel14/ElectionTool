@@ -14,4 +14,86 @@ input,
 select,
 textarea {
     max-width: 280px;
+    font-size: 16px;
+}
+
+#sidebar {
+    font-size: 16px;
+}
+
+.font-md {
+    font-size: 16px;
+}
+
+.right {
+    float: right; 
+    text-align: right;
+}
+
+.description-analysis {
+    display: block;
+    font-size: 1.75em;
+    margin-top: 0.2em;
+    margin-bottom: 0.83em;
+    margin-left: 0;
+    margin-right: 0;
+    font-weight: bold;
+}
+
+.description-vote {
+    display: block;
+    font-size: 1.5em;
+    margin-top: 0.2em;
+    margin-bottom: 0.83em;
+    margin-left: 0;
+    margin-right: 0;
+    font-weight: bold;
+}
+
+.margin-top-md {
+    margin-top: 10px;
+}
+
+.margin-top-lg {
+    margin-top: 50px;
+}
+
+.margin-bottom-md {
+    margin-bottom: 10px;
+}
+
+.margin-bottom-lg {
+    margin-bottom: 50px;
+}
+
+.margin-left-md {
+    margin-left: 10px;
+}
+
+.margin-left-lg {
+    margin-left: 50px;
+}
+
+.padding-top-md {
+    padding-top: 10px;
+}
+
+.padding-top-lg {
+    padding-top: 50px;
+}
+
+.padding-bottom-md {
+    padding-bottom: 10px;
+}
+
+.padding-bottom-lg {
+    padding-bottom: 50px;
+}
+
+.padding-left-md {
+    padding-left: 10px;
+}
+
+.padding-left-lg {
+    padding-left: 50px;
 }

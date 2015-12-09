@@ -1,10 +1,24 @@
 ﻿@{
     ViewBag.Title = "Wählen";
-    ViewBag.Description = "Bitte geben Sie ihren Token an.";
+    ViewBag.Description = "Stimmabgabe für die Bundestagswahl";
 }
 
-@using (Html.BeginForm("Elect", "Vote"))
-{
-    @Html.TextBox("tokenString")
-    <input type="submit" value="Weiter" />
-}
+<div class="row">
+    <div class="padding-bottom-md">
+        Bitte geben sie ihren Zugangscode in das Textfeld ein und bestätigen sie diesen mit "Weiter", so dass sie ihre Stimme für diese Wahl abgeben können.
+    </div>
+
+    <div class="padding-top-md padding-bottom-md">
+        @using (Html.BeginForm("Elect", "Vote"))
+        {
+            <strong class="margin-left-lg">Code:</strong>
+            @Html.TextBox("tokenString")
+            <input type="submit" value="Weiter" class="btn btn-primary margin-left-lg" />
+        }
+    </div>
+
+    <div class="margin-top-lg">
+        <strong>Wichtig:</strong>
+        Ihr Code berechtigt sie nur zu einer einzigen Stimmabgabe.
+    </div>
+</div>

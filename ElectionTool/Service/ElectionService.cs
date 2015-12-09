@@ -72,14 +72,14 @@ namespace ElectionTool.Service
                 {
                     Election_Id = 3, //token.GetElectionId(),
                     Wahlkreis_Id = token.GetWahlkreisId(),
-                    Person_Id = model.VotedPersonId,
+                    Person_Id = model.VotedPersonId > 0 ? model.VotedPersonId : null,
                 });
 
                 context.Zweitstimmes.Add(new Zweitstimme
                 {
                     Election_Id = 3, //token.GetElectionId(),
                     Wahlkreis_Id = token.GetWahlkreisId(),
-                    Party_Id = model.VotedPartyId
+                    Party_Id = model.VotedPartyId > 0 ? model.VotedPartyId : null
                 });
 
                 context.SaveChanges();
