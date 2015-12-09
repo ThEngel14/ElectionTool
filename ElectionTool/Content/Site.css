@@ -30,6 +30,10 @@ textarea {
     text-align: right;
 }
 
+.centered {
+    margin: 0 auto;
+}
+
 .description-analysis {
     display: block;
     font-size: 1.75em;

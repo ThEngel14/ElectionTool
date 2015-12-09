@@ -34,7 +34,8 @@
     var link2009 = string.Format("{0}?{1}", url, queryString2009);
     var link2013 = string.Format("{0}?{1}", url, queryString2013);
 
-    var isVote = url.StartsWith("/Vote");
+    var showMenu = url.StartsWith("/Home") || url.Length <= 1;
+    var showSidebar = !url.StartsWith("/Vote") && !showMenu;
 
     var messageBag = TempData["Messages"] as ElectionTool.Models.MessageBag;
     if (messageBag == null)
@@ -63,8 +64,13 @@
                 <span class="icon-bar"></span>
             </button>
             @Html.ActionLink("Election-Tool", "Index", "Home", new { area = "" }, new { @class = "navbar-brand" })
+
+            <ul class="nav navbar-nav">
+                <li class="padding-left-lg">@Html.ActionLink("Analyse", "Index", "SeatsBundestag", new { area = "", electionId = "2" }, new { @class = "navbar-brand" })</li>
+                <li class="padding-left-lg">@Html.ActionLink("Wählen", "Index", "Vote", new { area = "" }, new { @class = "navbar-brand" })</li>
+            </ul>
         </div>
-        @if (!isVote)
+        @if (showSidebar)
         {
             <div class="navbar-collapse collapse">
                 <ul class="nav navbar-nav navbar-right">
@@ -83,7 +89,7 @@
 <!-- Content -->
 <div class="container">
     <div class="row">
-        @if (!isVote)
+        @if (showSidebar)
         {
             <div class="col-md-3">
                 <ol id="sidebar" class="nav nav-stacked affix well">
@@ -122,15 +128,6 @@
                         <div class="row">
                             <div class="col-md-12" id="messagebag">
                                 @Html.Partial("MessageBag", messageBag)
-                                @*<div class="alert alert-danger alert-dismissable fade in">
-                                    <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
-                                    <ul class="list-unstyled">
-                                        @foreach (var message in messageBag.Danger)
-                                        {
-                                            <li style="white-space:pre-wrap">@Html.Raw(message)</li>
-                                        }
-                                    </ul>
-                                </div>*@
                             </div>
                         </div>
 

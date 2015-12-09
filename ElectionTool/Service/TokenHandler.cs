@@ -9,7 +9,7 @@ namespace ElectionTool.Service
 {
     public class TokenHandler
     {
-        private readonly Dictionary<Token, string> ReservedToken = new Dictionary<Token, string>(); 
+        private readonly static Dictionary<Token, string> ReservedToken = new Dictionary<Token, string>(); 
 
         public Token GenerateToken(int electionId, int wahlkreisId)
         {
