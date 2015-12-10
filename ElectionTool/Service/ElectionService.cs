@@ -99,6 +99,7 @@ namespace ElectionTool.Service
 
             using (var context = new ElectionDBEntities())
             {
+                context.Database.CommandTimeout = 5000000;
                 var seatsParty = context.Sitzverteilungs.Where(s => s.Election_Id == electionId);
 
                 var seatsDistribution = ViewModelMap.ViewModelMap.GetSeatsBundestagViewModels(seatsParty).ToList();
@@ -117,6 +118,8 @@ namespace ElectionTool.Service
 
             using (var context = new ElectionDBEntities())
             {
+                context.Database.CommandTimeout = 5000000;
+
                 var members = context.ParliamentMembers.Where(m => m.Election_Id == electionId);
 
                 var allMembers = ViewModelMap.ViewModelMap.GetMemberOfBundestagViewModels(members).ToList();
@@ -215,6 +218,7 @@ namespace ElectionTool.Service
 
             using (var context = new ElectionDBEntities())
             {
+                context.Database.CommandTimeout = 500000;
                 var entries = context.Ueberhangmandates.Where(u => u.Election_Id == electionId && u.Number > 0);
 
                 var mandate = ViewModelMap.ViewModelMap.GetUeberhangmandatEntryViewModels(entries).ToList();
