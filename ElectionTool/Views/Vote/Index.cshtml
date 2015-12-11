@@ -13,7 +13,9 @@
         {
             <strong class="margin-left-lg">Code:</strong>
             @Html.TextBox("tokenString")
-            <input type="submit" value="Weiter" class="btn btn-primary margin-left-lg" />
+            <input type="submit" value="Weiter" class="btn btn-primary margin-left-lg"/>
+
+            @Html.ActionLink("Token generieren", "GenerateToken", "Vote", null, new { @class="btn btn-primary margin-left-lg"})
         }
     </div>
 

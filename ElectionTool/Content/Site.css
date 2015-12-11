@@ -17,6 +17,10 @@ textarea {
     font-size: 16px;
 }
 
+.width-sm {
+    width: 70px;
+}
+
 #sidebar {
     font-size: 16px;
 }
@@ -56,6 +60,10 @@ textarea {
 
 .margin-top-md {
     margin-top: 10px;
+}
+
+.margin-top-sm {
+    margin-top: 5px;
 }
 
 .margin-top-lg {
@@ -100,4 +108,14 @@ textarea {
 
 .padding-left-lg {
     padding-left: 50px;
+}
+
+.field-validation-error
+{
+    color: red;
+}
+
+.validation-summary-errors
+{
+    color: Red;
 }

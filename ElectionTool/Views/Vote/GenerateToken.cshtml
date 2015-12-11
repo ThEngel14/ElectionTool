@@ -1,0 +1,61 @@
+﻿@model ElectionTool.Models.GenerateTokenViewModel
+           
+@{
+    ViewBag.Title = "Generate Token";
+    ViewBag.Description = "Auf dieser Seite können Sie Token generieren";
+
+    var electionList = Model.Election.Select(e => new SelectListItem
+    {
+        Value = "" + e.Id,
+        Text = e.Date.ToShortDateString()
+    }).ToList();
+
+    var wahlkreisList = Model.Wahlkreise.Select(w => new SelectListItem
+    {
+        Value = "" + w.Id,
+        Text = w.Name
+    }).ToList();
+}
+
+@using (Html.BeginForm("GenerateTokenFor", "Vote"))
+{
+    <div class="font-md margin-top-md margin-bottom-md">
+        <div class="col-md-1"></div>
+        <div class="col-md-1">
+            <strong class="right margin-bottom-md">
+                @Html.DisplayNameFor(m => m.Election):
+            </strong>
+            <strong class="right margin-bottom-md">
+                @Html.DisplayNameFor(m => m.Wahlkreise):
+            </strong>
+            <strong class="right margin-top-sm">
+                @Html.DisplayNameFor(m => m.Amount):
+            </strong>
+            <strong class="right margin-top-lg">
+                <div class="margin-top-sm">
+                    @Html.DisplayNameFor(m => m.Password):
+                </div>
+            </strong>
+        </div>
+        <div class="col-md-10">
+            <div class="margin-bottom-md">
+                @Html.DropDownListFor(m => m.SelectedElectionId, electionList)
+            </div>
+            <div class="margin-bottom-md">
+                @Html.DropDownListFor(m => m.SelectedWahlkreisId, wahlkreisList)
+            </div>
+            <div>
+                @Html.TextBoxFor(m => m.Amount, new {@class="width-sm", @type="number"})
+                @Html.ValidationMessageFor(m => m.Amount)
+            </div>
+            <div class="margin-top-lg">
+                @Html.PasswordFor(m => m.Password)
+                @Html.ValidationMessageFor(m => m.Password)
+            </div>
+        </div>
+    </div>
+
+    <div class="margin-left-lg">
+        <input type="submit" value="Token generieren" class="btn btn-primary margin-top-lg margin-left-lg" />
+    </div>
+}

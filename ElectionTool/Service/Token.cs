@@ -9,30 +9,18 @@ namespace ElectionTool.Service
     public class Token
     {
         public readonly string TokenString;
-        public readonly int ElectionId;
-        public readonly int WahlkreisId;
+        public readonly Tuple<int, int> TokenTuple; 
 
         public Token(string tokenString)
         {
             if (string.IsNullOrWhiteSpace(tokenString))
             {
-                throw new Exception("The tokenString cannot be null or white space.");
+                throw new Exception("Der TokenString darf nicht null oder leer sein.");
             }
 
             TokenString = tokenString;
 
-            if (TokenString.Contains('-'))
-            {
-                var s = tokenString.Split('-');
-
-                int.TryParse(s[0], out ElectionId);
-                int.TryParse(s[1], out WahlkreisId);
-            }
-            else
-            {
-                ElectionId = -1;
-                WahlkreisId = -1;
-            }
+            TokenTuple = TokenValidation.ValidateTokenString(tokenString);
         }
 
         public string GetTokenString()
@@ -42,17 +30,17 @@ namespace ElectionTool.Service
 
         public int GetElectionId()
         {
-            return ElectionId;
+            return TokenTuple.Item1;
         }
 
         public int GetWahlkreisId()
         {
-            return WahlkreisId;
+            return TokenTuple.Item2;
         }
 
         public bool IsValid()
         {
-            return 0 < ElectionId && ElectionId < 3 && 0 < WahlkreisId && WahlkreisId < 300;
+            return TokenTuple != null;
         }
 
         // override object.Equals

@@ -10,6 +10,11 @@ namespace ElectionTool.ViewModelMap
 {
     public class ViewModelMap
     {
+        public static IEnumerable<ElectionViewModel> GetElectionViewModels(IEnumerable<Election> elections)
+        {
+            return elections.Select(GetElectionViewModel);
+        } 
+
         public static ElectionViewModel GetElectionViewModel(Election election)
         {
             return new ElectionViewModel
@@ -46,6 +51,11 @@ namespace ElectionTool.ViewModelMap
                 }
             };
         }
+
+        public static IEnumerable<WahlkreisViewModel> GetWahlkreisViewModels(IEnumerable<Wahlkrei> wahlkreise)
+        {
+            return wahlkreise.Select(GetWahlkreisViewModel);
+        } 
 
         public static WahlkreisViewModel GetWahlkreisViewModel(Wahlkrei wahlkreis)
         {

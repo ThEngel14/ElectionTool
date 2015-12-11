@@ -11,22 +11,17 @@ namespace ElectionTool.Service
     {
         private readonly static Dictionary<Token, string> ReservedToken = new Dictionary<Token, string>(); 
 
-        public Token GenerateToken(int electionId, int wahlkreisId)
-        {
-            return new Token(string.Format("{0}-{1}", electionId, wahlkreisId));
-        }
-
         public Token BuildToken(string tokenString, string ip)
         {
             if (ip == null)
             {
-                throw new Exception("Unknown IP failure.");
+                throw new Exception("Unbekannte IP-Adresse.");
             }
 
             var token = new Token(tokenString);
             if (!token.IsValid())
             {
-                throw new Exception(string.Format("The Token '{0}' is not valid.", tokenString));
+                throw new Exception(string.Format("Das Token '{0}' ist ungültig.", tokenString));
             }
 
             if (!ReservedToken.ContainsKey(token))
@@ -38,7 +33,7 @@ namespace ElectionTool.Service
                     if (existing != null)
                     {
                         throw new Exception(string.Format(
-                            "Token '{0}' has already been used. You cannot use it again.", existing.TokenString));
+                            "Das Token '{0}' wurde bereits genutzt. Sie dürfen es daher nicht noch einmal verwenden.", existing.TokenString));
                     }
 
                     // add new token to database
@@ -60,7 +55,7 @@ namespace ElectionTool.Service
                 var fromIp = ReservedToken[token];
                 if (!ip.Equals(fromIp))
                 {
-                    throw new Exception("Wrong IP Address detected.");
+                    throw new Exception("Falsche IP-Adresse festgestellt.");
                 }
             }
 
@@ -72,7 +67,7 @@ namespace ElectionTool.Service
             ReservedToken.Remove(token);
         }
 
-        private void RemoveReservedTokenForIp(string ip)
+        private static void RemoveReservedTokenForIp(string ip)
         {
             var toRemove = (from entry in ReservedToken where entry.Value.Equals(ip) select entry.Key).ToList();
 

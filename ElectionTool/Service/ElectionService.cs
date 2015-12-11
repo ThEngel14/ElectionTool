@@ -10,11 +10,62 @@ namespace ElectionTool.Service
 {
     public class ElectionService
     {
-        private readonly TokenHandler TokenHandler = new TokenHandler();
+        private readonly TokenHandler _tokenHandler = new TokenHandler();
+
+        public ElectionViewModel GetElection(int electionId)
+        {
+            using (var context = new ElectionDBEntities())
+            {
+                var election = context.Elections.SingleOrDefault(e => e.Id == electionId);
+
+                if (election == null)
+                {
+                    throw new Exception(string.Format("Es gibt keine Bundestagswahl mit der Id {0}.", electionId));
+                }
+
+                return ViewModelMap.ViewModelMap.GetElectionViewModel(election);
+            }
+        }
+
+        public WahlkreisViewModel GetWahlkreis(int wahlkreisId)
+        {
+            using (var context = new ElectionDBEntities())
+            {
+                var wahlkreis = context.Wahlkreis.SingleOrDefault(w => w.Id == wahlkreisId);
+
+                if (wahlkreis == null)
+                {
+                    throw new Exception(string.Format("Es gibt keinen Wahlkreis mit der Id {0}.", wahlkreisId));
+                }
+
+                return ViewModelMap.ViewModelMap.GetWahlkreisViewModel(wahlkreis);
+            }
+        }
+
+        public GenerateTokenViewModel GetGenerateTokenModel()
+        {
+            var model = new GenerateTokenViewModel();
+
+            using (var context = new ElectionDBEntities())
+            {
+                var elections = context.Elections.Where(e => e.Id < 3);
+                var electionVms = ViewModelMap.ViewModelMap.GetElectionViewModels(elections).ToList();
+
+                var wahlkreise = context.Wahlkreis;
+                var wahlkreiseVms = ViewModelMap.ViewModelMap.GetWahlkreisViewModels(wahlkreise).ToList();
+
+                model.Election = electionVms.OrderBy(r => r.Date);
+                model.SelectedElectionId = elections.Any() ? elections.OrderByDescending(r => r.Date).First().Id : 0;
+                model.Wahlkreise = wahlkreiseVms.OrderBy(w => w.Name);
+                model.Amount = 1;
+            }
+
+            return model;
+        }
 
         public ElectionVoteViewModel ValidateToken(string tokenString, string ip)
         {
-            var token = TokenHandler.BuildToken(tokenString, ip);
+            var token = _tokenHandler.BuildToken(tokenString, ip);
 
             var model = new ElectionVoteViewModel
             {
@@ -63,7 +114,7 @@ namespace ElectionTool.Service
 
         public bool PerformVote(ElectionVoteViewModel model, string ip)
         {
-            var token = TokenHandler.BuildToken(model.TokenString, ip);
+            var token = _tokenHandler.BuildToken(model.TokenString, ip);
 
             using (var context = new ElectionDBEntities())
             {
@@ -84,7 +135,7 @@ namespace ElectionTool.Service
 
                 context.SaveChanges();
 
-                TokenHandler.FinishedToken(token);
+                _tokenHandler.FinishedToken(token);
             }
 
             return true;
