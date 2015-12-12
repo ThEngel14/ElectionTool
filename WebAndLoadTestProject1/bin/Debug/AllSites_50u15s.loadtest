@@ -1,5 +1,5 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
-<LoadTest Name="LoadTest3" Description="" Owner="" storage="c:\users\administrator\documents\visual studio 2015\projects\electiontool\webandloadtestproject1\loadtest3.loadtest" Priority="2147483647" Enabled="true" CssProjectStructure="" CssIteration="" DeploymentItemsEditable="" WorkItemIds="" TraceLevel="None" CurrentRunConfig="Testlaufeinstellungen1" Id="843bd1ef-058e-4558-be85-44d75a2e2c0b" xmlns="http://microsoft.com/schemas/VisualStudio/TeamTest/2010">
+<LoadTest Name="AllSites_50u15s" Description="" Owner="" storage="c:\users\administrator\documents\visual studio 2015\projects\electiontool\webandloadtestproject1\allsites_50u15s.loadtest" Priority="2147483647" Enabled="true" CssProjectStructure="" CssIteration="" DeploymentItemsEditable="" WorkItemIds="" TraceLevel="None" CurrentRunConfig="Testlaufeinstellungen1" Id="843bd1ef-058e-4558-be85-44d75a2e2c0b" xmlns="http://microsoft.com/schemas/VisualStudio/TeamTest/2010">
   <Scenarios>
     <Scenario Name="AllSites_50u15s" DelayBetweenIterations="15" PercentNewUsers="0" IPSwitching="false" TestMixType="PercentageOfTestsStarted" ApplyDistributionToPacingDelay="true" MaxTestIterations="0" DisableDuringWarmup="false" DelayStartTime="0" AllowedAgents="">
       <ThinkProfile Value="0.2" Pattern="NormalDistribution" />
