@@ -18,9 +18,31 @@ namespace ElectionTool.Service
                 throw new Exception("Unbekannte IP-Adresse.");
             }
 
+            var delaySeconds = CheckHandleRequest(tokenString, ip);
+            if (delaySeconds > 0)
+            {
+                // to many invalid requests. Used to handle brute force attacks  
+                throw new Exception(
+                    string.Format(
+                        "Sie haben bereits zu viele ungültige Token abgegeben.\n" +
+                        "Sie können ein neues Token erst wieder in {0} Sekunden ({1:hh:mm:ss}) abgeben.",
+                        delaySeconds, DateTime.Now.AddSeconds(delaySeconds)));
+            }
+
             var token = new Token(tokenString);
             if (!token.IsValid())
             {
+                // save invalid token request
+                using (var context = new ElectionDBEntities())
+                {
+                    context.InvalidTokenRequests.Add(new InvalidTokenRequest
+                    {
+                        IP = ip,
+                        Token = tokenString,
+                        Timestamp = DateTime.Now
+                    });
+                    context.SaveChanges();
+                }
                 throw new Exception(string.Format("Das Token '{0}' ist ungültig.", tokenString));
             }
 
@@ -42,11 +64,9 @@ namespace ElectionTool.Service
                         TokenString = tokenString
                     });
                     
-                    //TODO: Only uncommented for debugging. This has to be done!!!
-                    //context.SaveChanges();
+                    context.SaveChanges();
                 }
 
-                RemoveReservedTokenForIp(ip);
                 ReservedToken.Add(token, ip);
             }
             else
@@ -67,13 +87,31 @@ namespace ElectionTool.Service
             ReservedToken.Remove(token);
         }
 
-        private static void RemoveReservedTokenForIp(string ip)
+        public int CheckHandleRequest(string tokenString, string ip)
         {
-            var toRemove = (from entry in ReservedToken where entry.Value.Equals(ip) select entry.Key).ToList();
+            const int minutesTimeRange = 5;
+            const int invalidRequestsAllowed = 3;
 
-            foreach (var key in toRemove)
+            var last5Min = DateTime.Now.AddMinutes(-minutesTimeRange);
+
+            using (var context = new ElectionDBEntities())
             {
-                ReservedToken.Remove(key);
+                var invalidRequests = context.InvalidTokenRequests.Where(r => r.Timestamp >= last5Min && r.IP.Equals(ip));
+
+                var invalidRequestCount = invalidRequests.Count();
+
+                if (invalidRequestCount < invalidRequestsAllowed)
+                {
+                    return 0;
+                }
+
+                var invalidRequestLatest = invalidRequests.Max(r => r.Timestamp);
+                var delaySeconds = (int) Math.Max(10, Math.Pow(2, invalidRequestCount - invalidRequestsAllowed));
+
+                var nextTime = invalidRequestLatest.AddSeconds(delaySeconds);
+
+                var diff = nextTime - DateTime.Now;
+                return Math.Max(0, diff.Seconds + diff.Minutes*60 + diff.Hours*3600);
             }
         }
     }

@@ -13,6 +13,14 @@ CREATE TABLE [dbo].[Election] (
     PRIMARY KEY CLUSTERED ([Id] ASC)
 );
 
+CREATE TABLE [dbo].[InvalidTokenRequest] (
+    [Id]        INT           IDENTITY (1, 1) NOT NULL,
+    [IP]        VARCHAR (127) NOT NULL,
+    [Token]     VARCHAR (127) NOT NULL,
+    [Timestamp] DATETIME    NOT NULL,
+    PRIMARY KEY CLUSTERED ([Id] ASC)
+);
+
 CREATE TABLE [dbo].[Party] (
     [Id]   INT            IDENTITY (1, 1) NOT NULL,
     [Name] NVARCHAR (127) NOT NULL,

@@ -18,12 +18,12 @@ namespace ElectionTool.Controllers
             return View();
         }
 
-        public ActionResult Elect(string tokenString)
+        public ActionResult Elect(string txtToken)
         {
             ElectionVoteViewModel model = null;
             try
             {
-                model = Service.ValidateToken(tokenString, Request.UserHostAddress);
+                model = Service.ValidateToken(txtToken, Request.UserHostAddress);
             }
             catch (Exception e)
             {
