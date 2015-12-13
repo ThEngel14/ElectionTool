@@ -1,7 +1,7 @@
 USE [ElectionDB]
 GO
 
-/****** Object:  UserDefinedFunction [dbo].[DivisorState]    Script Date: 28.11.2015 20:22:50 ******/
+/****** Object:  UserDefinedFunction [dbo].[DivisorState]    Script Date: 13.12.2015 10:16:59 ******/
 SET ANSI_NULLS ON
 GO
 
@@ -9,7 +9,18 @@ SET QUOTED_IDENTIFIER ON
 GO
 
 
-ALTER  FUNCTION [dbo].[DivisorState](@Election_ID int, @Bundesland_ID int,@Seats int) RETURNS int AS
+
+
+
+
+ALTER  FUNCTION [dbo].[DivisorState](@Election_ID int, @Bundesland_ID int, @initDivisor int, @Seats int ) RETURNS int AS
+
+/*alter  FUNCTION [dbo].[DivisorState_test](@Election_ID int, @Bundesland_ID int, @initDivisor int, @Seats int, @PartyList as PartyListParam READONLY ) RETURNS int AS
+
+properbly best way weil n auswertungen weniger: 
+parties5 als parameter übergeben
+*/
+
 
 /*THIS FUNCTION IS A CLONE | APPLY CHANGES IN THE TEMPLATE TO ALL OTHER DIVISOR FUNCTIONS*/
 
@@ -18,12 +29,14 @@ BEGIN
 	declare @SumOfSeats int;
 	declare @TempDivisor int;
 
-	--initial value of Divisor by naive Divison: Population/available_seats
-	set @TempDivisor = (Select poB.Count/@Seats
-						from PopulationBundesland poB
-						where poB.Bundesland_Id = @Bundesland_ID 
-						and poB.Election_Id=@Election_ID);
+	declare @parties5 PartyListParam;
+	insert into @parties5 
+	select id from Parties5 where Election_Id = @Election_ID;
+	
 
+
+	--initial value of Divisor by naive Divison: Population/available_seats
+	set @TempDivisor = @initDivisor ; 
 
 	--temporary seats for each party that is above the 5% threshold, added up for later comparison with actual amount of seats for this state
 	/*this is a clone, apply changes also to the computation in the while-loop*/
@@ -33,8 +46,7 @@ BEGIN
 								from ZweitstimmenState votes 
 								where votes.Election_Id= @Election_ID
 								and votes.Bundesland_Id= @Bundesland_ID
-								and votes.Party_ID in (select p.Id from Parties5 p
-														where p.Election_Id=@Election_ID)
+								and votes.Party_ID in (select * from @parties5)
 														) temp
 								);
 
@@ -42,7 +54,8 @@ BEGIN
 	begin
 		if @SumOfSeats > @Seats
 		begin
-			set @TempDivisor = @TempDivisor + 2500; --if there are to many seats given to the states, the divisor has to be incremented in order to reduce to quotient (which are the single seats) 	
+		--evtl + 500
+			set @TempDivisor = @TempDivisor + 999; --if there are to many seats given to the states, the divisor has to be incremented in order to reduce to quotient (which are the single seats) 	
 		end --if
 		else
 		begin
@@ -56,8 +69,7 @@ BEGIN
 								from ZweitstimmenState votes 
 								where votes.Election_Id= @Election_ID
 								and votes.Bundesland_Id= @Bundesland_ID
-								and votes.Party_ID in (select p.Id from Parties5 p
-														where p.Election_Id=@Election_ID)
+								and votes.Party_ID in (select * from @parties5)
 														) temp
 						);
 						
@@ -65,6 +77,10 @@ BEGIN
 
 	return @TempDivisor;
 END;--function
+
+
+
+
 
 
 
