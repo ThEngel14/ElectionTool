@@ -1,12 +1,13 @@
 USE [ElectionDB]
 GO
 
-/****** Object:  UserDefinedFunction [dbo].[DivisorState]    Script Date: 13.12.2015 10:16:59 ******/
+/****** Object:  UserDefinedFunction [dbo].[DivisorState]    Script Date: 14.12.2015 12:18:21 ******/
 SET ANSI_NULLS ON
 GO
 
 SET QUOTED_IDENTIFIER ON
 GO
+
 
 
 
@@ -77,6 +78,7 @@ BEGIN
 
 	return @TempDivisor;
 END;--function
+
 
 
 

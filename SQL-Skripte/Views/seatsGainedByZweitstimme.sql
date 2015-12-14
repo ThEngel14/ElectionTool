@@ -1,7 +1,7 @@
 USE [ElectionDB]
 GO
 
-/****** Object:  View [dbo].[seatsGainedByZweitstimme_test]    Script Date: 13.12.2015 09:19:08 ******/
+/****** Object:  View [dbo].[seatsGainedByZweitstimme]    Script Date: 14.12.2015 12:16:40 ******/
 SET ANSI_NULLS ON
 GO
 
@@ -12,12 +12,13 @@ GO
 
 
 
+
 ALTER view [dbo].[seatsGainedByZweitstimme] as 
 
 (select votes.Election_Id as Election_Id, votes.Bundesland_Id as Bundesland_Id, votes.party_Id as Party_Id, 
 	cast(round(1.0*votes.Amount
 	/
-		dbo.divisorState_test(
+		dbo.divisorState(
 			votes.Election_Id,
 			votes.Bundesland_Id,
 			 (Select poB.Count/s.Seats
@@ -37,6 +38,7 @@ where
 
 
 				
+
 
 
 
