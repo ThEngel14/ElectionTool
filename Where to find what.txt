@@ -1,0 +1,8 @@
+this folder contains all data from VisualStudio Projects
+- ElectionTool
+- ElectionTool.DataImport
+- WebandLoadTestProject1
+(-Management interna)
+
+and a folder with all other data called 'Abgaben'.
+HERE you can find all relevant data produced in the context of the homework.

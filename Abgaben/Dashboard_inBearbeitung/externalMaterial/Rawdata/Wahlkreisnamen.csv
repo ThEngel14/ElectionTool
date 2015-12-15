@@ -1,0 +1,299 @@
+1;Flensburg   Schleswig
+2;Nordfriesland   Dithmarschen Nord
+3;Steinburg   Dithmarschen Sued
+4;Rendsburg Eckernfoerde
+5;Kiel
+6;Ploen   Neumuenster
+7;Pinneberg
+8;Segeberg   Stormarn Mitte
+9;Ostholstein   Stormarn Nord
+10;Herzogtum Lauenburg   Stormarn Sued
+11;Luebeck
+12;Schwerin   Ludwigslust Parchim I   Nordwestmecklenburg I
+13;Ludwigslust Parchim II   Nordwestmecklenburg II   Landkreis Rostock 
+14;Rostock   Landkreis Rostock II
+15;Vorpommern Ruegen   Vorpommern Greifswald I
+16;Mecklenburgische Seenplatte I   Vorpommern Greifswald II 
+17;Mecklenburgische Seenplatte II   Landkreis Rostock III
+18;Hamburg Mitte
+19;Hamburg Altona
+20;Hamburg Eimsbuettel
+21;Hamburg Nord
+22;Hamburg Wandsbek
+23;Hamburg Bergedorf   Harburg
+24;Aurich   Emden
+25;Unterems
+26;Friesland   Wilhelmshaven   Wittmund
+27;Oldenburg   Ammerland
+28;Delmenhorst   Wesermarsch   Oldenburg Land
+29;Cuxhaven   Stade II
+30;Stade I   Rotenburg II
+31;Mittelems
+32;Cloppenburg   Vechta
+33;Diepholz   Nienburg I
+34;Osterholz   Verden
+35;Rotenburg I   Heidekreis
+36;Harburg
+37;Luechow Dannenberg   Lueneburg
+38;Osnabrueck Land
+39;Stadt Osnabrueck
+40;Nienburg II   Schaumburg
+41;Stadt Hannover I
+42;Stadt Hannover II
+43;Hannover Land I
+44;Celle   Uelzen
+45;Gifhorn   Peine
+46;Hameln Pyrmont   Holzminden
+47;Hannover Land II
+48;Hildesheim
+49;Salzgitter   Wolfenbuettel
+50;Braunschweig
+51;Helmstedt   Wolfsburg
+52;Goslar   Northeim   Osterode
+53;Goettingen
+54;Bremen I
+55;Bremen II   Bremerhaven
+56;Prignitz   Ostprignitz Ruppin   Havelland I
+57;Uckermark   Barnim I
+58;Oberhavel   Havelland II
+59;Maerkisch Oderland   Barnim II
+60;Brandenburg an der Havel   Potsdam Mittelmark I   Havelland III   Teltow Flaeming I
+61;Potsdam   Potsdam Mittelmark II   Teltow Flaeming II
+62;Dahme Spreewald   Teltow Flaeming III   Oberspreewald Lausitz I
+63;Frankfurt (Oder)   Oder Spree
+64;Cottbus   Spree Neiße
+65;Elbe Elster   Oberspreewald Lausitz II
+66;Altmark
+67;Boerde   Jerichower Land
+68;Harz
+69;Magdeburg
+70;Dessau   Wittenberg
+71;Anhalt
+72;Halle
+73;Burgenland   Saalekreis
+74;Mansfeld
+75;Berlin Mitte
+76;Berlin Pankow
+77;Berlin Reinickendorf
+78;Berlin Spandau   Charlottenburg Nord
+79;Berlin Steglitz Zehlendorf
+80;Berlin Charlottenburg Wilmersdorf
+81;Berlin Tempelhof Schoeneberg
+82;Berlin Neukoelln
+83;Berlin Friedrichshain Kreuzberg   Prenzlauer Berg Ost
+84;Berlin Treptow Koepenick
+85;Berlin Marzahn Hellersdorf
+86;Berlin Lichtenberg
+87;Aachen I
+88;Aachen II
+89;Heinsberg
+90;Dueren
+91;Rhein Erft Kreis I
+92;Euskirchen   Rhein Erft Kreis II
+93;Koeln I
+94;Koeln II
+95;Koeln III
+96;Bonn
+97;Rhein Sieg Kreis I
+98;Rhein Sieg Kreis II
+99;Oberbergischer Kreis
+100;Rheinisch Bergischer Kreis
+101;Leverkusen   Koeln IV
+102;Wuppertal I
+103;Solingen   Remscheid   Wuppertal II
+104;Mettmann I
+105;Mettmann II
+106;Duesseldorf I
+107;Duesseldorf II
+108;Neuss I
+109;Moenchengladbach
+110;Krefeld I   Neuss II
+111;Viersen
+112;Kleve
+113;Wesel I
+114;Krefeld II   Wesel II
+115;Duisburg I
+116;Duisburg II
+117;Oberhausen   Wesel III
+118;Muelheim   Essen I
+119;Essen II
+120;Essen III
+121;Recklinghausen I
+122;Recklinghausen II
+123;Gelsenkirchen
+124;Steinfurt I   Borken I
+125;Bottrop   Recklinghausen III
+126;Borken II
+127;Coesfeld   Steinfurt II
+128;Steinfurt III
+129;Muenster
+130;Warendorf
+131;Guetersloh I
+132;Bielefeld   Guetersloh II
+133;Herford   Minden Luebbecke II
+134;Minden Luebbecke I
+135;Lippe I
+136;Hoexter   Lippe II
+137;Paderborn   Guetersloh III
+138;Hagen   Ennepe Ruhr Kreis I
+139;Ennepe Ruhr Kreis II
+140;Bochum I
+141;Herne   Bochum II
+142;Dortmund I
+143;Dortmund II
+144;Unna I
+145;Hamm   Unna II
+146;Soest
+147;Hochsauerlandkreis
+148;Siegen Wittgenstein
+149;Olpe   Maerkischer Kreis I
+150;Maerkischer Kreis II
+151;Nordsachsen
+152;Leipzig I
+153;Leipzig II
+154;Leipzig Land
+155;Meißen
+156;Bautzen I
+157;Goerlitz
+158;Saechsische Schweiz Osterzgebirge
+159;Dresden I
+160;Dresden II   Bautzen II
+161;Mittelsachsen
+162;Chemnitz
+163;Chemnitzer Umland   Erzgebirgskreis II
+164;Erzgebirgskreis I
+165;Zwickau
+166;Vogtlandkreis
+167;Waldeck
+168;Kassel
+169;Werra Meißner   Hersfeld Rotenburg
+170;Schwalm Eder
+171;Marburg
+172;Lahn Dill
+173;Gießen
+174;Fulda
+175;Main Kinzig   Wetterau II   Schotten
+176;Hochtaunus
+177;Wetterau I
+178;Rheingau Taunus   Limburg
+179;Wiesbaden
+180;Hanau
+181;Main Taunus
+182;Frankfurt am Main I
+183;Frankfurt am Main II
+184;Groß Gerau
+185;Offenbach
+186;Darmstadt
+187;Odenwald
+188;Bergstraße
+189;Eichsfeld   Nordhausen   Unstrut Hainich Kreis I
+190;Eisenach   Wartburgkreis   Unstrut Hainich Kreis II
+191;Kyffhaeuserkreis   Soemmerda   Weimarer Land I
+192;Gotha   Ilm Kreis
+193;Erfurt   Weimar   Weimarer Land II
+194;Gera   Jena   Saale Holzland Kreis
+195;Greiz   Altenburger Land
+196;Sonneberg   Saalfeld Rudolstadt   Saale Orla Kreis
+197;Suhl   Schmalkalden Meiningen   Hildburghausen
+198;Neuwied
+199;Ahrweiler
+200;Koblenz
+201;Mosel/Rhein Hunsrueck
+202;Kreuznach
+203;Bitburg
+204;Trier
+205;Montabaur
+206;Mainz
+207;Worms
+208;Ludwigshafen/Frankenthal
+209;Neustadt   Speyer
+210;Kaiserslautern
+211;Pirmasens
+212;Suedpfalz
+213;Altoetting
+214;Erding   Ebersberg
+215;Freising
+216;Fuerstenfeldbruck
+217;Ingolstadt
+218;Muenchen Nord
+219;Muenchen Ost
+220;Muenchen Sued
+221;Muenchen West/Mitte
+222;Muenchen Land
+223;Rosenheim
+224;Starnberg
+225;Traunstein
+226;Weilheim
+227;Deggendorf
+228;Landshut
+229;Passau
+230;Rottal Inn
+231;Straubing
+232;Amberg
+233;Regensburg
+234;Schwandorf
+235;Weiden
+236;Bamberg
+237;Bayreuth
+238;Coburg
+239;Hof
+240;Kulmbach
+241;Ansbach
+242;Erlangen
+243;Fuerth
+244;Nuernberg Nord
+245;Nuernberg Sued
+246;Roth
+247;Aschaffenburg
+248;Bad Kissingen
+249;Main Spessart
+250;Schweinfurt
+251;Wuerzburg
+252;Augsburg Stadt
+253;Augsburg Land
+254;Donau Ries
+255;Neu Ulm
+256;Oberallgaeu
+257;Ostallgaeu
+258;Stuttgart I
+259;Stuttgart II
+260;Boeblingen
+261;Esslingen
+262;Nuertingen
+263;Goeppingen
+264;Waiblingen
+265;Ludwigsburg
+266;Neckar Zaber
+267;Heilbronn
+268;Schwaebisch Hall   Hohenlohe
+269;Backnang   Schwaebisch Gmuend
+270;Aalen   Heidenheim
+271;Karlsruhe Stadt
+272;Karlsruhe Land
+273;Rastatt
+274;Heidelberg
+275;Mannheim
+276;Odenwald   Tauber
+277;Rhein Neckar
+278;Bruchsal   Schwetzingen
+279;Pforzheim
+280;Calw
+281;Freiburg
+282;Loerrach   Muellheim
+283;Emmendingen   Lahr
+284;Offenburg
+285;Rottweil   Tuttlingen
+286;Schwarzwald Baar
+287;Konstanz
+288;Waldshut
+289;Reutlingen
+290;Tuebingen
+291;Ulm
+292;Biberach
+293;Bodensee
+294;Ravensburg
+295;Zollernalb   Sigmaringen
+296;Saarbruecken
+297;Saarlouis
+298;St. Wendel
+299;Homburg
