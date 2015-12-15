@@ -1,0 +1,27 @@
+Webdevelopment:
+Http-Timeout
+
+=========================================================
+Management:
+-Strukur und Ordner einrichten (dashboard, abgabebereit, ppt, Materialien)
+
+
+=========================================================
+backend:
+-optimieren
+-alle views und procedures als create queries in richtiger Reihenfolge aneinanderhängen für Portabilitätszwecke
+-SQL kommentare inklusive Englisch
+
+
+
+
+
+==========================================================
+Dokumentation:
+Template für doku
+existing doku an Ist-zustand anpassen + doku
+Gui-Mockups an Ist-Zustand anpassen
+
+
+
+Präsentation erstellen
