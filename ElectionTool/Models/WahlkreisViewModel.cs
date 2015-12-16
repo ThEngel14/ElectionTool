@@ -11,6 +11,8 @@ namespace ElectionTool.Models
 
         public string Name { get; set; }
 
+        public int BundeslandId { get; set; }
+
         public int CompareTo(WahlkreisViewModel other)
         {
             return Id - other.Id;

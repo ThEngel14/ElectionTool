@@ -62,7 +62,8 @@ namespace ElectionTool.ViewModelMap
             return new WahlkreisViewModel
             {
                 Id = wahlkreis.Id,
-                Name = wahlkreis.Name
+                Name = wahlkreis.Name,
+                BundeslandId = wahlkreis.Bundesland_Id
             };
         }
 

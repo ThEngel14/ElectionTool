@@ -56,7 +56,7 @@ namespace ElectionTool.Controllers
                 return RedirectToAction("Index");
             }
 
-            return RedirectToAction("Elect", model.TokenString);
+            return RedirectToAction("Elect", new {txtToken = model.TokenString});
         }
 
         public ActionResult GenerateToken()

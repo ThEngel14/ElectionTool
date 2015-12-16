@@ -81,24 +81,11 @@ namespace ElectionTool.Service
 
                 var wahlkreis = context.Wahlkreis.Single(w => w.Id == wahlkreisId);
 
-                var allParties = context.Parties
-                                    .Include("IsElectableParties");
+                var allParties = context.Parties;
 
-                var parties =
-                    allParties.Where(
-                        p =>
-                            p.IsElectableParties.Any(
-                                e =>
-                                    e.Election_Id == electionId && e.Bundesland_Id == wahlkreis.Bundesland_Id));
+                var parties = GetElectableParties(context, electionId, wahlkreis.Bundesland_Id);
 
-                var people =
-                    context.People
-                        .Include("IsElectableCandidates")
-                        .Include("PartyAffiliations")
-                        .Where(
-                            p =>
-                                p.IsElectableCandidates.Any(
-                                    e => e.Election_Id == electionId && e.Wahlkreis_Id == wahlkreisId));
+                var people = GetElectablePeople(context, electionId, wahlkreisId);
 
                 var partyVm = ViewModelMap.ViewModelMap.GetPartyViewModels(parties).ToList();
                 var peopleVm = ViewModelMap.ViewModelMap.GetPersonWithPartyViewModels(electionId, people, allParties).ToList();
@@ -112,12 +99,66 @@ namespace ElectionTool.Service
             return model;
         }
 
+        private static IEnumerable<Person> GetElectablePeople(ElectionDBEntities context, int electionId, int wahlkreisId)
+        {
+            var people =
+                context.People
+                    .Include("IsElectableCandidates")
+                    .Include("PartyAffiliations")
+                    .Where(
+                        p =>
+                            p.IsElectableCandidates.Any(
+                                e => e.Election_Id == electionId && e.Wahlkreis_Id == wahlkreisId));
+
+            return people;
+        }
+
+        private static IEnumerable<Party> GetElectableParties(ElectionDBEntities context, int electionId, int bundeslandId)
+        {
+            var allParties = context.Parties
+                .Include("PartyAffiliations")
+                .Include("PartyAffiliations.Person")
+                .Include("PartyAffiliations.Person.CandidateLists");
+
+            var parties =
+                allParties.Where(
+                    p =>
+                        p.PartyAffiliations.Any(
+                            a =>
+                                a.Person.CandidateLists.Any(
+                                    c => c.Election_Id == electionId && c.Bundesland_Id == bundeslandId)));
+
+            return parties;
+        } 
+
         public bool PerformVote(ElectionVoteViewModel model, string ip)
         {
             var token = _tokenHandler.BuildToken(model.TokenString, ip);
 
+            var wahlkreis = GetWahlkreis(token.GetWahlkreisId());
+
             using (var context = new ElectionDBEntities())
             {
+                //Validate voted person and party
+                var electablePeople = GetElectablePeople(context, token.GetElectionId(), token.GetWahlkreisId());
+                var electableParties = GetElectableParties(context, token.GetElectionId(), wahlkreis.BundeslandId);
+
+                if (model.VotedPersonId > 0 && !electablePeople.Select(p => p.Id).Contains(model.VotedPersonId ?? -1))
+                {
+                    throw new Exception(
+                        string.Format(
+                            "Die Person mit Id {0} darf in diesem Wahlkreis bei dieser Wahl nicht gewählt werden.",
+                            model.VotedPersonId));
+                }
+
+                if (model.VotedPartyId > 0 && !electableParties.Select(p => p.Id).Contains(model.VotedPartyId ?? -1))
+                {
+                    throw new Exception(
+                        string.Format(
+                            "Die Partei mit Id {0} darf in diesem Wahlkreis bei dieser Wahl nicht gewählt werden.",
+                            model.VotedPartyId));
+                }
+
                 // Election_Id is always set to 3 so that the generated votes for past elections are not changed
                 context.Erststimmes.Add(new Erststimme
                 {
