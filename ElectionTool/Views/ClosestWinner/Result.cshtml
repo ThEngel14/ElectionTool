@@ -1,30 +1,42 @@
 ﻿@model ElectionTool.Models.ClosestWinnerForPartyViewModel
-           
+
 @{
+    var isAllWinner = Model.ClosestWinner.All(m => m.IsWinner);
+
     ViewBag.Title = "Knappste Sieger";
-    ViewBag.Description = string.Format("Knappste Sieger: {0}", Model.Party.Name);
+    ViewBag.Description = string.Format("Knappste {0}: {1}", isAllWinner ? "Sieger" : "Verlierer", Model.Party.Name);
+
 }
 
-<div class="row">
-    <table>
-        <thead>
+<div class="row margin-right-md">
+    <div class="table-responsive">
+        <table id="cloestWinnerTable" class="table table-striped">
+            <thead>
             <tr>
                 <th>Name</th>
                 <th>Wahlkreis</th>
-                <th>Unterschied</th>
-                <th>Art</th>
+                <th class="text-right">
+                    @if (isAllWinner)
+                    {
+                        <span>Vorsprung</span>
+                    }
+                    else
+                    {
+                        <span>Rückstand</span>
+                    }
+                </th>
             </tr>
-        </thead>
-        <tbody>
+            </thead>
+            <tbody>
             @foreach (var entry in Model.ClosestWinner)
             {
                 <tr>
-                    <td>@entry.Person.Fullname</td>
+                    <td data-order="@entry.Person.Lastname @entry.Person.Firstname">@entry.Person.Fullname</td>
                     <td>@entry.Wahlkreis</td>
-                    <td>@entry.Difference</td>
-                    <td>@entry.KindOfResult</td>
+                    <td class="text-right">@entry.Difference</td>
                 </tr>
             }
-        </tbody>
-    </table>
+            </tbody>
+        </table>
+    </div>
 </div>

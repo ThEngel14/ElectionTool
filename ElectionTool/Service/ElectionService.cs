@@ -263,7 +263,7 @@ namespace ElectionTool.Service
             return model;
         }
 
-        public PartySelectionViewModel GetAllParties(int electionId)
+        public PartySelectionViewModel GetAllPartiesForClosestWinner(int electionId)
         {
             var model = new PartySelectionViewModel
             {
@@ -272,7 +272,12 @@ namespace ElectionTool.Service
 
             using (var context = new ElectionDBEntities())
             {
-                var parties = context.Parties;
+                var partyIds =
+                    context.ClosestErststimmeResults.Where(r => r.Election_Id == electionId)
+                        .Select(r => r.Party_Id)
+                        .Distinct();
+
+                var parties = context.Parties.Where(p => partyIds.Contains(p.Id));
 
                 var pModel = ViewModelMap.ViewModelMap.GetPartyViewModels(parties).ToList();
                 model.Parties = pModel.OrderBy(r => r);

@@ -11,7 +11,7 @@ namespace ElectionTool.Controllers
         // GET: ClosestWinner
         public ActionResult Index(int electionId)
         {
-            var model = Service.GetAllParties(electionId);
+            var model = Service.GetAllPartiesForClosestWinner(electionId);
 
             return View(model);
         }

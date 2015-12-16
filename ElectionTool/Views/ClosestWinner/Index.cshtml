@@ -8,8 +8,8 @@
 <div class="row">
     @foreach (var party in Model.Parties)
     {
-        <div>
-            @Html.ActionLink(party.Name, "Result", "ClosestWinner", new {electionId = Model.ElectionId, partyId = party.Id}, null);
+        <div class="col-md-3">
+            @Html.ActionLink(party.Name, "Result", "ClosestWinner", new {electionId = Model.ElectionId, partyId = party.Id}, new {@class = "btn btn-primary btn-block margin-top-md margin-bottom-md"})
         </div>
     }
 </div>

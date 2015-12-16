@@ -37,3 +37,16 @@
         return true;
     });
 });
+
+$(document).ready(function () {
+    $('#cloestWinnerTable').dataTable({
+        "bPaginate": false,
+        "aaSorting": [],
+        "bFilter": false,
+        "bInfo": false,
+        "bSortClasses": false,
+        "language": {
+            "zeroRecords": "Es gab keinen Direktkandidaten für diese Partei."
+        }
+    });
+});
