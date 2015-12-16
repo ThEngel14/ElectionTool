@@ -1,9 +1,11 @@
 Webdevelopment:
 Http-Timeout
+gesamtzahl stimmen (erst und zweitstimme) + ungültige müssen angezeigt werden (siehe LAstenheft)
+
 
 =========================================================
 Management:
--Strukur und Ordner einrichten (dashboard, abgabebereit, ppt, Materialien)
+-Strukur und Ordner einrichten (dashboard, abgabebereit, ppt, Materialien) DONE
 
 
 =========================================================
@@ -18,8 +20,16 @@ backend:
 
 ==========================================================
 Dokumentation:
-Template für doku
+Template für doku	DONE
 existing doku an Ist-zustand anpassen + doku
+-homework1: almost done
+-homework2:
+-homework3:
+-homework4:
+-homework5:
+-homework6:
+-homework7:
+-homework9:	done
 Gui-Mockups an Ist-Zustand anpassen
 
 
