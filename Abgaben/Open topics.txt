@@ -1,6 +1,6 @@
 Webdevelopment:
 Http-Timeout
-gesamtzahl stimmen (erst und zweitstimme) + ungültige müssen angezeigt werden (siehe LAstenheft)
+gesamtzahl stimmen (erst und zweitstimme) + ungültige von Rechtswegen angezeigt werden (siehe 2_Lastenheft)
 
 
 =========================================================
@@ -19,19 +19,21 @@ backend:
 
 
 ==========================================================
-Dokumentation:
-Template für doku	DONE
+Dokumentation: (template vorhanden!)
+
 existing doku an Ist-zustand anpassen + doku
--homework1: almost done
--homework2:
--homework3:
--homework4:
--homework5:
--homework6:
--homework7:
--homework9:	done
+-homework1: done
+-homework2: done 
+-homework3: done
+-homework4:_dataImport
+-homework5:_code
+-homework6:_code
+-homework7: _benchmarking
+-homework9: done
+-extra glossar:  angefangen. unsicher ob wir technische aspekte auch rein schreiben wollen oder nur die Wahl-spezifika 
+
+
+
 Gui-Mockups an Ist-Zustand anpassen
-
-
 
 Präsentation erstellen
