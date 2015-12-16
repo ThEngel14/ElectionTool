@@ -15,7 +15,7 @@ namespace ElectionTool.Service
         {
             if (string.IsNullOrWhiteSpace(tokenString))
             {
-                throw new Exception("Der TokenString darf nicht null oder leer sein.");
+                throw new PublicException("Der TokenString darf nicht null oder leer sein.");
             }
 
             TokenString = tokenString;

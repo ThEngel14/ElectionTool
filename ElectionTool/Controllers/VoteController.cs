@@ -20,15 +20,7 @@ namespace ElectionTool.Controllers
 
         public ActionResult Elect(string txtToken)
         {
-            ElectionVoteViewModel model = null;
-            try
-            {
-                model = Service.ValidateToken(txtToken, Request.UserHostAddress);
-            }
-            catch (Exception e)
-            {
-                AddException(e);
-            }
+            var model = CallService(() => Service.ValidateToken(txtToken, Request.UserHostAddress));
 
             if (model != null)
             {
@@ -40,15 +32,7 @@ namespace ElectionTool.Controllers
 
         public ActionResult PerformVote(ElectionVoteViewModel model)
         {
-            var successful = false;
-            try
-            {
-                successful = Service.PerformVote(model, Request.UserHostAddress);
-            }
-            catch (Exception e)
-            {
-                AddException(e);
-            }
+            var successful = CallService(() => Service.PerformVote(model, Request.UserHostAddress));
 
             if (successful)
             {
@@ -61,7 +45,7 @@ namespace ElectionTool.Controllers
 
         public ActionResult GenerateToken()
         {
-            var model = Service.GetGenerateTokenModel();
+            var model = CallService(() => Service.GetGenerateTokenModel());
 
             model.SelectedElectionId = TempData["ElectionId"] as int? ?? model.SelectedElectionId;
             model.SelectedWahlkreisId = TempData["WahlkreisId"] as int? ?? model.SelectedWahlkreisId;
@@ -72,7 +56,7 @@ namespace ElectionTool.Controllers
 
         public ActionResult GenerateTokenFor(GenerateTokenViewModel model)
         {
-            try
+            CallService(() =>
             {
                 TempData["ElectionId"] = model.SelectedElectionId;
                 TempData["WahlkreisId"] = model.SelectedWahlkreisId;
@@ -96,11 +80,7 @@ namespace ElectionTool.Controllers
                 }
 
                 GetMessageBag().Info.Add(infoToken);
-            }
-            catch (Exception e)
-            {
-                AddException(e);
-            }
+            });
 
             return RedirectToAction("GenerateToken");
         }

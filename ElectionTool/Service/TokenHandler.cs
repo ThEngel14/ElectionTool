@@ -15,14 +15,14 @@ namespace ElectionTool.Service
         {
             if (ip == null)
             {
-                throw new Exception("Unbekannte IP-Adresse.");
+                throw new Exception("Unknown IP-Address.");
             }
 
             var delaySeconds = CheckHandleRequest(tokenString, ip);
             if (delaySeconds > 0)
             {
                 // to many invalid requests. Used to handle brute force attacks  
-                throw new Exception(
+                throw new PublicException(
                     string.Format(
                         "Sie haben bereits zu viele ungültige Token abgegeben.\n" +
                         "Sie können ein neues Token erst wieder in {0} Sekunden ({1:hh:mm:ss}) abgeben.",
@@ -43,7 +43,7 @@ namespace ElectionTool.Service
                     });
                     context.SaveChanges();
                 }
-                throw new Exception(string.Format("Das Token '{0}' ist ungültig.", tokenString));
+                throw new PublicException(string.Format("Das Token '{0}' ist ungültig.", tokenString));
             }
 
             if (!ReservedToken.ContainsKey(token))
@@ -54,7 +54,7 @@ namespace ElectionTool.Service
                     // new token requested
                     if (existing != null)
                     {
-                        throw new Exception(string.Format(
+                        throw new PublicException(string.Format(
                             "Das Token '{0}' wurde bereits genutzt. Sie dürfen es daher nicht noch einmal verwenden.", existing.TokenString));
                     }
 
@@ -75,7 +75,7 @@ namespace ElectionTool.Service
                 var fromIp = ReservedToken[token];
                 if (!ip.Equals(fromIp))
                 {
-                    throw new Exception("Falsche IP-Adresse festgestellt.");
+                    throw new Exception("Wrong IP-Address detected.");
                 }
             }
 

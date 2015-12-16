@@ -20,7 +20,7 @@ namespace ElectionTool.Service
 
                 if (election == null)
                 {
-                    throw new Exception(string.Format("Es gibt keine Bundestagswahl mit der Id {0}.", electionId));
+                    throw new PublicException(string.Format("Es gibt keine Bundestagswahl mit der Id {0}.", electionId));
                 }
 
                 return ViewModelMap.ViewModelMap.GetElectionViewModel(election);
@@ -35,7 +35,7 @@ namespace ElectionTool.Service
 
                 if (wahlkreis == null)
                 {
-                    throw new Exception(string.Format("Es gibt keinen Wahlkreis mit der Id {0}.", wahlkreisId));
+                    throw new PublicException(string.Format("Es gibt keinen Wahlkreis mit der Id {0}.", wahlkreisId));
                 }
 
                 return ViewModelMap.ViewModelMap.GetWahlkreisViewModel(wahlkreis);
@@ -145,7 +145,7 @@ namespace ElectionTool.Service
 
                 if (model.VotedPersonId > 0 && !electablePeople.Select(p => p.Id).Contains(model.VotedPersonId ?? -1))
                 {
-                    throw new Exception(
+                    throw new PublicException(
                         string.Format(
                             "Die Person mit Id {0} darf in diesem Wahlkreis bei dieser Wahl nicht gewählt werden.",
                             model.VotedPersonId));
@@ -153,7 +153,7 @@ namespace ElectionTool.Service
 
                 if (model.VotedPartyId > 0 && !electableParties.Select(p => p.Id).Contains(model.VotedPartyId ?? -1))
                 {
-                    throw new Exception(
+                    throw new PublicException(
                         string.Format(
                             "Die Partei mit Id {0} darf in diesem Wahlkreis bei dieser Wahl nicht gewählt werden.",
                             model.VotedPartyId));
