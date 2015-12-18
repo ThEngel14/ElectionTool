@@ -2,23 +2,35 @@
            
 @{
     ViewBag.Title = "Wahlkreise";
-    ViewBag.Description = "Wählen sie einen Wahlkreis";
+    ViewBag.Description = "Wählen Sie einen Wahlkreis";
 }
 
-<div class="row">
+<div class="panel-group" id="accordion">
     @foreach (var entry in Model.Bundeslands)
     {
-        <div style="font-size: 14px;">@entry.Bundesland.Name</div>
+        <div class="panel panel-default">
+            <div class="panel-heading-c">
+                <h4 class="panel-title">
+                    <a data-toggle="collapse" data-parent="#accordion" href="@string.Format("#collapse{0}", entry.Bundesland.Id)">
+                        <span class="font-md">@Html.DisplayFor(_ => entry.Bundesland.Id). @Html.DisplayFor(_ => entry.Bundesland.Name)</span>
+                    </a>
+                </h4>
+            </div>
+            <div id="@string.Format("collapse{0}", entry.Bundesland.Id)" class="panel-collapse collapse">
+                <div class="panel-body">
+                    @{
+                        var wkClass = "";
+                        foreach (var wk in entry.Wahlkreise)
+                         {
+                             <div class="@wkClass">
+                                 @Html.ActionLink(wk.Id + ". " + wk.Name, "Overview", "Wahlkreis", new {electionId = Model.ElectionId, wahlkreisId = wk.Id}, new {@class = "btn btn-default btn-block"})
+                             </div>
 
-        <div class="row">
-            @foreach (var wk in entry.Wahlkreise)
-            {
-                <div>
-                    @Html.ActionLink(wk.Name, "Overview", "Wahlkreis", new { electionId = Model.ElectionId, wahlkreisId = wk.Id}, null);
+                             wkClass = "margin-top-md";
+                         }
+                    }
                 </div>
-            }
+            </div>
         </div>
-        
-        <div></div>
     }
 </div>

@@ -251,10 +251,10 @@ namespace ElectionTool.Service
                         w => w.Election_Id == electionId && w.Wahlkreis_Id == wahlkreisId);
                 var firstVotes =
                     context.ErststimmeWahlkreisOverviews.Where(
-                        v => v.election_id == electionId && v.wahlkreis_id == wahlkreisId);
+                        v => v.election_id == electionId && v.wahlkreis_id == wahlkreisId && v.person_id != null);
                 var secondVotes =
                     context.ZweitstimmeWahlkreisOverviews.Where(
-                        v => v.Election_Id == electionId && v.Wahlkreis_Id == wahlkreisId);
+                        v => v.Election_Id == electionId && v.Wahlkreis_Id == wahlkreisId && v.Party_Id != null);
 
                 model = ViewModelMap.ViewModelMap.GetWahlkreisOverviewViewModel(electionId, basicOverview, firstVotes,
                     secondVotes);

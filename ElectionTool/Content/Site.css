@@ -70,6 +70,10 @@ textarea {
     margin-top: 50px;
 }
 
+.margin-bottom-sm {
+    margin-bottom: 5px;
+}
+
 .margin-bottom-md {
     margin-bottom: 10px;
 }
@@ -143,4 +147,32 @@ textarea {
 
 .party3 {
     background: yellow;
+}
+
+.panel-heading-c {
+    background-color: #428BCA;
+    border-bottom-color: #285E8E;
+    border-bottom-style: none;
+    border-bottom-width: 0px;
+    border-left-color: #285E8E;
+    border-right-color: #285E8E;
+    border-top-color: #285E8E;
+    border-top-left-radius: 3px;
+    border-top-right-radius: 3px;
+    box-sizing: border-box;
+    color: #FFF;
+    line-height: 20px;
+    padding-bottom: 10px;
+    padding-left: 15px;
+    padding-right: 15px;
+    padding-top: 10px;
+}
+
+.rectangle {
+    width: 20px;
+    height: 20px;
+    border-top-left-radius: 3px;
+    border-top-right-radius: 3px;
+    border-bottom-left-radius: 3px;
+    border-bottom-right-radius: 3px;
 }

@@ -12,7 +12,7 @@ namespace ElectionTool.Models
         public string Name { get; set; }
         public int CompareTo(BundeslandViewModel other)
         {
-            return other.Id - Id;
+            return Id - other.Id;
         }
     }
 }

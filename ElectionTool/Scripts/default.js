@@ -39,14 +39,14 @@
 });
 
 $(document).ready(function () {
-    $('#cloestWinnerTable').dataTable({
+    $('.datatable-simple').dataTable({
         "bPaginate": false,
         "aaSorting": [],
         "bFilter": false,
         "bInfo": false,
         "bSortClasses": false,
         "language": {
-            "zeroRecords": "Es gab keinen Direktkandidaten für diese Partei."
+            "zeroRecords": "Keine Daten verfügbar."
         }
     });
 });

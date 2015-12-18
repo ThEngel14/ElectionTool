@@ -149,8 +149,11 @@ namespace ElectionTool.ViewModelMap
             return new WahlkreisOverviewViewModel
             {
                 ElectionId = electionId,
-                WahlkreisId = overview.Wahlkreis_Id,
-                WahlkreisName = overview.Wahlkreis_Name,
+                Wahlkreis = new WahlkreisViewModel
+                {
+                    Id = overview.Wahlkreis_Id,
+                    Name = overview.Wahlkreis_Name
+                },
                 Participation = overview.Participation ?? -1,
                 Candidate = new PersonWithPartyViewModel
                 {

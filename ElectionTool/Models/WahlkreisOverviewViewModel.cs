@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Web;
 
@@ -9,15 +10,16 @@ namespace ElectionTool.Models
     {
         public int ElectionId { get; set; }
 
-        public int WahlkreisId { get; set; }
-
-        public string WahlkreisName { get; set; }
+        public WahlkreisViewModel Wahlkreis { get; set; }
 
         public PersonWithPartyViewModel Candidate { get; set; }
 
+        [Display(Name = "Wahlbeteiligung")]
         public decimal Participation { get; set; }
 
-        public decimal ParticipationPercent { get { return 100*Math.Round(Participation, 3); } }
+        [Display(Name = "Wahlbeteiligung")]
+        [DisplayFormat(DataFormatString = "{0:N2}")]
+        public decimal ParticipationPercent { get { return 100*Participation; } }
 
         public IEnumerable<WahlkreisFirstVotesViewModel> FirstVotes { get; set; }
 

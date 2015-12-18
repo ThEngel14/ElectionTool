@@ -29,11 +29,11 @@
                         @Html.DisplayFor(_ => wk.FirstVotes.Person.Fullname) (@Html.DisplayFor(_ => wk.FirstVotes.Party.Name))
                     </td>
                     <td data-filter="Erststimme=@wk.FirstVotes.Party.Name">
-                        <div class="btn btn-default btn-sm @string.Format("party{0}",wk.FirstVotes.Party.Id)"></div>
+                        <div class="rectangle @string.Format("party{0}",wk.FirstVotes.Party.Id)"></div>
                     </td>
                     <td class="text-right">@Html.DisplayFor(_ => wk.SecondVotes.Name)</td>
                     <td data-filter="Zweitstimme=@wk.SecondVotes.Name">
-                        <div class="btn btn-default btn-sm @string.Format("party{0}",wk.SecondVotes.Id)"></div>
+                        <div class="rectangle @string.Format("party{0}",wk.SecondVotes.Id)"></div>
                     </td>
                 </tr>
             }

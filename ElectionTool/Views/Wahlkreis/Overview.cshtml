@@ -1,67 +1,87 @@
 ﻿@model ElectionTool.Models.WahlkreisOverviewViewModel
 
 @{
-    ViewBag.Title = Model.WahlkreisName;
-    ViewBag.Description = string.Format("Wahlkreis: {0}", Model.WahlkreisName);
+    ViewBag.Title = Model.Wahlkreis.Name;
+    ViewBag.Description = string.Format("Wahlkreis {0}: {1}", Model.Wahlkreis.Id, Model.Wahlkreis.Name);
 }
 
 <div class="row">
-    <div>
-        <span>Direktkandidat:</span>
-        <span>@string.Format("{0} ({1})", Model.Candidate.Person.Fullname, Model.Candidate.Party.Name)</span>
+    <div class="col-md-2">
+        <div class="right"><strong>Direktkandidat:</strong></div>
+        <div class="right"><strong>@Html.DisplayNameFor(model => model.ParticipationPercent):</strong></div>
     </div>
-    <div>
-        <span>Wahlbeteiligung:</span>
-        <span>@Model.ParticipationPercent %</span>
+    <div class="col-md-10">
+        <div>@string.Format("{0} ({1})", Model.Candidate.Person.Fullname, Model.Candidate.Party.Name)</div>
+        <div>@Html.DisplayFor(model => model.ParticipationPercent) %</div>
     </div>
 </div>
 
-<div class="row">
-    <div>Erststimmen:</div>
-    <table>
+<div class="row margin-top-lg margin-right-md">
+    <div class="font-md margin-bottom-md"><strong>Erststimmen:</strong></div>
+    <table class="table table-striped datatable-simple">
         <thead>
         <tr>
-            <th>Name</th>
-            <th>Partei</th>
-            <th>Anzahl</th>
-            <th>Prozent</th>
-            <th>Zuletzt</th>
+            <th>@Html.DisplayNameFor(model => model.FirstVotes.First().Candidate.Person.Fullname)</th>
+            <th>@Html.DisplayNameFor(model => model.FirstVotes.First().Candidate.Party.Name)</th>
+            <th class="text-right">@Html.DisplayNameFor(model => model.FirstVotes.First().Vote.Amount)</th>
+            <th class="text-right">@Html.DisplayNameFor(model => model.FirstVotes.First().Vote.VotesPercent)</th>
+            <th class="text-right">@Html.DisplayNameFor(model => model.FirstVotes.First().Vote.LastVotesPercent)</th>
         </tr>
         </thead>
         <tbody>
         @foreach (var entry in Model.FirstVotes)
         {
             <tr>
-                <td>@entry.Candidate.Person.Fullname</td>
-                <td>@entry.Candidate.Party.Name</td>
-                <td>@entry.Vote.Amount</td>
-                <td>@entry.Vote.VotesPercent</td>
-                <td>@entry.Vote.LastVotesPercent</td>
+                <td data-order="@entry.Candidate.Person.Lastname @entry.Candidate.Person.Firstname">
+                    @Html.DisplayFor(_ => entry.Candidate.Person.Fullname)
+                </td>
+                <td>@Html.DisplayFor(_ => entry.Candidate.Party.Name)</td>
+                <td class="text-right">@Html.DisplayFor(_ => entry.Vote.Amount)</td>
+                <td class="text-right">@Html.DisplayFor(_ => entry.Vote.VotesPercent)</td>
+                <td class="text-right">
+                    @if (entry.Vote.LastVotesPercent > 0)
+                    {
+                        <span class="text-success">@Html.DisplayFor(_ => entry.Vote.LastVotesPercent)</span>
+                    }
+                    else if (entry.Vote.LastVotesPercent < 0)
+                    {
+                        <span class="text-danger">@Html.DisplayFor(_ => entry.Vote.LastVotesPercent)</span>
+                    }
+                </td>
             </tr>
         }
         </tbody>
     </table>
 </div>
 
-<div class="row">
-    <div>Zweitstimmen:</div>
-    <table>
+<div class="row margin-top-lg margin-right-md">
+    <div class="font-md margin-bottom-md"><strong>Zweitstimmen:</strong></div>
+    <table class="table table-striped datatable-simple">
         <thead>
             <tr>
-                <th>Partei</th>
-                <th>Anzahl</th>
-                <th>Prozent</th>
-                <th>Zuletzt</th>
+                <th>@Html.DisplayNameFor(model => model.SecondVotes.First().Party.Name)</th>
+                <th class="text-right">@Html.DisplayNameFor(model => model.SecondVotes.First().Vote.Amount)</th>
+                <th class="text-right">@Html.DisplayNameFor(model => model.SecondVotes.First().Vote.VotesPercent)</th>
+                <th class="text-right">@Html.DisplayNameFor(model => model.SecondVotes.First().Vote.LastVotesPercent)</th>
             </tr>
         </thead>
         <tbody>
             @foreach (var entry in Model.SecondVotes)
             {
                 <tr>
-                    <td>@entry.Party.Name</td>
-                    <td>@entry.Vote.Amount</td>
-                    <td>@entry.Vote.VotesPercent</td>
-                    <td>@entry.Vote.LastVotesPercent</td>
+                    <td>@Html.DisplayFor(_ => entry.Party.Name)</td>
+                    <td class="text-right">@Html.DisplayFor(_ => entry.Vote.Amount)</td>
+                    <td class="text-right">@Html.DisplayFor(_ => entry.Vote.VotesPercent)</td>
+                    <td class="text-right">
+                        @if (entry.Vote.LastVotesPercent > 0)
+                        {
+                            <span class="text-success">@Html.DisplayFor(_ => entry.Vote.LastVotesPercent)</span>
+                        }
+                        else if (entry.Vote.LastVotesPercent < 0)
+                        {
+                            <span class="text-danger">@Html.DisplayFor(_ => entry.Vote.LastVotesPercent)</span>
+                        }
+                    </td>
                 </tr>
             }
         </tbody>

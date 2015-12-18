@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Web;
 
@@ -15,6 +16,7 @@ namespace ElectionTool.Models
 
         public string Lastname { get; set; }
 
+        [Display(Name = "Name")]
         public string Fullname { get { return string.Format("{0} {1} {2}", Title, Firstname, Lastname); } }
 
         public int CompareTo(PersonViewModel other)
