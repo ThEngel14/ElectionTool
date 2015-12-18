@@ -75,6 +75,7 @@ $(document).ready(function () {
     $('#ueberhangTable').dataTable({
         "bPaginate": false,
         "aaSorting": [],
+        "aoColumns": [null, null, { "bSortable": false }, null],
         "bSortClasses": false,
         "language": {
             "lengthMenu": "Zeige _MENU_ Einträge",
