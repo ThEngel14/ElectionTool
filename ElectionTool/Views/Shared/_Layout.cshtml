@@ -75,10 +75,10 @@
         {
             <div class="navbar-collapse collapse">
                 <ul class="nav navbar-nav navbar-right">
-                    <li>
+                    <li class="@string.Format("{0}", electionId == 1 ? "active-election": "")" style="padding-left: 15px;">
                         <a href=@link2009 class="navbar-brand">2009</a>
                     </li>
-                    <li>
+                    <li class="@string.Format("{0}", electionId == 2 ? "active-election": "")" style="padding-left: 15px;">
                         <a href=@link2013 class="navbar-brand">2013</a>
                     </li>
                 </ul>

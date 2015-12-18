@@ -5,24 +5,28 @@
     ViewBag.Description = "Verteilung der Sitze im Bundestag";
 }
 
-<div class="row">
-    <table>
+<div class="row margin-right-md">
+    <table id="seatsTable" class="table table-striped">
         <thead>
-            <tr>
-                <th>Partei</th>
-                <th>Sitze</th>
-                <th>Prozent</th>
-                <th>Zuletzt</th>
-            </tr>
+        <tr>
+            <th></th>
+            <th>@Html.DisplayNameFor(model => model.SeatsDistribution.First().Party.Name)</th>
+            <th class="text-right">Sitze</th>
+            <th class="text-right">@Html.DisplayNameFor(model => model.SeatsDistribution.First().Seats.VotesPercent)</th>
+            <th class="text-right">@Html.DisplayNameFor(model => model.SeatsDistribution.First().Seats.LastVotesPercent)</th>
+        </tr>
         </thead>
         <tbody>
             @foreach (var entry in Model.SeatsDistribution)
             {
                 <tr>
-                    <td>@entry.Party</td>
-                    <td>@entry.Seats.Amount</td>
-                    <td>@entry.Seats.VotesPercent</td>
-                    <td>@entry.Seats.LastVotesPercent</td>
+                    <td>
+                        <div class="rectangle @string.Format("party{0}", entry.Party.Id)"></div>
+                    </td>
+                    <td>@Html.DisplayFor(_ => entry.Party.Name)</td>
+                    <td class="text-right">@Html.DisplayFor(_ => entry.Seats.Amount)</td>
+                    <td class="text-right">@Html.DisplayFor(_ => entry.Seats.VotesPercent)</td>
+                    <td class="text-right">@Html.DisplayFor(_ => entry.Seats.LastVotesPercent)</td>
                 </tr>
             }
         </tbody>

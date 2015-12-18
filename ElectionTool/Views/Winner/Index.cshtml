@@ -24,7 +24,7 @@
             {
                 <tr>
                     <td>@Html.DisplayFor(_ => bLand.Bundesland.Name)</td>
-                    <td>@Html.ActionLink(wk.Name, "Overview", "Wahlkreis", new { electionId = Model.ElectionId, wahlkreisId = wk.Id }, new { style = "color: #333;" })</td>
+                    <td>@Html.ActionLink(wk.Name, "Overview", "Wahlkreis", new { electionId = Model.ElectionId, wahlkreisId = wk.Id }, null)</td>
                     <td data-order="@wk.FirstVotes.Person.Lastname @wk.FirstVotes.Person.Firstname">
                         @Html.DisplayFor(_ => wk.FirstVotes.Person.Fullname) (@Html.DisplayFor(_ => wk.FirstVotes.Party.Name))
                     </td>

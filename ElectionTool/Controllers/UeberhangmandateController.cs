@@ -9,15 +9,15 @@ namespace ElectionTool.Controllers
 {
     public class UeberhangmandateController : BaseController
     {
-        private static readonly IDictionary<int, UeberhangmandatViewModel> Models = new Dictionary<int, UeberhangmandatViewModel>();
+        private static readonly IDictionary<int, UeberhangmandatViewModel> UeberhangModels = new Dictionary<int, UeberhangmandatViewModel>();
 
         // GET: Ueberhangmandate
         public ActionResult Index(int electionId)
         {
-            if(!IsCustomCaching() || !Models.ContainsKey(electionId))
-                Models[electionId] = Service.GetUeberhangmandate(electionId);
+            if(!IsCustomCaching() || !UeberhangModels.ContainsKey(electionId))
+                UeberhangModels[electionId] = Service.GetUeberhangmandate(electionId);
 
-            return View(Models[electionId]);
+            return View(UeberhangModels[electionId]);
         }
     }
 }

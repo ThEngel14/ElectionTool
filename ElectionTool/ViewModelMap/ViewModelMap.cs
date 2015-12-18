@@ -73,15 +73,17 @@ namespace ElectionTool.ViewModelMap
             return seatsParty.Select(entry => new SeatsBundestagViewModel
             {
                 ElectionId = entry.Election_Id,
-                PartyId = entry.Party_Id ?? -1,
-                Party = entry.PartyName,
+                Party = new PartyViewModel
+                {
+                    Id = entry.Party_Id ?? -1,
+                    Name = entry.PartyName
+                },
 
                 //TODO: add last election result to view
                 Seats = new VoteViewModel
                 {
                     Amount = entry.SeatsParty ?? -1,
-                    Votes = entry.PercentParty ?? -1,
-                    LastVotes = 0
+                    Votes = entry.PercentParty ?? -1
                 }
             });
         }
@@ -89,7 +91,20 @@ namespace ElectionTool.ViewModelMap
         public static IEnumerable<MemberOfBundestagViewModel> GetMemberOfBundestagViewModels(
             IEnumerable<ParliamentMember> members)
         {
-            return members.Select(member => new MemberOfBundestagViewModel
+            return members.Select(GetMemberOfBundestagViewModel);
+        }
+
+        public static MemberOfBundestagViewModel GetMemberOfBundestagViewModel(ParliamentMember member)
+        {
+            var wahlkreis = member.Wahlkreis_Id == null
+                ? null
+                : new WahlkreisViewModel
+                {
+                    Id = (int) member.Wahlkreis_Id,
+                    Name = member.Wahlkreis_Name
+                };
+
+            return new MemberOfBundestagViewModel
             {
                 ElectionId = member.Election_Id,
 
@@ -108,9 +123,13 @@ namespace ElectionTool.ViewModelMap
                         Name = member.Party_Name
                     }
                 },
-                Bundesland = member.Bundesland_Name,
-                Wahlkreis = member.Wahlkreis_Name
-            });
+                Bundesland = new BundeslandViewModel
+                {
+                    Id = member.Bundesland_Id,
+                    Name = member.Bundesland_Name
+                },
+                Wahlkreis = wahlkreis
+            };
         }
 
         public static IEnumerable<BundeslandWithWahlkreiseViewModel<WahlkreisViewModel>> GetBundeslandListViewModels(IEnumerable<Bundesland> bundeslands,

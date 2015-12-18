@@ -211,7 +211,6 @@ namespace ElectionTool.Service
             using (var context = new ElectionDBEntities())
             {
                 context.Database.CommandTimeout = 5000000;
-
                 var members = context.ParliamentMembers.Where(m => m.Election_Id == electionId);
 
                 var allMembers = ViewModelMap.ViewModelMap.GetMemberOfBundestagViewModels(members).ToList();

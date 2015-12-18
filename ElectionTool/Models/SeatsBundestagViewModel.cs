@@ -10,9 +10,7 @@ namespace ElectionTool.Models
     {
         public int ElectionId { get; set; }
 
-        public int PartyId { get; set; }
-
-        public string Party { get; set; }
+        public PartyViewModel Party { get; set; }
 
         public VoteViewModel Seats { get; set; }
 

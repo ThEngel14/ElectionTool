@@ -5,24 +5,33 @@
     ViewBag.Description = "Mitglieder des Bundestags";
 }
 
-<div class="row">
-    <table>
+<div class="row margin-right-md">
+    <table id="memberBundestagTable" class="table table-striped">
         <thead>
             <tr>
-                <th>Name</th>
-                <th>Partei</th>
-                <th>Bundesland</th>
-                <th>Wahlkreis</th>
+                <th>@Html.DisplayNameFor(model => model.Members.First().Member.Person.Fullname)</th>
+                <th width="60">@Html.DisplayNameFor(model => model.Members.First().Member.Party.Name)</th>
+                <th></th>
+                <th>@Html.DisplayNameFor(model => model.Members.First().Bundesland)</th>
+                <th>@Html.DisplayNameFor(model => model.Members.First().Wahlkreis)</th>
             </tr>
         </thead>
         <tbody>
             @foreach (var entry in Model.Members)
             {
                 <tr>
-                    <td>@entry.Member.Person.Fullname</td>
-                    <td>@entry.Member.Party.Name</td>
-                    <td>@entry.Bundesland</td>
-                    <td>@entry.Wahlkreis</td>
+                    <td data-order="@entry.Member.Person.Lastname @entry.Member.Person.Firstname">
+                        @Html.DisplayFor(_ => entry.Member.Person.Fullname)
+                    </td>
+                    <td>@Html.DisplayFor(_ => entry.Member.Party.Name)</td>
+                    <th><div class="rectangle @string.Format("party{0}", entry.Member.Party.Id)"></div></th>
+                    <td>@Html.DisplayFor(_ => entry.Bundesland.Name)</td>
+                    <td data-filter="@string.Format("{0} {1}", entry.Wahlkreis, entry.Wahlkreis != null ? "Direktkandidat" : "Listenplatz")">
+                        @if (entry.Wahlkreis != null)
+                        {
+                            @Html.ActionLink(entry.Wahlkreis.Name, "Overview", "Wahlkreis", new {electionId = Model.ElectionId, wahlkreisId = entry.Wahlkreis.Id}, null)
+                        }
+                    </td>
                 </tr>
             }
         </tbody>

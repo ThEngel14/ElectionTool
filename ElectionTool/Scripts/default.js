@@ -85,3 +85,37 @@ $(document).ready(function () {
         }
     });
 });
+
+$(document).ready(function () {
+    $('#memberBundestagTable').dataTable({
+        "lengthMenu": [[10, 25, 50, -1], [10, 25, 50, "Alle"]],
+        "aaSorting": [],
+        "aoColumns": [null, null, { "bSortable": false }, null, null],
+        "bSortClasses": false,
+        "language": {
+            "lengthMenu": "Zeige _MENU_ Einträge",
+            "sSearch": "Suchen: ",
+            "oPaginate": {
+                "sNext": "Nächste",
+                "sPrevious": "Vorherige"
+            },
+            "info": "Zeigt _START_ bis _END_ von _TOTAL_ Einträgen",
+            "infoFiltered": "(gefiltert von _MAX_ Einträgen)",
+            "zeroRecords": "Keine Einträge zum Anzeigen verfügbar"
+        }
+    });
+});
+
+$(document).ready(function () {
+    $('#seatsTable').dataTable({
+        "bPaginate": false,
+        "aaSorting": [],
+        "aoColumns": [{ "bSortable": false }, null, null, null, null],
+        "bFilter": false,
+        "bInfo": false,
+        "bSortClasses": false,
+        "language": {
+            "zeroRecords": "Keine Daten verfügbar."
+        }
+    });
+});
