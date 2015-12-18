@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Web;
 
@@ -13,6 +14,7 @@ namespace ElectionTool.Models
 
         public PartyViewModel Party { get; set; }
 
+        [Display(Name = "Anzahl")]
         public int Amount { get; set; }
 
         public int CompareTo(UeberhangmandatEntryViewModel other)

@@ -5,22 +5,22 @@
     ViewBag.Description = "Anzahl der Überhangmandate";
 }
 
-<div class="row">
-    <table>
+<div class="row margin-right-md">
+    <table id="ueberhangTable" class="table table-striped">
         <thead>
             <tr>
-                <th>Bundesland</th>
-                <th>Partei</th>
-                <th>Anzahl</th>
+                <th>@Html.DisplayNameFor(model => model.Mandate.First().Bundesland.Name)</th>
+                <th>@Html.DisplayNameFor(model => model.Mandate.First().Party.Name)</th>
+                <th>@Html.DisplayNameFor(model => model.Mandate.First().Amount)</th>
             </tr>
         </thead>
         <tbody>
             @foreach (var entry in Model.Mandate)
             {
                 <tr>
-                    <td>@entry.Bundesland.Name</td>
-                    <td>@entry.Party.Name</td>
-                    <td>@entry.Amount</td>
+                    <td>@Html.DisplayFor(_ => entry.Bundesland.Name)</td>
+                    <td>@Html.DisplayFor(_ => entry.Party.Name)</td>
+                    <td>@Html.DisplayFor(_ => entry.Amount)</td>
                 </tr>
             }
         </tbody>

@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Web;
 
@@ -9,6 +10,7 @@ namespace ElectionTool.Models
     {
         public int Id { get; set; }
 
+        [Display(Name = "Bundesland")]
         public string Name { get; set; }
         public int CompareTo(BundeslandViewModel other)
         {

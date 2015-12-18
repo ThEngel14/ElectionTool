@@ -116,5 +116,13 @@ namespace ElectionTool.Controllers
 
             return stringBuilder.ToString();
         }
+
+        protected bool IsCustomCaching()
+        {
+            var caching = false;
+            bool.TryParse(WebConfigurationManager.AppSettings["CustomCaching"], out caching);
+
+            return caching;
+        }
     }
 }

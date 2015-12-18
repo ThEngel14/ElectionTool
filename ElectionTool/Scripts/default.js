@@ -70,3 +70,18 @@ $(document).ready(function () {
         }
     });
 });
+
+$(document).ready(function () {
+    $('#ueberhangTable').dataTable({
+        "bPaginate": false,
+        "aaSorting": [],
+        "bSortClasses": false,
+        "language": {
+            "lengthMenu": "Zeige _MENU_ Einträge",
+            "sSearch": "Suchen: ",
+            "info": "Zeigt _START_ bis _END_ von _TOTAL_ Einträgen",
+            "infoFiltered": "(gefiltert von _MAX_ Einträgen)",
+            "zeroRecords": "Keine Einträge zum Anzeigen verfügbar"
+        }
+    });
+});
