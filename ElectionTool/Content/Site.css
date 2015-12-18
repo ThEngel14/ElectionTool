@@ -123,3 +123,24 @@ textarea {
 {
     color: Red;
 }
+
+.party6,
+.party1 {
+    background: black;
+}
+
+.party2 {
+    background: red;
+}
+
+.party4 {
+    background: violet;
+}
+
+.party5 {
+    background: green;
+}
+
+.party3 {
+    background: yellow;
+}
