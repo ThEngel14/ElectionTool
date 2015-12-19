@@ -73,7 +73,7 @@ namespace ElectionTool.ViewModelMap
             return seatsParty.Select(entry => new SeatsBundestagViewModel
             {
                 ElectionId = entry.Election_Id,
-                Party = new PartyViewModel
+                Party = new PartyColorViewModel
                 {
                     Id = entry.Party_Id ?? -1,
                     Name = entry.PartyName

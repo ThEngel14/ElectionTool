@@ -10,9 +10,17 @@ namespace ElectionTool.Models
     {
         public int ElectionId { get; set; }
 
-        public PartyViewModel Party { get; set; }
+        public PartyColorViewModel Party { get; set; }
 
         public VoteViewModel Seats { get; set; }
+
+        public string DiagrammInfo
+        {
+            get
+            {
+                return string.Format("{0}-{1}-{2}-{3}", Party.Name, Seats.Amount, Party.Color, Party.Highlight);
+            }
+        }
 
         public int CompareTo(SeatsBundestagViewModel other)
         {

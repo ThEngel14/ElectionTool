@@ -6,7 +6,36 @@
 }
 
 <div class="row margin-right-md">
-    <table id="seatsTable" class="table table-striped">
+    <center class="margin-top-md"><canvas id="bundestagChart" width="300" height="300"></canvas></center>
+
+    <script type="text/javascript">
+        var pieData = [];
+
+        var dataString = "@Model.DiagrammInfo";
+
+        var parts = dataString.split('$');
+
+        for (var i = 0; i < parts.length; i++) {
+            var info = parts[i].split('-');
+
+            pieData.push({
+                value: info[1],
+                color: "" + info[2],
+                highlight: "" + info[3],
+                label: ("" + info[0]).replace("&#220;", "Ü")
+            });
+        }
+
+        var pieOptions = {
+            segmentShowStroke: true,
+            animateScale: true,
+            animationSteps: 1
+        }
+        var countries = document.getElementById("bundestagChart").getContext("2d");
+        new Chart(countries).Pie(pieData, pieOptions);
+    </script>
+
+    <table id="seatsTable" class="table table-striped padding-top-lg">
         <thead>
         <tr>
             <th></th>
@@ -17,18 +46,18 @@
         </tr>
         </thead>
         <tbody>
-            @foreach (var entry in Model.SeatsDistribution)
-            {
-                <tr>
-                    <td>
-                        <div class="rectangle @string.Format("party{0}", entry.Party.Id)"></div>
-                    </td>
-                    <td>@Html.DisplayFor(_ => entry.Party.Name)</td>
-                    <td class="text-right">@Html.DisplayFor(_ => entry.Seats.Amount)</td>
-                    <td class="text-right">@Html.DisplayFor(_ => entry.Seats.VotesPercent)</td>
-                    <td class="text-right">@Html.DisplayFor(_ => entry.Seats.LastVotesPercent)</td>
-                </tr>
-            }
+        @foreach (var entry in Model.SeatsDistribution)
+        {
+            <tr>
+                <td>
+                    <div class="rectangle @string.Format("party{0}", entry.Party.Id)"></div>
+                </td>
+                <td>@Html.DisplayFor(_ => entry.Party.Name)</td>
+                <td class="text-right">@Html.DisplayFor(_ => entry.Seats.Amount)</td>
+                <td class="text-right">@Html.DisplayFor(_ => entry.Seats.VotesPercent)</td>
+                <td class="text-right">@Html.DisplayFor(_ => entry.Seats.LastVotesPercent)</td>
+            </tr>
+        }
         </tbody>
     </table>
 </div>

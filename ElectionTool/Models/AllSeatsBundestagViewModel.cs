@@ -9,6 +9,11 @@ namespace ElectionTool.Models
     {
         public int ElectionId { get; set; }
 
-        public IEnumerable<SeatsBundestagViewModel> SeatsDistribution { get; set; } 
+        public IEnumerable<SeatsBundestagViewModel> SeatsDistribution { get; set; }
+
+        public string DiagrammInfo
+        {
+            get { return string.Join("$", SeatsDistribution.Select(s => s.DiagrammInfo)); }
+        }
     }
 }
