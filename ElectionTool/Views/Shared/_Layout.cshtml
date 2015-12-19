@@ -1,5 +1,4 @@
-﻿@using ElectionTool.Controllers
-@{
+﻿@{
     var electionId = 0;
     
     var url = HttpContext.Current.Request.Url.AbsolutePath;
@@ -37,11 +36,9 @@
     var showMenu = url.StartsWith("/Home") || url.Length <= 1;
     var showSidebar = !url.StartsWith("/Vote") && !showMenu;
 
-    var messageBag = TempData["Messages"] as ElectionTool.Models.MessageBag;
-    if (messageBag == null)
-    {
-        messageBag = new ElectionTool.Models.MessageBag();
-    }
+    var messageBag = TempData["Messages"] as ElectionTool.Models.MessageBag ?? new ElectionTool.Models.MessageBag();
+
+    var isError = ViewBag.IsError as bool? ?? false;
 }
 
 <!DOCTYPE html>
@@ -103,45 +100,27 @@
                     <li>@Html.ActionLink("6. Knappste Sieger", "Index", "ClosestWinner", new {electionId = @electionId}, null)</li>
                 </ol>
             </div>
+        }
 
-            <div class="col-md-9">
-                <div class="container body-content well">
-                    <div style="padding-left: 20px;">
-                        <div class="row">
-                            <div class="col-md-12" id="messagebag">
-                                @Html.DisplayFor(model => messageBag)
-                            </div>
+        <div class="@string.Format("col-md-{0}", showSidebar ? 9 : 12)">
+            <div class="container body-content well">
+                <div style="padding-left: 20px;">
+                    <div class="row">
+                        <div class="col-md-12" id="messagebag">
+                            @Html.Partial("MessageBag", messageBag)
                         </div>
-
-                        <div class="row">
-                            <div class="description-analysis">@ViewBag.Description</div>
-                        </div>
-
-                        @RenderBody()
                     </div>
+
+                    <div class="row">
+                        <div class="@string.Format("description-{0}", showSidebar ? "analysis" : "vote") @string.Format("{0}", isError ? "text-danger" : "")">
+                            @ViewBag.Description
+                        </div>
+                    </div>
+
+                    @RenderBody()
                 </div>
             </div>
-        }
-        else
-        {
-            <div class="col-md-12">
-                <div class="container body-content well">
-                    <div style="padding-left: 20px;">
-                        <div class="row">
-                            <div class="col-md-12" id="messagebag">
-                                @Html.Partial("MessageBag", messageBag)
-                            </div>
-                        </div>
-
-                        <div class="row">
-                            <div class="description-vote">@ViewBag.Description</div>
-                        </div>
-
-                        @RenderBody()
-                    </div>
-                </div>
-            </div>
-        }
+        </div>
     </div>
 </div>
 

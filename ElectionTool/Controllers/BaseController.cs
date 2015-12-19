@@ -19,10 +19,16 @@ namespace ElectionTool.Controllers
             Service = new ElectionService();
         }
 
+        protected void AddStackTraceInfoToViewBag()
+        {
+            TempData["AllowedToSeeStackTrace"] = AllowedToSeeStackTrace();
+        }
+
         protected T CallService<T>(Func<T> func)
         {
             try
             {
+                AddStackTraceInfoToViewBag();
                 return func.Invoke();
             }
             catch (PublicException e)
@@ -41,6 +47,7 @@ namespace ElectionTool.Controllers
         {
             try
             {
+                AddStackTraceInfoToViewBag();
                 action.Invoke();
             }
             catch (PublicException e)

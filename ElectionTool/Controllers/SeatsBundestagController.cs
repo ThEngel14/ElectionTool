@@ -14,8 +14,11 @@ namespace ElectionTool.Controllers
         // GET: SeatsBundestag
         public ActionResult Index(int electionId)
         {
-            if(!IsCustomCaching() || !SeatsModels.ContainsKey(electionId))
-                SeatsModels[electionId] = Service.GetAllSeatsBundestag(electionId);
+            if(!IsCustomCaching() || !SeatsModels.ContainsKey(electionId) || SeatsModels[electionId] == null)
+                SeatsModels[electionId] = CallService(() => Service.GetAllSeatsBundestag(electionId));
+
+            //Needed because of caching
+            AddStackTraceInfoToViewBag();
 
             return View(SeatsModels[electionId]);
         }

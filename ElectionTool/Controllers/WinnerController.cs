@@ -11,7 +11,7 @@ namespace ElectionTool.Controllers
         // GET: Winner
         public ActionResult Index(int electionId)
         {
-            var model = Service.GetWinnerWahlkreise(electionId);
+            var model = CallService(() => Service.GetWinnerWahlkreise(electionId));
 
             return View(model);
         }

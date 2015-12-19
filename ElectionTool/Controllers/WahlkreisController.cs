@@ -11,7 +11,7 @@ namespace ElectionTool.Controllers
         // GET: Wahlkreis
         public ActionResult Index(int electionId)
         {
-            var model = Service.GetWahlkreisSelection(electionId);
+            var model = CallService(() => Service.GetWahlkreisSelection(electionId));
 
             return View(model);
         }
@@ -19,7 +19,7 @@ namespace ElectionTool.Controllers
         // GET: Wahlkreis/Overview
         public ActionResult Overview(int electionId, int wahlkreisId)
         {
-            var model = Service.GetWahlkreisOverview(electionId, wahlkreisId);
+            var model = CallService(() => Service.GetWahlkreisOverview(electionId, wahlkreisId));
 
             return View(model);
         }

@@ -14,8 +14,11 @@ namespace ElectionTool.Controllers
         // GET: Ueberhangmandate
         public ActionResult Index(int electionId)
         {
-            if(!IsCustomCaching() || !UeberhangModels.ContainsKey(electionId))
-                UeberhangModels[electionId] = Service.GetUeberhangmandate(electionId);
+            if(!IsCustomCaching() || !UeberhangModels.ContainsKey(electionId) || UeberhangModels[electionId] == null)
+                UeberhangModels[electionId] = CallService(() => Service.GetUeberhangmandate(electionId));
+
+            //Needed because of caching
+            AddStackTraceInfoToViewBag();
 
             return View(UeberhangModels[electionId]);
         }

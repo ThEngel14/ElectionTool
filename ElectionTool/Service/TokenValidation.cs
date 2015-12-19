@@ -185,7 +185,7 @@ namespace ElectionTool.Service
                     return Tuple.Create(electionId, wahlkreisId);
                 }
             }
-            catch (Exception e)
+            catch (Exception)
             {
                 return null;
             }
