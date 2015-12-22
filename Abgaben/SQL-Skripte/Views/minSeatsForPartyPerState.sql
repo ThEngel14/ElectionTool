@@ -1,7 +1,7 @@
 USE [ElectionDB]
 GO
 
-/****** Object:  View [dbo].[DistributionWithinStates]    Script Date: 21.12.2015 16:02:17 ******/
+/****** Object:  View [dbo].[DistributionWithinStates]    Script Date: 22.12.2015 08:37:46 ******/
 SET ANSI_NULLS ON
 GO
 
@@ -16,24 +16,33 @@ GO
 
 
 
-ALTER View [dbo].[DistributionWithinStates] as
+
+
+alter View [dbo].[DistributionWithinStates] as
 --stored as "MinSeatsForPartyPerState.sql
 
 
-with Both as (
+--with Both as (
 --output max(seats gained by zweitstimme, seats gained by erststimme
 select distinct
 	z.Election_Id as Election_Id, 
 	z.Bundesland_Id as Bundesland_Id,
-	iif(e.NumberOfVictories > z.Seats, e.NumberOfVictories, z.seats ) as Seats ,
+	iif(coalesce(e.NumberOfVictories,0) > coalesce(z.Seats,0), e.NumberOfVictories, z.seats ) as Seats,
 	z.Party_Id as Party_Id
- from seatsGainedByZweitstimme z, SeatsGainedByErststimme e
- where e.Election_Id=z.Election_Id 
+ from seatsGainedByZweitstimme z full join  SeatsGainedByErststimme e
+ on e.Election_Id=z.Election_Id 
  and e.Bundesland_Id=z.Bundesland_Id
  and e.Party_Id = z.Party_Id
+  
+ 
+ 
+ 
+ 
+ 
+ /* faster but incorrect
  ),
 
- --same as above, but for parties that did not gain any second votes and are therefore not handle in Both-Table
+ --same as above, but for parties that did not gain any second votes and are therefore not handled in Both-Table
  OnlyErststimme as (
  select 
 	e.Election_Id as Election_Id, 
@@ -63,12 +72,14 @@ select distinct
  
  )
  
-
+ 
  select * from Both b
+  
+ --union select * from OnlyErststimme oe
 
- union select * from OnlyErststimme oe
+ --union select * from OnlyZweitstimme oz
+ */
 
- union select * from OnlyZweitstimme oz
 
 
 
