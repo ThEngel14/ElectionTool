@@ -1,0 +1,1 @@
+Algorithms used are described in Sitzzuteilung (available only in German) and Sainte-Lagué method. Sitzzuteilung_background describes mathematical background and is also only available in German. 

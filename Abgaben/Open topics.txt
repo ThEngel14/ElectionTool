@@ -18,7 +18,9 @@ backend:
 ==========================================================
 frontend:
 
-
+=========================================================
+div:
+rawdate englisch umbenennen falls wegen den zugreifenden cs programmen möglich
 ==========================================================
 Dokumentation: (template vorhanden!)
 
