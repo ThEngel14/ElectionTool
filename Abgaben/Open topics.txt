@@ -5,21 +5,18 @@ gesamtzahl stimmen (erst und zweitstimme) + ungültige von Rechtswegen angezeigt 
 
 =========================================================
 Management:
--Strukur und Ordner einrichten (dashboard, abgabebereit, ppt, Materialien) DONE
 
+Präsentation erstellen
 
 =========================================================
 backend:
 -optimieren
--Sitzverteilung für die Bundestagswahl 2009 ist falsch (FDP kommt nicht vor...) !!!WICHTIG!!!
 -Sitzverteilung Ergebnis für letzte Wahl bereitstellen
 -alle views und procedures als create queries in richtiger Reihenfolge aneinanderhängen für Portabilitätszwecke
 -SQL kommentare inklusive Englisch
 
 ==========================================================
 frontend:
--Diagramm für die Sitzverteilung DONE
--In den Controllern alle Service-Methoden in der Methode CallService aufrufen (wegen Exception-Handling) DONE
 
 
 ==========================================================
@@ -32,11 +29,9 @@ existing doku an Ist-zustand anpassen + doku
 -homework4:_dataImport
 -homework5:_code
 -homework6:_code
--homework7: _benchmarking
+-homework7: _done
 -homework9: done
 -extra glossar:  angefangen. unsicher ob wir technische aspekte auch rein schreiben wollen oder nur die Wahl-spezifika 
 
 
-Gui-Mockups an Ist-Zustand anpassen (nicht notwendig)
-
-Präsentation erstellen
+Gui-Mockups files umbenennen
