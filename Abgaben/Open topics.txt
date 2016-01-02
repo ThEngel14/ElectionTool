@@ -22,16 +22,4 @@ frontend:
 ==========================================================
 Dokumentation: (template vorhanden!)
 
-existing doku an Ist-zustand anpassen + doku
--homework1: done
--homework2: done 
--homework3: done
--homework4:_dataImport
--homework5:_code
--homework6:_code
--homework7: _done
--homework9: done
--extra glossar:  angefangen. unsicher ob wir technische aspekte auch rein schreiben wollen oder nur die Wahl-spezifika 
-
-
-Gui-Mockups files umbenennen
+evtl code erklären.. 
