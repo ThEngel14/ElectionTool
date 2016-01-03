@@ -12,8 +12,7 @@ Präsentation erstellen
 backend:
 -optimieren
 -Sitzverteilung Ergebnis für letzte Wahl bereitstellen
--alle views und procedures als create queries in richtiger Reihenfolge aneinanderhängen für Portabilitätszwecke
--SQL kommentare inklusive Englisch
+
 
 ==========================================================
 frontend:

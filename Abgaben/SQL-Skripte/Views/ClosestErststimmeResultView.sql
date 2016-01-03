@@ -38,7 +38,8 @@ from BaseErststimmeAggregated e
 	left join PartyAffiliation af 
 		on p.Id = af.Person_Id 
 		and e.Election_Id = af.Election_Id
-	left join Party pa on af.Party_Id = pa.Id
+	left join Party pa 
+		on af.Party_Id = pa.Id
 GO
 
 

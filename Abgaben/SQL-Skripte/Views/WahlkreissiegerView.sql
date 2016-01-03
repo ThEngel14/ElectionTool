@@ -29,10 +29,6 @@ from ErststimmeAmount votes
 						and	votes.Wahlkreis_Id = alle.Wahlkreis_Id)
  
 
-
- 
-
-
 GO
 
 

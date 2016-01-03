@@ -25,7 +25,7 @@ BEGIN
 
 
 	--temporary seats of each state, added up for comparison with actual amount of seats
-	/*this is a clone-father*/
+	/*this is a clone*/
 	set @SumOfSeats = (select Sum(temp.seats)
 						from (select round(1.0* poB.Count/@TempDivisor, 0) as seats
 								from dbo.PopulationBundesland poB 

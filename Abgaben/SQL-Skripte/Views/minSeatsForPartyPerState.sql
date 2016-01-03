@@ -24,19 +24,6 @@ select distinct
 			and e.Bundesland_Id=z.Bundesland_Id
 			and e.Party_Id = z.Party_Id
  
-
-
-
-
-
-
-
-
-
-
-
-
-
 GO
 
 

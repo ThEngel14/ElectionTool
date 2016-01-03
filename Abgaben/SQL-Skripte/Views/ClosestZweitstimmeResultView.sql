@@ -11,8 +11,14 @@ GO
 ALTER View [dbo].[ClosestZweitstimmeResult] as
 
 With ExtendedZweitstimmeAggregated (Election_Id, Wahlkreis_Id, Party_Id, Amount, RankAmount) as (
-		select Election_Id, Wahlkreis_Id, Party_Id, Amount, rank() over (partition by election_id, wahlkreis_id order by amount desc)
+		select Election_Id, 
+			Wahlkreis_Id, 
+			Party_Id,
+			Amount,
+			rank() over (partition by election_id, wahlkreis_id order by amount desc)
 		from zweitstimmeAggregated),
+
+
 	 BaseZweitstimmeAggregated (Election_Id, Wahlkreis_Id, Party_Id, Amount, RankAmount, RankCompare) as (
 		select *, case when RankAmount = 1 then 2 else 1 end
 		from ExtendedZweitstimmeAggregated

@@ -11,16 +11,22 @@ GO
 ALTER View [dbo].[ErststimmeWahlkreisOverview] as
 
 With OverallVotes (Election_Id, Wahlkreis_Id, Overall) as (
-		select election_id, wahlkreis_id, sum(amount)
+		select election_id, 
+			wahlkreis_id, 
+			sum(amount)
 		from ErststimmeAggregated
 		group by election_id, wahlkreis_id),
 
 	 Overview as (
 		select e.election_id,
 			   e.wahlkreis_id, k.name as Wahlkreis_Name,
-			   e.person_id, p.title, p.firstname, p.lastname,
-			   pa.id as Party_Id, pa.name as Party_Name,
-			   e.amount as Votes, o.overall, 1.0*e.amount / o.overall as PercentVotes
+			   e.person_id, p.title, 
+			   p.firstname, p.lastname,
+			   pa.id as Party_Id, 
+			   pa.name as Party_Name,
+			   e.amount as Votes, 
+			   o.overall, 
+			   1.0*e.amount / o.overall as PercentVotes
 		from ErststimmeAggregated e 
 			join OverallVotes o 
 				on e.Election_Id = o.Election_Id 

@@ -30,7 +30,6 @@ where 1.00*(select sum(votes1.Amount) as PartyVotes
 		group by votes2.Election_Id)
 
 	>=0.05
-		--end of computation of all parties above 5% threshold
 )
 
 
@@ -42,33 +41,6 @@ union
 	having count(*) > 2 
 	and wks.MemberOfParty!= 36 --36:= dummy party_Id for electable firstvote candidates who are not party affiliates.
 )
-
-				 
-
-
-
-
-
-/* read from Zweitstimme votes -> bad runtime
-(select votes.Election_Id, p.Id, p.Name  
-from dbo.Party p, Zweitstimme votes
-where (select count(*) as PartyVotes
-		from  Zweitstimme votes1
-		where votes1.Party_Id=p.Id
-		group by votes1.Party_Id) 
-		/
-		(select COUNT(*) as OverallVotes
-		from Zweitstimme)
-		>=0.05
-		--end of computation of all parties above 5% threshold
-
---		union all
--- parteien mit mehr als 2 kreissieger aus Wahlkreissieger view mit Party=party
-
-);
-*/
-
-
 
 GO
 

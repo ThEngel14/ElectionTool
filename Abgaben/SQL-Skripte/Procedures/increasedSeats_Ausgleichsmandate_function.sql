@@ -9,21 +9,11 @@ SET QUOTED_IDENTIFIER ON
 GO
 
 
---drop function Divisor;
---GO
 alter  FUNCTION [dbo].[IncreasingSeats_Ausgleichsmandate](@Election_ID int) RETURNS @tempSeats table(Party_Id int, temp_Seats int, minSeats int, ZweitstimmenCount int) AS
 
 /*THIS FUNCTION IS A CLONE | APPLY CHANGES IN THE TEMPLATE TO ALL OTHER DIVISOR FUNCTIONS*/
 
 BEGIN
-	--start value: sum up the min amount of seats for every party
-
-	/*	--deklaration already in the function header
-		declare @tempSeats table (
-			Party_Id int, 
-			temp_Seats int, 
-			minSeats int,
-			ZweitstimmenCount int);*/
 		
 		INSERT INTO @tempSeats (Party_Id, temp_Seats, minSeats,ZweitstimmenCount)
 		SELECT msppB.Party_Id, 0, msppB.minSeatsBund, (select sum(zsA.Amount)
@@ -41,14 +31,14 @@ BEGIN
 								from PopulationBundesland poB
 								where poB.Election_Id=@Election_ID);
 								 
-		declare @counter int = (select count(*) from @tempSeats where temp_Seats < minSeats);
+		declare @counter int = (select count(*) from @tempSeats where temp_Seats < minSeats); --counts for how many parties the invariant is not fullfilled
 
 		
 
 	while @counter>0
 	begin
 		
-				set @MinSeats = @MinSeats +1; --if there are to less seats dirtibuted to the parties, increase number of seats and update seat amount 
+				set @MinSeats = @MinSeats +1; --if there are to less seats distributed to the parties, increase number of seats and update seat amount 
 
 				update @tempSeats
 				set temp_Seats =  round( 1.0*ZweitstimmenCount/(1.0*@SumPopulation/@MinSeats),0)

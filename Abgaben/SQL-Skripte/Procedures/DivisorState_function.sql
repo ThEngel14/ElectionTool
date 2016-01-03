@@ -18,8 +18,6 @@ ALTER  FUNCTION [dbo].[DivisorState](@Election_ID int, @Bundesland_ID int, @init
 
 /*alter  FUNCTION [dbo].[DivisorState_test](@Election_ID int, @Bundesland_ID int, @initDivisor int, @Seats int, @PartyList as PartyListParam READONLY ) RETURNS int AS
 
-properbly best way weil n auswertungen weniger: 
-parties5 als parameter übergeben
 */
 
 

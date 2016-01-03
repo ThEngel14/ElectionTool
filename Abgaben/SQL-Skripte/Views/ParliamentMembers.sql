@@ -54,7 +54,7 @@ fillUp(Number, Election_Id, Bundesland_Id, Party_Id) as (
 		and z.Party_Id = e.Party_Id),
 
 
---temp view for all candidates for each party in each state, where candidate not a wahlkreissieger
+--temp view for all candidates for each party in each state, where candidate not a firstvote winner
 CandidateTemp(Election_Id, Bundesland_Id, Party_Id, Person_Id, Rang) as (
 	Select cand.Election_Id,
 		cand.Bundesland_Id, 
@@ -72,7 +72,7 @@ where cand.Election_Id = partyAff.Election_Id
 
 
 
---alle Wahlkreissieger
+--alle firstvote winners
 
 select wks.ElectionID as Election_Id, 
 	   pers.Id as Person_Id,
