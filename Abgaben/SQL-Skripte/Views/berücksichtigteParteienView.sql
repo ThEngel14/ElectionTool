@@ -1,7 +1,7 @@
 USE [ElectionDB]
 GO
 
-/****** Object:  View [dbo].[Parties5]    Script Date: 13.11.2015 11:11:16 ******/
+/****** Object:  View [dbo].[Parties5]    Script Date: 03.01.2016 13:41:41 ******/
 SET ANSI_NULLS ON
 GO
 
@@ -11,8 +11,10 @@ GO
 
 
 
+
 ALTER view [dbo].[Parties5]  as
 
+--parties above 5% threshold u parties with 3 or more Direktmandate
 (
 select votes.Election_Id, p.Id  
 from Party p, ZweitstimmeAmount votes
@@ -33,13 +35,12 @@ where 1.00*(select sum(votes1.Amount) as PartyVotes
 
 
 union
- (-- parteien mit mehr als 2 kreissieger aus Wahlkreissieger view mit Party=party
+ ( 
 	select wks.ElectionID, wks.MemberOfParty
 	from Wahlkreissieger wks
-	--where wks.ElectionID=fZS.Election_Id
 	group by wks.ElectionID, wks.MemberOfParty
 	having count(*) > 2 
-	and wks.MemberOfParty!= 36 --36:= party_Id der parteilosen. Die soll nicht in die "Parteien der über 5% gezählt werden)
+	and wks.MemberOfParty!= 36 --36:= dummy party_Id for electable firstvote candidates who are not party affiliates.
 )
 
 				 
@@ -66,6 +67,7 @@ where (select count(*) as PartyVotes
 
 );
 */
+
 
 
 GO
