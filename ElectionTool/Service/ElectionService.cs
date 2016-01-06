@@ -48,7 +48,7 @@ namespace ElectionTool.Service
 
             using (var context = new ElectionDBEntities())
             {
-                var elections = context.Elections.Where(e => e.Id < 3);
+                var elections = context.Elections.Where(e => e.Id >= 3);
                 var electionVms = ViewModelMap.ViewModelMap.GetElectionViewModels(elections).ToList();
 
                 var wahlkreise = context.Wahlkreis;
@@ -159,17 +159,16 @@ namespace ElectionTool.Service
                             model.VotedPartyId));
                 }
 
-                // Election_Id is always set to 3 so that the generated votes for past elections are not changed
                 context.Erststimmes.Add(new Erststimme
                 {
-                    Election_Id = 3, //token.GetElectionId(),
+                    Election_Id = token.GetElectionId(),
                     Wahlkreis_Id = token.GetWahlkreisId(),
                     Person_Id = model.VotedPersonId > 0 ? model.VotedPersonId : null,
                 });
 
                 context.Zweitstimmes.Add(new Zweitstimme
                 {
-                    Election_Id = 3, //token.GetElectionId(),
+                    Election_Id = token.GetElectionId(),
                     Wahlkreis_Id = token.GetWahlkreisId(),
                     Party_Id = model.VotedPartyId > 0 ? model.VotedPartyId : null
                 });
