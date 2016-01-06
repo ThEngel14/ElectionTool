@@ -20,6 +20,8 @@ namespace ElectionTool.Controllers
             // Needed because of caching
             AddStackTraceInfoToViewBag();
 
+            GetMessageBag().Info.Add(@"Mit <strong>Direktkandidat</strong> bzw. <strong>Listenplatz</strong> kann auch nach der Art gefiltert werden, wie ein Abgeordneter in den Bundestag gekommen ist.");
+
             return View(MemberModels[electionId]);
         }
     }
