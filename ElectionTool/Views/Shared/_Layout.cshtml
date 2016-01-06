@@ -104,20 +104,22 @@
 
         <div class="@string.Format("col-md-{0}", showSidebar ? 9 : 12)">
             <div class="container body-content well">
-                <div style="padding-left: 20px;">
-                    <div class="row">
+                <div>
+                    <div class="row padding-left-md">
                         <div class="col-md-12" id="messagebag">
                             @Html.Partial("MessageBag", messageBag)
                         </div>
                     </div>
 
-                    <div class="row">
+                    <div class="row" style="padding-left: 20px;">
                         <div class="@string.Format("description-{0}", showSidebar ? "analysis" : "vote") @string.Format("{0}", isError ? "text-danger" : "")">
                             @ViewBag.Description
                         </div>
                     </div>
 
-                    @RenderBody()
+                    <div style="padding-left: 20px;">
+                        @RenderBody()
+                    </div>
                 </div>
             </div>
         </div>

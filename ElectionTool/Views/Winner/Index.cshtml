@@ -9,7 +9,7 @@
     <table id="winnerTable" class="table table-striped display">
         <thead>
         <tr>
-            <th>@Html.DisplayNameFor(model => model.Bundeslands)</th>
+            <th>@Html.DisplayNameFor(model => model.Bundeslands.First().Bundesland)</th>
             <th>@Html.DisplayNameFor(model => model.Bundeslands.First().Wahlkreise)</th>
             <th>Erststimme</th>
             <th class="no-sort"></th>
@@ -24,16 +24,16 @@
             {
                 <tr>
                     <td>@Html.DisplayFor(_ => bLand.Bundesland.Name)</td>
-                    <td>@Html.ActionLink(wk.Name, "Overview", "Wahlkreis", new { electionId = Model.ElectionId, wahlkreisId = wk.Id }, null)</td>
+                    <td>@Html.ActionLink(wk.Name, "Overview", "Wahlkreis", new {electionId = Model.ElectionId, wahlkreisId = wk.Id}, null)</td>
                     <td data-order="@wk.FirstVotes.Person.Lastname @wk.FirstVotes.Person.Firstname">
                         @Html.DisplayFor(_ => wk.FirstVotes.Person.Fullname) (@Html.DisplayFor(_ => wk.FirstVotes.Party.Name))
                     </td>
                     <td data-filter="Erststimme=@wk.FirstVotes.Party.Name">
-                        <div class="rectangle @string.Format("party{0}",wk.FirstVotes.Party.Id)"></div>
+                        <div class="rectangle @string.Format("party{0}", wk.FirstVotes.Party.Id)"></div>
                     </td>
                     <td class="text-right">@Html.DisplayFor(_ => wk.SecondVotes.Name)</td>
                     <td data-filter="Zweitstimme=@wk.SecondVotes.Name">
-                        <div class="rectangle @string.Format("party{0}",wk.SecondVotes.Id)"></div>
+                        <div class="rectangle @string.Format("party{0}", wk.SecondVotes.Id)"></div>
                     </td>
                 </tr>
             }

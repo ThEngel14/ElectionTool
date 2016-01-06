@@ -13,6 +13,8 @@ namespace ElectionTool.Controllers
         {
             var model = CallService(() => Service.GetWinnerWahlkreise(electionId));
 
+            GetMessageBag().Info.Add(@"Mit <strong>Erststimme=Partei</strong> bzw. <strong>Zweiststimme=Partei</strong> kann auch nach der Siegerpartei nach Erststimmen bzw. Zweitstimmen gesucht werden.");
+
             return View(model);
         }
     }
