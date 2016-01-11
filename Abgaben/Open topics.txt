@@ -1,28 +1,22 @@
 Webdevelopment:
-Http-Timeout
-gesamtzahl stimmen (erst und zweitstimme) + ungültige von Rechtswegen angezeigt werden (siehe 2_Lastenheft)
+-Http-Timeout
+-gesamtzahl stimmen (erst und zweitstimme) + ungültige von Rechtswegen angezeigt werden (siehe 2_Lastenheft)
 
 
 =========================================================
 Management:
-
-Präsentation erstellen
+-Präsentation erstellen
 
 =========================================================
 backend:
 -optimieren
--Sitzverteilung Ergebnis für letzte Wahl bereitstellen
-- sitzverteilungs-view: double statt prozent in spalte percentage. ändern in view + in allen views
--FDP-problem: statt full join left join verwendet mit kommentar "sondernfall XY wird nicht behandelt. nach angabe erlaubt"
-
 
 ==========================================================
 frontend:
 
 =========================================================
 div:
-rawdate englisch umbenennen falls wegen den zugreifenden cs programmen möglich
-==========================================================
-Dokumentation: (template vorhanden!)
 
-evtl code erklären.. 
+==========================================================
+Dokumentation: 
+-evtl code erklären.. 
