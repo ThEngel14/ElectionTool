@@ -638,7 +638,7 @@ select distinct
 	iif(coalesce(e.NumberOfVictories,0) > coalesce(z.Seats,0), e.NumberOfVictories, z.seats ) as Seats,
 	z.Party_Id as Party_Id
  from seatsGainedByZweitstimme z 
-		full join  SeatsGainedByErststimme e
+		left join  SeatsGainedByErststimme e
 			on e.Election_Id=z.Election_Id 
 			and e.Bundesland_Id=z.Bundesland_Id
 			and e.Party_Id = z.Party_Id
@@ -691,9 +691,9 @@ select  s.Id as Election_Id,
 	s.Party_Id as Party_Id, 
 	p.Name as Party_Name, 
 	s.temp_Seats as SeatsParty,
-	(Select round(100.0* s.temp_Seats	/ 	(select sum(x.temp_Seats) from Seats x
+	(Select 1.0*s.temp_Seats	/ 	(select sum(x.temp_Seats) from Seats x
 											where s.Id = x.Id)
-			,2))
+			)
 	 as PercentParty
 from Seats s, Party p
 where p.Id = s.Party_Id
