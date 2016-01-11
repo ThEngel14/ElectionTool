@@ -12,6 +12,8 @@ Präsentation erstellen
 backend:
 -optimieren
 -Sitzverteilung Ergebnis für letzte Wahl bereitstellen
+- sitzverteilungs-view: double statt prozent in spalte percentage. ändern in view + in allen views
+-FDP-problem: statt full join left join verwendet mit kommentar "sondernfall XY wird nicht behandelt. nach angabe erlaubt"
 
 
 ==========================================================
