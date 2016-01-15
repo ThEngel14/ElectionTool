@@ -283,7 +283,11 @@ namespace ElectionTool.ViewModelMap
                     Lastname = e.Lastname
                 },
                 Difference = e.Diff ?? 0,
-                Wahlkreis = e.Wahlkreis_Name
+                Wahlkreis = new WahlkreisViewModel
+                {
+                    Id = e.Wahlkreis_Id,
+                    Name = e.Wahlkreis_Name
+                }
             });
         }
 

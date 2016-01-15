@@ -20,7 +20,7 @@ namespace ElectionTool.Models
 
         public decimal? LastVotes { get; set; }
 
-        [Display(Name = "Zuletzt (in %)")]
+        [Display(Name = "Zur letzen Wahl")]
         [DisplayFormat(DataFormatString = "{0:N2}")]
         public decimal? LastVotesPercent { get { return 100*LastVotes; } }
 

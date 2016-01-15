@@ -13,8 +13,8 @@
         <table class="table table-striped datatable-simple">
             <thead>
             <tr>
-                <th>Name</th>
-                <th>Wahlkreis</th>
+                <th>@Html.DisplayNameFor(model => model.ClosestWinner.First().Person.Fullname)</th>
+                <th>@Html.DisplayNameFor(model => model.ClosestWinner.First().Wahlkreis.Name)</th>
                 <th class="text-right">
                     @if (isAllWinner)
                     {
@@ -31,9 +31,9 @@
             @foreach (var entry in Model.ClosestWinner)
             {
                 <tr>
-                    <td data-order="@entry.Person.Lastname @entry.Person.Firstname">@entry.Person.Fullname</td>
-                    <td>@entry.Wahlkreis</td>
-                    <td class="text-right">@entry.Difference</td>
+                    <td data-order="@entry.Person.Lastname @entry.Person.Firstname">@Html.DisplayFor(_ => entry.Person.Fullname)</td>
+                    <td>@Html.ActionLink(entry.Wahlkreis.Name, "Overview", "Wahlkreis", new { electionId = Model.ElectionId, wahlkreisId = entry.Wahlkreis.Id }, null)</td>
+                    <td class="text-right">@Html.DisplayFor(_ => entry.Difference)</td>
                 </tr>
             }
             </tbody>

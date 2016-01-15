@@ -9,7 +9,7 @@ namespace ElectionTool.Models
     {
         public PersonViewModel Person { get; set; }
 
-        public string Wahlkreis { get; set; }
+        public WahlkreisViewModel Wahlkreis { get; set; }
 
         public int Difference { get; set; }
 

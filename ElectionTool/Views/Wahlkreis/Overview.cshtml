@@ -16,74 +16,98 @@
     </div>
 </div>
 
-<div class="row margin-top-lg margin-right-md">
-    <div class="font-md margin-bottom-md"><strong>Erststimmen:</strong></div>
-    <table class="table table-striped datatable-simple">
-        <thead>
-        <tr>
-            <th>@Html.DisplayNameFor(model => model.FirstVotes.First().Candidate.Person.Fullname)</th>
-            <th>@Html.DisplayNameFor(model => model.FirstVotes.First().Candidate.Party.Name)</th>
-            <th class="text-right">@Html.DisplayNameFor(model => model.FirstVotes.First().Vote.Amount)</th>
-            <th class="text-right">@Html.DisplayNameFor(model => model.FirstVotes.First().Vote.VotesPercent)</th>
-            <th class="text-right">@Html.DisplayNameFor(model => model.FirstVotes.First().Vote.LastVotesPercent)</th>
-        </tr>
-        </thead>
-        <tbody>
-        @foreach (var entry in Model.FirstVotes)
-        {
-            <tr>
-                <td data-order="@entry.Candidate.Person.Lastname @entry.Candidate.Person.Firstname">
-                    @Html.DisplayFor(_ => entry.Candidate.Person.Fullname)
-                </td>
-                <td>@Html.DisplayFor(_ => entry.Candidate.Party.Name)</td>
-                <td class="text-right">@Html.DisplayFor(_ => entry.Vote.Amount)</td>
-                <td class="text-right">@Html.DisplayFor(_ => entry.Vote.VotesPercent)</td>
-                <td class="text-right">
-                    @if (entry.Vote.LastVotesPercent > 0)
-                    {
-                        <span class="text-success">@Html.DisplayFor(_ => entry.Vote.LastVotesPercent)</span>
-                    }
-                    else if (entry.Vote.LastVotesPercent < 0)
-                    {
-                        <span class="text-danger">@Html.DisplayFor(_ => entry.Vote.LastVotesPercent)</span>
-                    }
-                </td>
-            </tr>
-        }
-        </tbody>
-    </table>
+<div class="row margin-top-md margin-right-md">
+    <div class="panel panel-default">
+        <div class="panel-heading-c">
+            <h4 class="panel-title">
+                <a data-toggle="collapse" href="#collapseFirstVotes">
+                    <span class="font-md">Erststimmen</span>
+                </a>
+            </h4>
+        </div>
+        <div id="collapseFirstVotes" class="panel-collapse collapse in">
+            <div class="panel-body">
+                <table class="table table-striped datatable-simple">
+                    <thead>
+                        <tr>
+                            <th>@Html.DisplayNameFor(model => model.FirstVotes.First().Candidate.Person.Fullname)</th>
+                            <th>@Html.DisplayNameFor(model => model.FirstVotes.First().Candidate.Party.Name)</th>
+                            <th class="text-right">@Html.DisplayNameFor(model => model.FirstVotes.First().Vote.Amount)</th>
+                            <th class="text-right">@Html.DisplayNameFor(model => model.FirstVotes.First().Vote.VotesPercent)</th>
+                            <th class="text-right">@Html.DisplayNameFor(model => model.FirstVotes.First().Vote.LastVotesPercent)</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @foreach (var entry in Model.FirstVotes)
+                        {
+                            <tr>
+                                <td data-order="@entry.Candidate.Person.Lastname @entry.Candidate.Person.Firstname">
+                                    @Html.DisplayFor(_ => entry.Candidate.Person.Fullname)
+                                </td>
+                                <td>@Html.DisplayFor(_ => entry.Candidate.Party.Name)</td>
+                                <td class="text-right">@Html.DisplayFor(_ => entry.Vote.Amount)</td>
+                                <td class="text-right">@Html.DisplayFor(_ => entry.Vote.VotesPercent) %</td>
+                                <td class="text-right">
+                                    @if (entry.Vote.LastVotesPercent > 0)
+                                    {
+                                        <span class="text-success">@Html.DisplayFor(_ => entry.Vote.LastVotesPercent) %</span>
+                                    }
+                                    else if (entry.Vote.LastVotesPercent < 0)
+                                    {
+                                        <span class="text-danger">@Html.DisplayFor(_ => entry.Vote.LastVotesPercent) %</span>
+                                    }
+                                </td>
+                            </tr>
+                        }
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
 </div>
 
-<div class="row margin-top-lg margin-right-md">
-    <div class="font-md margin-bottom-md"><strong>Zweitstimmen:</strong></div>
-    <table class="table table-striped datatable-simple">
-        <thead>
-            <tr>
-                <th>@Html.DisplayNameFor(model => model.SecondVotes.First().Party.Name)</th>
-                <th class="text-right">@Html.DisplayNameFor(model => model.SecondVotes.First().Vote.Amount)</th>
-                <th class="text-right">@Html.DisplayNameFor(model => model.SecondVotes.First().Vote.VotesPercent)</th>
-                <th class="text-right">@Html.DisplayNameFor(model => model.SecondVotes.First().Vote.LastVotesPercent)</th>
-            </tr>
-        </thead>
-        <tbody>
-            @foreach (var entry in Model.SecondVotes)
-            {
-                <tr>
-                    <td>@Html.DisplayFor(_ => entry.Party.Name)</td>
-                    <td class="text-right">@Html.DisplayFor(_ => entry.Vote.Amount)</td>
-                    <td class="text-right">@Html.DisplayFor(_ => entry.Vote.VotesPercent)</td>
-                    <td class="text-right">
-                        @if (entry.Vote.LastVotesPercent > 0)
+<div class="row margin-right-md">
+    <div class="panel panel-default">
+        <div class="panel-heading-c">
+            <h4 class="panel-title">
+                <a data-toggle="collapse" data-parent="#accordion" href="#collapseSecondVotes">
+                    <span class="font-md">Zweitstimmen</span>
+                </a>
+            </h4>
+        </div>
+        <div id="collapseSecondVotes" class="panel-collapse collapse in">
+            <div class="panel-body">
+                <table class="table table-striped datatable-simple">
+                    <thead>
+                        <tr>
+                            <th>@Html.DisplayNameFor(model => model.SecondVotes.First().Party.Name)</th>
+                            <th class="text-right">@Html.DisplayNameFor(model => model.SecondVotes.First().Vote.Amount)</th>
+                            <th class="text-right">@Html.DisplayNameFor(model => model.SecondVotes.First().Vote.VotesPercent)</th>
+                            <th class="text-right">@Html.DisplayNameFor(model => model.SecondVotes.First().Vote.LastVotesPercent)</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @foreach (var entry in Model.SecondVotes)
                         {
-                            <span class="text-success">@Html.DisplayFor(_ => entry.Vote.LastVotesPercent)</span>
+                            <tr>
+                                <td>@Html.DisplayFor(_ => entry.Party.Name)</td>
+                                <td class="text-right">@Html.DisplayFor(_ => entry.Vote.Amount)</td>
+                                <td class="text-right">@Html.DisplayFor(_ => entry.Vote.VotesPercent) %</td>
+                                <td class="text-right">
+                                    @if (entry.Vote.LastVotesPercent > 0)
+                                    {
+                                        <span class="text-success">@Html.DisplayFor(_ => entry.Vote.LastVotesPercent) %</span>
+                                    }
+                                    else if (entry.Vote.LastVotesPercent < 0)
+                                    {
+                                        <span class="text-danger">@Html.DisplayFor(_ => entry.Vote.LastVotesPercent) %</span>
+                                    }
+                                </td>
+                            </tr>
                         }
-                        else if (entry.Vote.LastVotesPercent < 0)
-                        {
-                            <span class="text-danger">@Html.DisplayFor(_ => entry.Vote.LastVotesPercent)</span>
-                        }
-                    </td>
-                </tr>
-            }
-        </tbody>
-    </table>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
 </div>
