@@ -10,9 +10,14 @@
         <div class="right"><strong>Direktkandidat:</strong></div>
         <div class="right"><strong>@Html.DisplayNameFor(model => model.ParticipationPercent):</strong></div>
     </div>
-    <div class="col-md-10">
+    <div class="col-md-6">
         <div>@string.Format("{0} ({1})", Model.Candidate.Person.Fullname, Model.Candidate.Party.Name)</div>
         <div>@Html.DisplayFor(model => model.ParticipationPercent) %</div>
+    </div>
+    <div class="col-md-4">
+        <div align="center" style="margin-top: -60px;" title="@Model.Bundesland.Name">
+            <img src="@string.Format("/Images/{0}.png", Model.Bundesland.Name)" alt="" height="90">
+        </div>
     </div>
 </div>
 

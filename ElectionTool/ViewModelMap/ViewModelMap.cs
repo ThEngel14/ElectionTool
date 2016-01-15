@@ -161,13 +161,18 @@ namespace ElectionTool.ViewModelMap
             });
         }
 
-        public static WahlkreisOverviewViewModel GetWahlkreisOverviewViewModel(int electionId,
+        public static WahlkreisOverviewViewModel GetWahlkreisOverviewViewModel(int electionId, Bundesland bundesland,
             BasicWahlkreisOverview overview, IEnumerable<ErststimmeWahlkreisOverview> firstVotes,
             IEnumerable<ZweitstimmeWahlkreisOverview> secondVotes)
         {
             return new WahlkreisOverviewViewModel
             {
                 ElectionId = electionId,
+                Bundesland = new BundeslandViewModel
+                {
+                    Id = bundesland.Id,
+                    Name = bundesland.Name
+                },
                 Wahlkreis = new WahlkreisViewModel
                 {
                     Id = overview.Wahlkreis_Id,

@@ -10,6 +10,8 @@ namespace ElectionTool.Models
     {
         public int ElectionId { get; set; }
 
+        public BundeslandViewModel Bundesland { get; set; }
+
         public WahlkreisViewModel Wahlkreis { get; set; }
 
         public PersonWithPartyViewModel Candidate { get; set; }

@@ -244,6 +244,8 @@ namespace ElectionTool.Service
 
             using (var context = new ElectionDBEntities())
             {
+                var bundesland = context.Wahlkreis.Single(w => w.Id == wahlkreisId).Bundesland;
+
                 var basicOverview =
                     context.BasicWahlkreisOverviews.Single(
                         w => w.Election_Id == electionId && w.Wahlkreis_Id == wahlkreisId);
@@ -254,7 +256,7 @@ namespace ElectionTool.Service
                     context.ZweitstimmeWahlkreisOverviews.Where(
                         v => v.Election_Id == electionId && v.Wahlkreis_Id == wahlkreisId && v.Party_Id != null);
 
-                model = ViewModelMap.ViewModelMap.GetWahlkreisOverviewViewModel(electionId, basicOverview, firstVotes,
+                model = ViewModelMap.ViewModelMap.GetWahlkreisOverviewViewModel(electionId, bundesland, basicOverview, firstVotes,
                     secondVotes);
             }
 

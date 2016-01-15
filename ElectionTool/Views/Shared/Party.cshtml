@@ -1,0 +1,8 @@
+﻿@model ElectionTool.Models.PartyViewModel
+
+<div class="col-md-7">
+    @Html.DisplayFor(model => model.Name)
+</div>
+<div class="col-md-5">
+    <div style="float: right" class="padding-left-md rectangle @string.Format("party{0}", Model.Id)"></div>
+</div>

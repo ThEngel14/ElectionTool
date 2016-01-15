@@ -35,10 +35,9 @@
         new Chart(countries).Pie(pieData, pieOptions);
     </script>
 
-    <table id="seatsTable" class="table table-striped padding-top-lg">
+    <table class="table table-striped datatable-simple padding-top-lg">
         <thead>
         <tr>
-            <th></th>
             <th>@Html.DisplayNameFor(model => model.SeatsDistribution.First().Party.Name)</th>
             <th class="text-right">Sitze</th>
             <th class="text-right">@Html.DisplayNameFor(model => model.SeatsDistribution.First().Seats.VotesPercent)</th>
@@ -49,9 +48,13 @@
         {
             <tr>
                 <td>
-                    <div class="rectangle @string.Format("party{0}", entry.Party.Id)"></div>
+                    <div class="col-md-2">
+                        <div class="rectangle @string.Format("party{0}", entry.Party.Id)"></div>
+                    </div>
+                    <div class="col-md-10">
+                        @Html.DisplayFor(_ => entry.Party.Name)
+                    </div>
                 </td>
-                <td>@Html.DisplayFor(_ => entry.Party.Name)</td>
                 <td class="text-right">@Html.DisplayFor(_ => entry.Seats.Amount)</td>
                 <td class="text-right">@Html.DisplayFor(_ => entry.Seats.VotesPercent) %</td>
             </tr>

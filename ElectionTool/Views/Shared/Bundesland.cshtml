@@ -1,0 +1,10 @@
+﻿@model ElectionTool.Models.BundeslandViewModel
+
+<div class="col-md-4" style="padding-left: 0; padding-right: 0;">
+    <div class="margin-top-sm" align="center">
+        <img src="@string.Format("/Images/{0}.png", Model.Name)" alt="" height="22">
+    </div>
+</div>
+<div class="col-md-8">
+    @Html.DisplayFor(model => model.Name)
+</div>

@@ -52,10 +52,9 @@ $(document).ready(function () {
 });
 
 $(document).ready(function () {
-    $('#winnerTable').dataTable({
+    $('.datatable-filter').dataTable({
         "lengthMenu": [ [10, 25, 50, -1], [10, 25, 50, "Alle"] ],
         "aaSorting": [],
-        "aoColumns": [null,null,null,{ "bSortable": false },null,{ "bSortable": false}],
         "bSortClasses": false,
         "language": {
             "lengthMenu": "Zeige _MENU_ Einträge",
@@ -67,56 +66,6 @@ $(document).ready(function () {
             "info": "Zeigt _START_ bis _END_ von _TOTAL_ Einträgen",
             "infoFiltered": "(gefiltert von _MAX_ Einträgen)",
             "zeroRecords": "Keine Einträge zum Anzeigen verfügbar"
-        }
-    });
-});
-
-$(document).ready(function () {
-    $('#ueberhangTable').dataTable({
-        "bPaginate": false,
-        "aaSorting": [],
-        "aoColumns": [null, null, { "bSortable": false }, null],
-        "bSortClasses": false,
-        "language": {
-            "lengthMenu": "Zeige _MENU_ Einträge",
-            "sSearch": "Suchen: ",
-            "info": "Zeigt _START_ bis _END_ von _TOTAL_ Einträgen",
-            "infoFiltered": "(gefiltert von _MAX_ Einträgen)",
-            "zeroRecords": "Keine Einträge zum Anzeigen verfügbar"
-        }
-    });
-});
-
-$(document).ready(function () {
-    $('#memberBundestagTable').dataTable({
-        "lengthMenu": [[10, 25, 50, -1], [10, 25, 50, "Alle"]],
-        "aaSorting": [],
-        "aoColumns": [null, null, { "bSortable": false }, null, null],
-        "bSortClasses": false,
-        "language": {
-            "lengthMenu": "Zeige _MENU_ Einträge",
-            "sSearch": "Suchen: ",
-            "oPaginate": {
-                "sNext": "Nächste",
-                "sPrevious": "Vorherige"
-            },
-            "info": "Zeigt _START_ bis _END_ von _TOTAL_ Einträgen",
-            "infoFiltered": "(gefiltert von _MAX_ Einträgen)",
-            "zeroRecords": "Keine Einträge zum Anzeigen verfügbar"
-        }
-    });
-});
-
-$(document).ready(function () {
-    $('#seatsTable').dataTable({
-        "bPaginate": false,
-        "aaSorting": [],
-        "aoColumns": [{ "bSortable": false }, null, null, null, null],
-        "bFilter": false,
-        "bInfo": false,
-        "bSortClasses": false,
-        "language": {
-            "zeroRecords": "Keine Daten verfügbar."
         }
     });
 });
