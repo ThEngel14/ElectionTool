@@ -1,4 +1,3 @@
-*.config
 *.xml
 *.manifest
 *.user
@@ -14,7 +13,6 @@
 packages
 
 ElectionTool/bin/*
-ElectionTool/Entity Framework/*
 ElectionTool/fonts/*
 ElectionTool/obj/*
 ElectionTool/Properties
@@ -24,7 +22,5 @@ ElectionTool.DataImport/bin/*
 ElectionTool.DataImport/obj/*
 ElectionTool.DataImport/Properties
 
-ElectionTool.UnitTests/bin/*
-ElectionTool.UnitTests/obj/*
-ElectionTool.UnitTests/Properties
+ElectionTool.UnitTests/*
 UpgradeLog.htm

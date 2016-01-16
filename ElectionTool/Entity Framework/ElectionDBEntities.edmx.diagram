@@ -1,0 +1,88 @@
+<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+ <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <!-- Diagram content (shape and connector positions) -->
+    <edmx:Diagrams>
+      <Diagram DiagramId="25f23084f1cf44eab69e9cb869f7e7d0" Name="Diagram1">
+        <EntityTypeShape EntityType="DBModel.AllowedToElect" Width="1.5" PointX="5.25" PointY="34.875" IsExpanded="true" />
+        <EntityTypeShape EntityType="DBModel.AllowedToElectAmount" Width="1.5" PointX="3" PointY="21.625" IsExpanded="true" />
+        <EntityTypeShape EntityType="DBModel.Bundesland" Width="1.5" PointX="0.75" PointY="17" IsExpanded="true" />
+        <EntityTypeShape EntityType="DBModel.CandidateList" Width="1.5" PointX="5.25" PointY="37.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="DBModel.Election" Width="1.5" PointX="0.75" PointY="20.5" IsExpanded="true" />
+        <EntityTypeShape EntityType="DBModel.Erststimme" Width="1.5" PointX="8.25" PointY="34.625" IsExpanded="true" />
+        <EntityTypeShape EntityType="DBModel.ErststimmeAmount" Width="1.5" PointX="5.25" PointY="30.625" IsExpanded="true" />
+        <EntityTypeShape EntityType="DBModel.InvalidTokenRequest" Width="1.5" PointX="0.75" PointY="0.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="DBModel.IsElectableCandidate" Width="1.5" PointX="8.25" PointY="38.875" IsExpanded="true" />
+        <EntityTypeShape EntityType="DBModel.IsElectableParty" Width="1.5" PointX="3" PointY="18.375" IsExpanded="true" />
+        <EntityTypeShape EntityType="DBModel.ParticipationAmount" Width="1.5" PointX="3" PointY="24.625" IsExpanded="true" />
+        <EntityTypeShape EntityType="DBModel.Party" Width="1.5" PointX="0.75" PointY="14" IsExpanded="true" />
+        <EntityTypeShape EntityType="DBModel.PartyAffiliation" Width="1.5" PointX="8.25" PointY="30.875" IsExpanded="true" />
+        <EntityTypeShape EntityType="DBModel.Person" Width="1.5" PointX="3" PointY="48" IsExpanded="true" />
+        <EntityTypeShape EntityType="DBModel.PopulationBundesland" Width="1.5" PointX="6" PointY="21.625" IsExpanded="true" />
+        <EntityTypeShape EntityType="DBModel.UsedToken" Width="1.5" PointX="2.75" PointY="0.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="DBModel.Wahlkrei" Width="1.5" PointX="3.75" PointY="13.875" IsExpanded="true" />
+        <EntityTypeShape EntityType="DBModel.Zweitstimme" Width="1.5" PointX="6" PointY="18.375" IsExpanded="true" />
+        <EntityTypeShape EntityType="DBModel.ZweitstimmeAmount" Width="1.5" PointX="6" PointY="24.25" IsExpanded="true" />
+        <EntityTypeShape EntityType="DBModel.BasicWahlkreisOverview" Width="1.5" PointX="2.75" PointY="2.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="DBModel.ClosestErststimmeResult" Width="1.5" PointX="4.75" PointY="0.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="DBModel.ClosestZweitstimmeResult" Width="1.5" PointX="4.75" PointY="5.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="DBModel.DistributionWithinState" Width="1.5" PointX="6.75" PointY="0.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="DBModel.ElectionParticipation" Width="1.5" PointX="0.75" PointY="6.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="DBModel.ErststimmeAggregated" Width="1.5" PointX="6.75" PointY="3.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="DBModel.ErststimmeWahlkreisOverview" Width="1.5" PointX="6.75" PointY="6.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="DBModel.minSeatsPerParty_Bundeslevel" Width="1.5" PointX="8.75" PointY="0.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="DBModel.ParliamentMember" Width="1.5" PointX="8.75" PointY="3.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="DBModel.Parties5" Width="1.5" PointX="8.75" PointY="8.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="DBModel.SeatsGainedByErststimme" Width="1.5" PointX="0.75" PointY="9.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="DBModel.seatsGainedByZweitstimme" Width="1.5" PointX="2.75" PointY="9.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="DBModel.SeatsPerState" Width="1.5" PointX="10.75" PointY="0.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="DBModel.Sitzverteilung" Width="1.5" PointX="10.75" PointY="3.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="DBModel.Ueberhangmandate" Width="1.5" PointX="10.75" PointY="6.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="DBModel.Wahlkreissieger" Width="1.5" PointX="10.75" PointY="9.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="DBModel.WinnerErststimme" Width="1.5" PointX="5.75" PointY="11.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="DBModel.WinnerFirstAndSecondVote" Width="1.5" PointX="7.75" PointY="11.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="DBModel.WinnerZweitstimme" Width="1.5" PointX="12.75" PointY="0.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="DBModel.ZweitstimmeAggregated" Width="1.5" PointX="12.75" PointY="3.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="DBModel.ZweitstimmenState" Width="1.5" PointX="12.75" PointY="6.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="DBModel.ZweitstimmeWahlkreisOverview" Width="1.5" PointX="12.75" PointY="9.75" IsExpanded="true" />
+        <AssociationConnector Association="DBModel.FK__AllowedTo__Elect__6FE99F9F" ManuallyRouted="false" />
+        <AssociationConnector Association="DBModel.FK__AllowedTo__Perso__5CD6CB2B" ManuallyRouted="false" />
+        <AssociationConnector Association="DBModel.FK__AllowedTo__Wahlk__267ABA7A" ManuallyRouted="false" />
+        <AssociationConnector Association="DBModel.FK__AllowedTo__Elect__6E01572D" ManuallyRouted="false" />
+        <AssociationConnector Association="DBModel.FK__AllowedTo__Wahlk__2A4B4B5E" ManuallyRouted="false" />
+        <AssociationConnector Association="DBModel.FK__Candidate__Bunde__2F10007B" ManuallyRouted="false" />
+        <AssociationConnector Association="DBModel.FK__IsElectab__Bunde__4316F928" ManuallyRouted="false" />
+        <AssociationConnector Association="DBModel.FK__Populatio__Bunde__1DE57479" ManuallyRouted="false" />
+        <AssociationConnector Association="DBModel.FK__Wahlkreis__Bunde__21B6055D" ManuallyRouted="false" />
+        <AssociationConnector Association="DBModel.FK__Candidate__Elect__70DDC3D8" ManuallyRouted="false" />
+        <AssociationConnector Association="DBModel.FK__Candidate__Perso__5DCAEF64" ManuallyRouted="false" />
+        <AssociationConnector Association="DBModel.FK__Erststimm__Elect__0B5CAFEA" ManuallyRouted="false" />
+        <AssociationConnector Association="DBModel.FK__Erststimm__Elect__72C60C4A" ManuallyRouted="false" />
+        <AssociationConnector Association="DBModel.FK__IsElectab__Elect__73BA3083" ManuallyRouted="false" />
+        <AssociationConnector Association="DBModel.FK__IsElectab__Elect__75A278F5" ManuallyRouted="false" />
+        <AssociationConnector Association="DBModel.FK__Participa__Elect__6EF57B66" ManuallyRouted="false" />
+        <AssociationConnector Association="DBModel.FK__PartyAffi__Elect__76969D2E" ManuallyRouted="false" />
+        <AssociationConnector Association="DBModel.FK__Populatio__Elect__6D0D32F4" ManuallyRouted="false" />
+        <AssociationConnector Association="DBModel.FK__Zweitstim__Elect__10216507" ManuallyRouted="false" />
+        <AssociationConnector Association="DBModel.FK__Zweitstim__Elect__787EE5A0" ManuallyRouted="false" />
+        <AssociationConnector Association="DBModel.FK__Erststimm__Perso__09746778" ManuallyRouted="false" />
+        <AssociationConnector Association="DBModel.FK__Erststimm__Perso__0A688BB1" ManuallyRouted="false" />
+        <AssociationConnector Association="DBModel.FK__Erststimm__Wahlk__0880433F" ManuallyRouted="false" />
+        <AssociationConnector Association="DBModel.FK__Erststimm__Perso__60A75C0F" ManuallyRouted="false" />
+        <AssociationConnector Association="DBModel.FK__Erststimm__Wahlk__398D8EEE" ManuallyRouted="false" />
+        <AssociationConnector Association="DBModel.FK__IsElectab__Perso__619B8048" ManuallyRouted="false" />
+        <AssociationConnector Association="DBModel.FK__IsElectab__Wahlk__3E52440B" ManuallyRouted="false" />
+        <AssociationConnector Association="DBModel.FK__IsElectab__Party__6754599E" ManuallyRouted="false" />
+        <AssociationConnector Association="DBModel.FK__Participa__Wahlk__4AB81AF0" ManuallyRouted="false" />
+        <AssociationConnector Association="DBModel.FK__PartyAffi__Party__6A30C649" ManuallyRouted="false" />
+        <AssociationConnector Association="DBModel.FK__Zweitstim__Party__0F2D40CE" ManuallyRouted="false" />
+        <AssociationConnector Association="DBModel.FK__Zweitstim__Party__693CA210" ManuallyRouted="false" />
+        <AssociationConnector Association="DBModel.FK__PartyAffi__Perso__6383C8BA" ManuallyRouted="false" />
+        <AssociationConnector Association="DBModel.FK__Zweitstim__Wahlk__0E391C95" ManuallyRouted="false" />
+        <AssociationConnector Association="DBModel.FK__Zweitstim__Wahlk__59063A47" ManuallyRouted="false" />
+        <AssociationConnector Association="DBModel.Participation" ManuallyRouted="false" />
+      </Diagram>
+    </edmx:Diagrams>
+  </edmx:Designer>
+</edmx:Edmx>

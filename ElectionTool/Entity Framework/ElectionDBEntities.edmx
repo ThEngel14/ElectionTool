@@ -1,0 +1,3029 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+    <Schema Namespace="DBModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="AllowedToElect">
+          <Key>
+            <PropertyRef Name="Election_Id" />
+            <PropertyRef Name="Person_Id" />
+          </Key>
+          <Property Name="Election_Id" Type="int" Nullable="false" />
+          <Property Name="Person_Id" Type="int" Nullable="false" />
+          <Property Name="Wahlkreis_Id" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="AllowedToElectAmount">
+          <Key>
+            <PropertyRef Name="Election_Id" />
+            <PropertyRef Name="Wahlkreis_Id" />
+          </Key>
+          <Property Name="Election_Id" Type="int" Nullable="false" />
+          <Property Name="Wahlkreis_Id" Type="int" Nullable="false" />
+          <Property Name="Amount" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Bundesland">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" Nullable="false" />
+          <Property Name="Name" Type="nvarchar" MaxLength="127" Nullable="false" />
+        </EntityType>
+        <EntityType Name="CandidateList">
+          <Key>
+            <PropertyRef Name="Person_Id" />
+            <PropertyRef Name="Election_Id" />
+          </Key>
+          <Property Name="Person_Id" Type="int" Nullable="false" />
+          <Property Name="Election_Id" Type="int" Nullable="false" />
+          <Property Name="Bundesland_Id" Type="int" Nullable="false" />
+          <Property Name="Position" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Election">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" Nullable="false" />
+          <Property Name="Date" Type="datetime" Nullable="false" />
+          <Property Name="SeatsBundestag" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Erststimme">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Election_Id" Type="int" Nullable="false" />
+          <Property Name="Wahlkreis_Id" Type="int" Nullable="false" />
+          <Property Name="Person_Id" Type="int" />
+        </EntityType>
+        <EntityType Name="ErststimmeAmount">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Election_Id" Type="int" Nullable="false" />
+          <Property Name="Wahlkreis_Id" Type="int" Nullable="false" />
+          <Property Name="Person_Id" Type="int" />
+          <Property Name="Amount" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="InvalidTokenRequest">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="IP" Type="varchar" MaxLength="127" Nullable="false" />
+          <Property Name="Token" Type="varchar" MaxLength="127" Nullable="false" />
+          <Property Name="Timestamp" Type="datetime" Nullable="false" />
+        </EntityType>
+        <EntityType Name="IsElectableCandidate">
+          <Key>
+            <PropertyRef Name="Election_Id" />
+            <PropertyRef Name="Person_Id" />
+          </Key>
+          <Property Name="Election_Id" Type="int" Nullable="false" />
+          <Property Name="Person_Id" Type="int" Nullable="false" />
+          <Property Name="Wahlkreis_Id" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="IsElectableParty">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Election_Id" Type="int" Nullable="false" />
+          <Property Name="Party_Id" Type="int" Nullable="false" />
+          <Property Name="Bundesland_Id" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Participation">
+          <Key>
+            <PropertyRef Name="Election_Id" />
+            <PropertyRef Name="Person_Id" />
+          </Key>
+          <Property Name="Election_Id" Type="int" Nullable="false" />
+          <Property Name="Person_Id" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="ParticipationAmount">
+          <Key>
+            <PropertyRef Name="Election_Id" />
+            <PropertyRef Name="Wahlkreis_Id" />
+          </Key>
+          <Property Name="Election_Id" Type="int" Nullable="false" />
+          <Property Name="Wahlkreis_Id" Type="int" Nullable="false" />
+          <Property Name="Amount" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Party">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" Nullable="false" />
+          <Property Name="Name" Type="nvarchar" MaxLength="127" Nullable="false" />
+        </EntityType>
+        <EntityType Name="PartyAffiliation">
+          <Key>
+            <PropertyRef Name="Person_Id" />
+            <PropertyRef Name="Election_Id" />
+          </Key>
+          <Property Name="Person_Id" Type="int" Nullable="false" />
+          <Property Name="Election_Id" Type="int" Nullable="false" />
+          <Property Name="Party_Id" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Person">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" Nullable="false" />
+          <Property Name="Title" Type="varchar" MaxLength="31" />
+          <Property Name="Firstname" Type="nvarchar" MaxLength="127" />
+          <Property Name="Lastname" Type="nvarchar" MaxLength="127" Nullable="false" />
+        </EntityType>
+        <EntityType Name="PopulationBundesland">
+          <Key>
+            <PropertyRef Name="Election_Id" />
+            <PropertyRef Name="Bundesland_Id" />
+          </Key>
+          <Property Name="Election_Id" Type="int" Nullable="false" />
+          <Property Name="Bundesland_Id" Type="int" Nullable="false" />
+          <Property Name="Count" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="UsedToken">
+          <Key>
+            <PropertyRef Name="TokenString" />
+          </Key>
+          <Property Name="TokenString" Type="varchar" MaxLength="127" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Wahlkreis">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" Nullable="false" />
+          <Property Name="Name" Type="nvarchar" MaxLength="127" Nullable="false" />
+          <Property Name="Bundesland_Id" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Zweitstimme">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Election_Id" Type="int" Nullable="false" />
+          <Property Name="Party_Id" Type="int" />
+          <Property Name="Wahlkreis_Id" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="ZweitstimmeAmount">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Election_Id" Type="int" Nullable="false" />
+          <Property Name="Party_Id" Type="int" />
+          <Property Name="Wahlkreis_Id" Type="int" Nullable="false" />
+          <Property Name="Amount" Type="int" Nullable="false" />
+        </EntityType>
+        <!--Errors Found During Generation:
+warning 6002: The table/view 'C:\USERS\THOMAS\DOCUMENTS\VISUAL STUDIO 2013\PROJECTS\ELECTIONTOOL\ELECTIONTOOL\APP_DATA\DB.MDF.dbo.BasicWahlkreisOverview' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
+        <EntityType Name="BasicWahlkreisOverview">
+          <Key>
+            <PropertyRef Name="Election_Id" />
+            <PropertyRef Name="Wahlkreis_Id" />
+            <PropertyRef Name="Wahlkreis_Name" />
+            <PropertyRef Name="Party_Id" />
+            <PropertyRef Name="Party_Name" />
+          </Key>
+          <Property Name="Election_Id" Type="int" Nullable="false" />
+          <Property Name="Wahlkreis_Id" Type="int" Nullable="false" />
+          <Property Name="Wahlkreis_Name" Type="nvarchar" MaxLength="127" Nullable="false" />
+          <Property Name="Participation" Type="numeric" Precision="24" Scale="12" />
+          <Property Name="Person_Id" Type="int" />
+          <Property Name="Title" Type="varchar" MaxLength="31" />
+          <Property Name="Firstname" Type="nvarchar" MaxLength="127" />
+          <Property Name="Lastname" Type="nvarchar" MaxLength="127" />
+          <Property Name="Party_Id" Type="int" Nullable="false" />
+          <Property Name="Party_Name" Type="nvarchar" MaxLength="127" Nullable="false" />
+        </EntityType>
+        <!--Errors Found During Generation:
+warning 6002: The table/view 'C:\USERS\THOMAS\DOCUMENTS\VISUAL STUDIO 2013\PROJECTS\ELECTIONTOOL\ELECTIONTOOL\APP_DATA\DB.MDF.dbo.ClosestErststimmeResult' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
+        <EntityType Name="ClosestErststimmeResult">
+          <Key>
+            <PropertyRef Name="Election_Id" />
+            <PropertyRef Name="Wahlkreis_Id" />
+            <PropertyRef Name="Wahlkreis_Name" />
+            <PropertyRef Name="Lastname" />
+            <PropertyRef Name="Amount" />
+            <PropertyRef Name="PreviousAmount" />
+          </Key>
+          <Property Name="Election_Id" Type="int" Nullable="false" />
+          <Property Name="Wahlkreis_Id" Type="int" Nullable="false" />
+          <Property Name="Wahlkreis_Name" Type="nvarchar" MaxLength="127" Nullable="false" />
+          <Property Name="Person_Id" Type="int" />
+          <Property Name="Title" Type="varchar" MaxLength="31" />
+          <Property Name="Firstname" Type="nvarchar" MaxLength="127" />
+          <Property Name="Lastname" Type="nvarchar" MaxLength="127" Nullable="false" />
+          <Property Name="Party_Id" Type="int" />
+          <Property Name="Party_Name" Type="nvarchar" MaxLength="127" />
+          <Property Name="Amount" Type="int" Nullable="false" />
+          <Property Name="PreviousAmount" Type="int" Nullable="false" />
+          <Property Name="Diff" Type="int" />
+          <Property Name="AbsDiff" Type="int" />
+        </EntityType>
+        <!--Errors Found During Generation:
+warning 6002: The table/view 'C:\USERS\THOMAS\DOCUMENTS\VISUAL STUDIO 2013\PROJECTS\ELECTIONTOOL\ELECTIONTOOL\APP_DATA\DB.MDF.dbo.ClosestZweitstimmeResult' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
+        <EntityType Name="ClosestZweitstimmeResult">
+          <Key>
+            <PropertyRef Name="Election_Id" />
+            <PropertyRef Name="Wahlkreis_Id" />
+            <PropertyRef Name="Wahlkreis_Name" />
+            <PropertyRef Name="Party_Name" />
+            <PropertyRef Name="Amount" />
+            <PropertyRef Name="PreviousAmount" />
+          </Key>
+          <Property Name="Election_Id" Type="int" Nullable="false" />
+          <Property Name="Wahlkreis_Id" Type="int" Nullable="false" />
+          <Property Name="Wahlkreis_Name" Type="nvarchar" MaxLength="127" Nullable="false" />
+          <Property Name="Party_Id" Type="int" />
+          <Property Name="Party_Name" Type="nvarchar" MaxLength="127" Nullable="false" />
+          <Property Name="Amount" Type="int" Nullable="false" />
+          <Property Name="PreviousAmount" Type="int" Nullable="false" />
+          <Property Name="Diff" Type="int" />
+          <Property Name="AbsDiff" Type="int" />
+        </EntityType>
+        <!--Errors Found During Generation:
+warning 6002: The table/view 'C:\USERS\THOMAS\DOCUMENTS\VISUAL STUDIO 2013\PROJECTS\ELECTIONTOOL\ELECTIONTOOL\APP_DATA\DB.MDF.dbo.DistributionWithinStates' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
+        <EntityType Name="DistributionWithinStates">
+          <Key>
+            <PropertyRef Name="Election_Id" />
+            <PropertyRef Name="Bundesland_Id" />
+          </Key>
+          <Property Name="Election_Id" Type="int" Nullable="false" />
+          <Property Name="Bundesland_Id" Type="int" Nullable="false" />
+          <Property Name="Seats" Type="int" />
+          <Property Name="Party_Id" Type="int" />
+        </EntityType>
+        <!--Errors Found During Generation:
+warning 6002: The table/view 'C:\USERS\THOMAS\DOCUMENTS\VISUAL STUDIO 2013\PROJECTS\ELECTIONTOOL\ELECTIONTOOL\APP_DATA\DB.MDF.dbo.ElectionParticipation' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
+        <EntityType Name="ElectionParticipation">
+          <Key>
+            <PropertyRef Name="Election_Id" />
+            <PropertyRef Name="Wahlkreis_Id" />
+          </Key>
+          <Property Name="Election_Id" Type="int" Nullable="false" />
+          <Property Name="Wahlkreis_Id" Type="int" Nullable="false" />
+          <Property Name="Participation" Type="numeric" Precision="24" Scale="12" />
+        </EntityType>
+        <!--Errors Found During Generation:
+warning 6002: The table/view 'C:\USERS\THOMAS\DOCUMENTS\VISUAL STUDIO 2013\PROJECTS\ELECTIONTOOL\ELECTIONTOOL\APP_DATA\DB.MDF.dbo.ErststimmeAggregated' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
+        <EntityType Name="ErststimmeAggregated">
+          <Key>
+            <PropertyRef Name="Election_Id" />
+            <PropertyRef Name="Wahlkreis_Id" />
+            <PropertyRef Name="Amount" />
+          </Key>
+          <Property Name="Election_Id" Type="int" Nullable="false" />
+          <Property Name="Wahlkreis_Id" Type="int" Nullable="false" />
+          <Property Name="Person_Id" Type="int" />
+          <Property Name="Amount" Type="int" Nullable="false" />
+        </EntityType>
+        <!--Errors Found During Generation:
+warning 6002: The table/view 'C:\USERS\THOMAS\DOCUMENTS\VISUAL STUDIO 2013\PROJECTS\ELECTIONTOOL\ELECTIONTOOL\APP_DATA\DB.MDF.dbo.ErststimmeWahlkreisOverview' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
+        <EntityType Name="ErststimmeWahlkreisOverview">
+          <Key>
+            <PropertyRef Name="election_id" />
+            <PropertyRef Name="wahlkreis_id" />
+            <PropertyRef Name="Wahlkreis_Name" />
+            <PropertyRef Name="Votes" />
+          </Key>
+          <Property Name="election_id" Type="int" Nullable="false" />
+          <Property Name="wahlkreis_id" Type="int" Nullable="false" />
+          <Property Name="Wahlkreis_Name" Type="nvarchar" MaxLength="127" Nullable="false" />
+          <Property Name="person_id" Type="int" />
+          <Property Name="title" Type="varchar" MaxLength="31" />
+          <Property Name="firstname" Type="nvarchar" MaxLength="127" />
+          <Property Name="lastname" Type="nvarchar" MaxLength="127" />
+          <Property Name="Party_Id" Type="int" />
+          <Property Name="Party_Name" Type="nvarchar" MaxLength="127" />
+          <Property Name="Votes" Type="int" Nullable="false" />
+          <Property Name="overall" Type="int" />
+          <Property Name="PercentVotes" Type="numeric" Precision="24" Scale="12" />
+          <Property Name="Previous" Type="numeric" Precision="25" Scale="12" />
+        </EntityType>
+        <!--Errors Found During Generation:
+warning 6002: The table/view 'C:\USERS\THOMAS\DOCUMENTS\VISUAL STUDIO 2013\PROJECTS\ELECTIONTOOL\ELECTIONTOOL\APP_DATA\DB.MDF.dbo.minSeatsPerParty_Bundeslevel' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
+        <EntityType Name="minSeatsPerParty_Bundeslevel">
+          <Key>
+            <PropertyRef Name="Election_Id" />
+          </Key>
+          <Property Name="Election_Id" Type="int" Nullable="false" />
+          <Property Name="Party_Id" Type="int" />
+          <Property Name="minSeatsBund" Type="int" />
+        </EntityType>
+        <!--Errors Found During Generation:
+warning 6002: The table/view 'C:\USERS\THOMAS\DOCUMENTS\VISUAL STUDIO 2013\PROJECTS\ELECTIONTOOL\ELECTIONTOOL\APP_DATA\DB.MDF.dbo.ParliamentMembers' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
+        <EntityType Name="ParliamentMembers">
+          <Key>
+            <PropertyRef Name="Election_Id" />
+            <PropertyRef Name="Person_Id" />
+            <PropertyRef Name="Lastname" />
+            <PropertyRef Name="HowCome" />
+            <PropertyRef Name="Party_Id" />
+            <PropertyRef Name="Party_Name" />
+            <PropertyRef Name="Bundesland_Id" />
+            <PropertyRef Name="Bundesland_Name" />
+          </Key>
+          <Property Name="Election_Id" Type="int" Nullable="false" />
+          <Property Name="Person_Id" Type="int" Nullable="false" />
+          <Property Name="Title" Type="varchar" MaxLength="31" />
+          <Property Name="Firstname" Type="nvarchar" MaxLength="127" />
+          <Property Name="Lastname" Type="nvarchar" MaxLength="127" Nullable="false" />
+          <Property Name="HowCome" Type="varchar" MaxLength="11" Nullable="false" />
+          <Property Name="Party_Id" Type="int" Nullable="false" />
+          <Property Name="Party_Name" Type="nvarchar" MaxLength="127" Nullable="false" />
+          <Property Name="Bundesland_Id" Type="int" Nullable="false" />
+          <Property Name="Bundesland_Name" Type="nvarchar" MaxLength="127" Nullable="false" />
+          <Property Name="Wahlkreis_Id" Type="int" />
+          <Property Name="Wahlkreis_Name" Type="nvarchar" MaxLength="127" />
+        </EntityType>
+        <!--Errors Found During Generation:
+warning 6002: The table/view 'C:\USERS\THOMAS\DOCUMENTS\VISUAL STUDIO 2013\PROJECTS\ELECTIONTOOL\ELECTIONTOOL\APP_DATA\DB.MDF.dbo.Parties5' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
+        <EntityType Name="Parties5">
+          <Key>
+            <PropertyRef Name="Election_Id" />
+          </Key>
+          <Property Name="Election_Id" Type="int" Nullable="false" />
+          <Property Name="Id" Type="int" />
+        </EntityType>
+        <!--Errors Found During Generation:
+warning 6002: The table/view 'C:\USERS\THOMAS\DOCUMENTS\VISUAL STUDIO 2013\PROJECTS\ELECTIONTOOL\ELECTIONTOOL\APP_DATA\DB.MDF.dbo.SeatsGainedByErststimme' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
+        <EntityType Name="SeatsGainedByErststimme">
+          <Key>
+            <PropertyRef Name="Election_Id" />
+            <PropertyRef Name="Bundesland_Id" />
+          </Key>
+          <Property Name="Election_Id" Type="int" Nullable="false" />
+          <Property Name="Bundesland_Id" Type="int" Nullable="false" />
+          <Property Name="Party_Id" Type="int" />
+          <Property Name="numberOfVictories" Type="int" />
+        </EntityType>
+        <!--Errors Found During Generation:
+warning 6002: The table/view 'C:\USERS\THOMAS\DOCUMENTS\VISUAL STUDIO 2013\PROJECTS\ELECTIONTOOL\ELECTIONTOOL\APP_DATA\DB.MDF.dbo.seatsGainedByZweitstimme' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
+        <EntityType Name="seatsGainedByZweitstimme">
+          <Key>
+            <PropertyRef Name="Election_Id" />
+            <PropertyRef Name="Bundesland_Id" />
+          </Key>
+          <Property Name="Election_Id" Type="int" Nullable="false" />
+          <Property Name="Bundesland_Id" Type="int" Nullable="false" />
+          <Property Name="Party_Id" Type="int" />
+          <Property Name="seats" Type="int" />
+        </EntityType>
+        <!--Errors Found During Generation:
+warning 6002: The table/view 'C:\USERS\THOMAS\DOCUMENTS\VISUAL STUDIO 2013\PROJECTS\ELECTIONTOOL\ELECTIONTOOL\APP_DATA\DB.MDF.dbo.SeatsPerState' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
+        <EntityType Name="SeatsPerState">
+          <Key>
+            <PropertyRef Name="Election_Id" />
+            <PropertyRef Name="Bundesland_ID" />
+          </Key>
+          <Property Name="Election_Id" Type="int" Nullable="false" />
+          <Property Name="Bundesland_ID" Type="int" Nullable="false" />
+          <Property Name="Seats" Type="int" />
+        </EntityType>
+        <!--Errors Found During Generation:
+warning 6002: The table/view 'C:\USERS\THOMAS\DOCUMENTS\VISUAL STUDIO 2013\PROJECTS\ELECTIONTOOL\ELECTIONTOOL\APP_DATA\DB.MDF.dbo.Sitzverteilung' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
+        <EntityType Name="Sitzverteilung">
+          <Key>
+            <PropertyRef Name="Election_Id" />
+            <PropertyRef Name="PartyName" />
+          </Key>
+          <Property Name="Election_Id" Type="int" Nullable="false" />
+          <Property Name="OverallSeats" Type="int" />
+          <Property Name="Party_Id" Type="int" />
+          <Property Name="PartyName" Type="nvarchar" MaxLength="127" Nullable="false" />
+          <Property Name="SeatsParty" Type="int" />
+          <Property Name="PercentParty" Type="numeric" Precision="26" Scale="12" />
+        </EntityType>
+        <!--Errors Found During Generation:
+warning 6002: The table/view 'C:\USERS\THOMAS\DOCUMENTS\VISUAL STUDIO 2013\PROJECTS\ELECTIONTOOL\ELECTIONTOOL\APP_DATA\DB.MDF.dbo.Ueberhangmandate' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
+        <EntityType Name="Ueberhangmandate">
+          <Key>
+            <PropertyRef Name="Election_Id" />
+            <PropertyRef Name="Bundesland_Id" />
+            <PropertyRef Name="Bundesland_Name" />
+            <PropertyRef Name="Party_Name" />
+          </Key>
+          <Property Name="Election_Id" Type="int" Nullable="false" />
+          <Property Name="Bundesland_Id" Type="int" Nullable="false" />
+          <Property Name="Bundesland_Name" Type="nvarchar" MaxLength="127" Nullable="false" />
+          <Property Name="Party_Id" Type="int" />
+          <Property Name="Party_Name" Type="nvarchar" MaxLength="127" Nullable="false" />
+          <Property Name="Number" Type="int" />
+        </EntityType>
+        <!--Errors Found During Generation:
+warning 6002: The table/view 'C:\USERS\THOMAS\DOCUMENTS\VISUAL STUDIO 2013\PROJECTS\ELECTIONTOOL\ELECTIONTOOL\APP_DATA\DB.MDF.dbo.Wahlkreissieger' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
+        <EntityType Name="Wahlkreissieger">
+          <Key>
+            <PropertyRef Name="ElectionID" />
+            <PropertyRef Name="Wahlkreis_Id" />
+          </Key>
+          <Property Name="ElectionID" Type="int" Nullable="false" />
+          <Property Name="Person_Id" Type="int" />
+          <Property Name="Wahlkreis_Id" Type="int" Nullable="false" />
+          <Property Name="MemberOfParty" Type="int" />
+        </EntityType>
+        <!--Errors Found During Generation:
+warning 6002: The table/view 'C:\USERS\THOMAS\DOCUMENTS\VISUAL STUDIO 2013\PROJECTS\ELECTIONTOOL\ELECTIONTOOL\APP_DATA\DB.MDF.dbo.WinnerErststimme' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
+        <EntityType Name="WinnerErststimme">
+          <Key>
+            <PropertyRef Name="Election_Id" />
+            <PropertyRef Name="Wahlkreis_Id" />
+            <PropertyRef Name="Wahlkreis_Name" />
+            <PropertyRef Name="Party_Id" />
+            <PropertyRef Name="Party_Name" />
+          </Key>
+          <Property Name="Election_Id" Type="int" Nullable="false" />
+          <Property Name="Wahlkreis_Id" Type="int" Nullable="false" />
+          <Property Name="Wahlkreis_Name" Type="nvarchar" MaxLength="127" Nullable="false" />
+          <Property Name="Person_Id" Type="int" />
+          <Property Name="Title" Type="varchar" MaxLength="31" />
+          <Property Name="Firstname" Type="nvarchar" MaxLength="127" />
+          <Property Name="Lastname" Type="nvarchar" MaxLength="127" />
+          <Property Name="Party_Id" Type="int" Nullable="false" />
+          <Property Name="Party_Name" Type="nvarchar" MaxLength="127" Nullable="false" />
+        </EntityType>
+        <!--Errors Found During Generation:
+warning 6002: The table/view 'C:\USERS\THOMAS\DOCUMENTS\VISUAL STUDIO 2013\PROJECTS\ELECTIONTOOL\ELECTIONTOOL\APP_DATA\DB.MDF.dbo.WinnerFirstAndSecondVotes' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
+        <EntityType Name="WinnerFirstAndSecondVotes">
+          <Key>
+            <PropertyRef Name="Election_Id" />
+            <PropertyRef Name="Bundesland_Id" />
+            <PropertyRef Name="Bundesland_Name" />
+            <PropertyRef Name="Wahlkreis_Id" />
+            <PropertyRef Name="Wahlkreis_Name" />
+            <PropertyRef Name="FirstVote_Party_Id" />
+            <PropertyRef Name="FirstVote_Party_Name" />
+          </Key>
+          <Property Name="Election_Id" Type="int" Nullable="false" />
+          <Property Name="Bundesland_Id" Type="int" Nullable="false" />
+          <Property Name="Bundesland_Name" Type="nvarchar" MaxLength="127" Nullable="false" />
+          <Property Name="Wahlkreis_Id" Type="int" Nullable="false" />
+          <Property Name="Wahlkreis_Name" Type="nvarchar" MaxLength="127" Nullable="false" />
+          <Property Name="Person_Id" Type="int" />
+          <Property Name="Title" Type="varchar" MaxLength="31" />
+          <Property Name="Firstname" Type="nvarchar" MaxLength="127" />
+          <Property Name="Lastname" Type="nvarchar" MaxLength="127" />
+          <Property Name="FirstVote_Party_Id" Type="int" Nullable="false" />
+          <Property Name="FirstVote_Party_Name" Type="nvarchar" MaxLength="127" Nullable="false" />
+          <Property Name="SecondVote_Party_Id" Type="int" />
+          <Property Name="SecondVote_Party_Name" Type="nvarchar" MaxLength="127" />
+        </EntityType>
+        <!--Errors Found During Generation:
+warning 6002: The table/view 'C:\USERS\THOMAS\DOCUMENTS\VISUAL STUDIO 2013\PROJECTS\ELECTIONTOOL\ELECTIONTOOL\APP_DATA\DB.MDF.dbo.WinnerZweitstimme' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
+        <EntityType Name="WinnerZweitstimme">
+          <Key>
+            <PropertyRef Name="Election_Id" />
+            <PropertyRef Name="Wahlkreis_Id" />
+            <PropertyRef Name="Wahlkreis_Name" />
+          </Key>
+          <Property Name="Election_Id" Type="int" Nullable="false" />
+          <Property Name="Wahlkreis_Id" Type="int" Nullable="false" />
+          <Property Name="Wahlkreis_Name" Type="nvarchar" MaxLength="127" Nullable="false" />
+          <Property Name="Party_Id" Type="int" />
+          <Property Name="Party_Name" Type="nvarchar" MaxLength="127" />
+        </EntityType>
+        <!--Errors Found During Generation:
+warning 6002: The table/view 'C:\USERS\THOMAS\DOCUMENTS\VISUAL STUDIO 2013\PROJECTS\ELECTIONTOOL\ELECTIONTOOL\APP_DATA\DB.MDF.dbo.ZweitstimmeAggregated' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
+        <EntityType Name="ZweitstimmeAggregated">
+          <Key>
+            <PropertyRef Name="Election_Id" />
+            <PropertyRef Name="Wahlkreis_Id" />
+            <PropertyRef Name="Amount" />
+          </Key>
+          <Property Name="Election_Id" Type="int" Nullable="false" />
+          <Property Name="Party_Id" Type="int" />
+          <Property Name="Wahlkreis_Id" Type="int" Nullable="false" />
+          <Property Name="Amount" Type="int" Nullable="false" />
+        </EntityType>
+        <!--Errors Found During Generation:
+warning 6002: The table/view 'C:\USERS\THOMAS\DOCUMENTS\VISUAL STUDIO 2013\PROJECTS\ELECTIONTOOL\ELECTIONTOOL\APP_DATA\DB.MDF.dbo.ZweitstimmenState' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
+        <EntityType Name="ZweitstimmenState">
+          <Key>
+            <PropertyRef Name="Election_Id" />
+            <PropertyRef Name="Bundesland_Id" />
+          </Key>
+          <Property Name="Election_Id" Type="int" Nullable="false" />
+          <Property Name="Bundesland_Id" Type="int" Nullable="false" />
+          <Property Name="Party_ID" Type="int" />
+          <Property Name="Amount" Type="int" />
+        </EntityType>
+        <!--Errors Found During Generation:
+warning 6002: The table/view 'C:\USERS\THOMAS\DOCUMENTS\VISUAL STUDIO 2013\PROJECTS\ELECTIONTOOL\ELECTIONTOOL\APP_DATA\DB.MDF.dbo.ZweitstimmeWahlkreisOverview' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
+        <EntityType Name="ZweitstimmeWahlkreisOverview">
+          <Key>
+            <PropertyRef Name="Election_Id" />
+            <PropertyRef Name="Wahlkreis_Id" />
+            <PropertyRef Name="Wahlkreis_Name" />
+            <PropertyRef Name="Votes" />
+          </Key>
+          <Property Name="Election_Id" Type="int" Nullable="false" />
+          <Property Name="Wahlkreis_Id" Type="int" Nullable="false" />
+          <Property Name="Wahlkreis_Name" Type="nvarchar" MaxLength="127" Nullable="false" />
+          <Property Name="Party_Id" Type="int" />
+          <Property Name="Party_Name" Type="nvarchar" MaxLength="127" />
+          <Property Name="Votes" Type="int" Nullable="false" />
+          <Property Name="Overall" Type="int" />
+          <Property Name="PercentVotes" Type="numeric" Precision="24" Scale="12" />
+          <Property Name="Previous" Type="numeric" Precision="25" Scale="12" />
+        </EntityType>
+        <Association Name="FK__AllowedTo__Elect__6E01572D">
+          <End Role="Election" Type="Self.Election" Multiplicity="1" />
+          <End Role="AllowedToElectAmount" Type="Self.AllowedToElectAmount" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Election">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="AllowedToElectAmount">
+              <PropertyRef Name="Election_Id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__AllowedTo__Elect__6FE99F9F">
+          <End Role="Election" Type="Self.Election" Multiplicity="1" />
+          <End Role="AllowedToElect" Type="Self.AllowedToElect" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Election">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="AllowedToElect">
+              <PropertyRef Name="Election_Id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__AllowedTo__Perso__5CD6CB2B">
+          <End Role="Person" Type="Self.Person" Multiplicity="1" />
+          <End Role="AllowedToElect" Type="Self.AllowedToElect" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Person">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="AllowedToElect">
+              <PropertyRef Name="Person_Id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__AllowedTo__Wahlk__267ABA7A">
+          <End Role="Wahlkreis" Type="Self.Wahlkreis" Multiplicity="1" />
+          <End Role="AllowedToElect" Type="Self.AllowedToElect" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Wahlkreis">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="AllowedToElect">
+              <PropertyRef Name="Wahlkreis_Id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__AllowedTo__Wahlk__2A4B4B5E">
+          <End Role="Wahlkreis" Type="Self.Wahlkreis" Multiplicity="1" />
+          <End Role="AllowedToElectAmount" Type="Self.AllowedToElectAmount" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Wahlkreis">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="AllowedToElectAmount">
+              <PropertyRef Name="Wahlkreis_Id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Candidate__Bunde__2F10007B">
+          <End Role="Bundesland" Type="Self.Bundesland" Multiplicity="1" />
+          <End Role="CandidateList" Type="Self.CandidateList" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Bundesland">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="CandidateList">
+              <PropertyRef Name="Bundesland_Id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Candidate__Elect__70DDC3D8">
+          <End Role="Election" Type="Self.Election" Multiplicity="1" />
+          <End Role="CandidateList" Type="Self.CandidateList" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Election">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="CandidateList">
+              <PropertyRef Name="Election_Id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Candidate__Perso__5DCAEF64">
+          <End Role="Person" Type="Self.Person" Multiplicity="1" />
+          <End Role="CandidateList" Type="Self.CandidateList" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Person">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="CandidateList">
+              <PropertyRef Name="Person_Id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Erststimm__Elect__0B5CAFEA">
+          <End Role="Election" Type="Self.Election" Multiplicity="1" />
+          <End Role="Erststimme" Type="Self.Erststimme" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Election">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Erststimme">
+              <PropertyRef Name="Election_Id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Erststimm__Elect__72C60C4A">
+          <End Role="Election" Type="Self.Election" Multiplicity="1" />
+          <End Role="ErststimmeAmount" Type="Self.ErststimmeAmount" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Election">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="ErststimmeAmount">
+              <PropertyRef Name="Election_Id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Erststimm__Perso__09746778">
+          <End Role="Person" Type="Self.Person" Multiplicity="0..1" />
+          <End Role="Erststimme" Type="Self.Erststimme" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Person">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Erststimme">
+              <PropertyRef Name="Person_Id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Erststimm__Perso__0A688BB1">
+          <End Role="Person" Type="Self.Person" Multiplicity="0..1" />
+          <End Role="Erststimme" Type="Self.Erststimme" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Person">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Erststimme">
+              <PropertyRef Name="Person_Id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Erststimm__Perso__60A75C0F">
+          <End Role="Person" Type="Self.Person" Multiplicity="0..1" />
+          <End Role="ErststimmeAmount" Type="Self.ErststimmeAmount" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Person">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="ErststimmeAmount">
+              <PropertyRef Name="Person_Id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Erststimm__Wahlk__0880433F">
+          <End Role="Wahlkreis" Type="Self.Wahlkreis" Multiplicity="1" />
+          <End Role="Erststimme" Type="Self.Erststimme" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Wahlkreis">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Erststimme">
+              <PropertyRef Name="Wahlkreis_Id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Erststimm__Wahlk__398D8EEE">
+          <End Role="Wahlkreis" Type="Self.Wahlkreis" Multiplicity="1" />
+          <End Role="ErststimmeAmount" Type="Self.ErststimmeAmount" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Wahlkreis">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="ErststimmeAmount">
+              <PropertyRef Name="Wahlkreis_Id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__IsElectab__Bunde__4316F928">
+          <End Role="Bundesland" Type="Self.Bundesland" Multiplicity="1" />
+          <End Role="IsElectableParty" Type="Self.IsElectableParty" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Bundesland">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="IsElectableParty">
+              <PropertyRef Name="Bundesland_Id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__IsElectab__Elect__73BA3083">
+          <End Role="Election" Type="Self.Election" Multiplicity="1" />
+          <End Role="IsElectableCandidate" Type="Self.IsElectableCandidate" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Election">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="IsElectableCandidate">
+              <PropertyRef Name="Election_Id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__IsElectab__Elect__75A278F5">
+          <End Role="Election" Type="Self.Election" Multiplicity="1" />
+          <End Role="IsElectableParty" Type="Self.IsElectableParty" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Election">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="IsElectableParty">
+              <PropertyRef Name="Election_Id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__IsElectab__Party__6754599E">
+          <End Role="Party" Type="Self.Party" Multiplicity="1" />
+          <End Role="IsElectableParty" Type="Self.IsElectableParty" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Party">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="IsElectableParty">
+              <PropertyRef Name="Party_Id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__IsElectab__Perso__619B8048">
+          <End Role="Person" Type="Self.Person" Multiplicity="1" />
+          <End Role="IsElectableCandidate" Type="Self.IsElectableCandidate" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Person">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="IsElectableCandidate">
+              <PropertyRef Name="Person_Id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__IsElectab__Wahlk__3E52440B">
+          <End Role="Wahlkreis" Type="Self.Wahlkreis" Multiplicity="1" />
+          <End Role="IsElectableCandidate" Type="Self.IsElectableCandidate" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Wahlkreis">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="IsElectableCandidate">
+              <PropertyRef Name="Wahlkreis_Id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Participa__Elect__6EF57B66">
+          <End Role="Election" Type="Self.Election" Multiplicity="1" />
+          <End Role="ParticipationAmount" Type="Self.ParticipationAmount" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Election">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="ParticipationAmount">
+              <PropertyRef Name="Election_Id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Participa__Elect__74AE54BC">
+          <End Role="Election" Type="Self.Election" Multiplicity="1" />
+          <End Role="Participation" Type="Self.Participation" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Election">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Participation">
+              <PropertyRef Name="Election_Id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Participa__Perso__628FA481">
+          <End Role="Person" Type="Self.Person" Multiplicity="1" />
+          <End Role="Participation" Type="Self.Participation" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Person">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Participation">
+              <PropertyRef Name="Person_Id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Participa__Wahlk__4AB81AF0">
+          <End Role="Wahlkreis" Type="Self.Wahlkreis" Multiplicity="1" />
+          <End Role="ParticipationAmount" Type="Self.ParticipationAmount" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Wahlkreis">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="ParticipationAmount">
+              <PropertyRef Name="Wahlkreis_Id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__PartyAffi__Elect__76969D2E">
+          <End Role="Election" Type="Self.Election" Multiplicity="1" />
+          <End Role="PartyAffiliation" Type="Self.PartyAffiliation" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Election">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="PartyAffiliation">
+              <PropertyRef Name="Election_Id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__PartyAffi__Party__6A30C649">
+          <End Role="Party" Type="Self.Party" Multiplicity="1" />
+          <End Role="PartyAffiliation" Type="Self.PartyAffiliation" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Party">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="PartyAffiliation">
+              <PropertyRef Name="Party_Id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__PartyAffi__Perso__6383C8BA">
+          <End Role="Person" Type="Self.Person" Multiplicity="1" />
+          <End Role="PartyAffiliation" Type="Self.PartyAffiliation" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Person">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="PartyAffiliation">
+              <PropertyRef Name="Person_Id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Populatio__Bunde__1DE57479">
+          <End Role="Bundesland" Type="Self.Bundesland" Multiplicity="1" />
+          <End Role="PopulationBundesland" Type="Self.PopulationBundesland" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Bundesland">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="PopulationBundesland">
+              <PropertyRef Name="Bundesland_Id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Populatio__Elect__6D0D32F4">
+          <End Role="Election" Type="Self.Election" Multiplicity="1" />
+          <End Role="PopulationBundesland" Type="Self.PopulationBundesland" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Election">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="PopulationBundesland">
+              <PropertyRef Name="Election_Id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Wahlkreis__Bunde__21B6055D">
+          <End Role="Bundesland" Type="Self.Bundesland" Multiplicity="1" />
+          <End Role="Wahlkreis" Type="Self.Wahlkreis" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Bundesland">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Wahlkreis">
+              <PropertyRef Name="Bundesland_Id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Zweitstim__Elect__10216507">
+          <End Role="Election" Type="Self.Election" Multiplicity="1" />
+          <End Role="Zweitstimme" Type="Self.Zweitstimme" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Election">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Zweitstimme">
+              <PropertyRef Name="Election_Id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Zweitstim__Elect__787EE5A0">
+          <End Role="Election" Type="Self.Election" Multiplicity="1" />
+          <End Role="ZweitstimmeAmount" Type="Self.ZweitstimmeAmount" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Election">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="ZweitstimmeAmount">
+              <PropertyRef Name="Election_Id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Zweitstim__Party__0F2D40CE">
+          <End Role="Party" Type="Self.Party" Multiplicity="0..1" />
+          <End Role="Zweitstimme" Type="Self.Zweitstimme" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Party">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Zweitstimme">
+              <PropertyRef Name="Party_Id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Zweitstim__Party__693CA210">
+          <End Role="Party" Type="Self.Party" Multiplicity="0..1" />
+          <End Role="ZweitstimmeAmount" Type="Self.ZweitstimmeAmount" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Party">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="ZweitstimmeAmount">
+              <PropertyRef Name="Party_Id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Zweitstim__Wahlk__0E391C95">
+          <End Role="Wahlkreis" Type="Self.Wahlkreis" Multiplicity="1" />
+          <End Role="Zweitstimme" Type="Self.Zweitstimme" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Wahlkreis">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Zweitstimme">
+              <PropertyRef Name="Wahlkreis_Id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Zweitstim__Wahlk__59063A47">
+          <End Role="Wahlkreis" Type="Self.Wahlkreis" Multiplicity="1" />
+          <End Role="ZweitstimmeAmount" Type="Self.ZweitstimmeAmount" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Wahlkreis">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="ZweitstimmeAmount">
+              <PropertyRef Name="Wahlkreis_Id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="DBModelStoreContainer">
+          <EntitySet Name="AllowedToElect" EntityType="Self.AllowedToElect" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="AllowedToElectAmount" EntityType="Self.AllowedToElectAmount" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Bundesland" EntityType="Self.Bundesland" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="CandidateList" EntityType="Self.CandidateList" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Election" EntityType="Self.Election" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Erststimme" EntityType="Self.Erststimme" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="ErststimmeAmount" EntityType="Self.ErststimmeAmount" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="InvalidTokenRequest" EntityType="Self.InvalidTokenRequest" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="IsElectableCandidate" EntityType="Self.IsElectableCandidate" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="IsElectableParty" EntityType="Self.IsElectableParty" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Participation" EntityType="Self.Participation" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="ParticipationAmount" EntityType="Self.ParticipationAmount" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Party" EntityType="Self.Party" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="PartyAffiliation" EntityType="Self.PartyAffiliation" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Person" EntityType="Self.Person" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="PopulationBundesland" EntityType="Self.PopulationBundesland" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="UsedToken" EntityType="Self.UsedToken" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Wahlkreis" EntityType="Self.Wahlkreis" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Zweitstimme" EntityType="Self.Zweitstimme" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="ZweitstimmeAmount" EntityType="Self.ZweitstimmeAmount" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="BasicWahlkreisOverview" EntityType="Self.BasicWahlkreisOverview" store:Type="Views" store:Schema="dbo">
+            <DefiningQuery>SELECT 
+    [BasicWahlkreisOverview].[Election_Id] AS [Election_Id], 
+    [BasicWahlkreisOverview].[Wahlkreis_Id] AS [Wahlkreis_Id], 
+    [BasicWahlkreisOverview].[Wahlkreis_Name] AS [Wahlkreis_Name], 
+    [BasicWahlkreisOverview].[Participation] AS [Participation], 
+    [BasicWahlkreisOverview].[Person_Id] AS [Person_Id], 
+    [BasicWahlkreisOverview].[Title] AS [Title], 
+    [BasicWahlkreisOverview].[Firstname] AS [Firstname], 
+    [BasicWahlkreisOverview].[Lastname] AS [Lastname], 
+    [BasicWahlkreisOverview].[Party_Id] AS [Party_Id], 
+    [BasicWahlkreisOverview].[Party_Name] AS [Party_Name]
+    FROM [dbo].[BasicWahlkreisOverview] AS [BasicWahlkreisOverview]</DefiningQuery>
+          </EntitySet>
+          <EntitySet Name="ClosestErststimmeResult" EntityType="Self.ClosestErststimmeResult" store:Type="Views" store:Schema="dbo">
+            <DefiningQuery>SELECT 
+    [ClosestErststimmeResult].[Election_Id] AS [Election_Id], 
+    [ClosestErststimmeResult].[Wahlkreis_Id] AS [Wahlkreis_Id], 
+    [ClosestErststimmeResult].[Wahlkreis_Name] AS [Wahlkreis_Name], 
+    [ClosestErststimmeResult].[Person_Id] AS [Person_Id], 
+    [ClosestErststimmeResult].[Title] AS [Title], 
+    [ClosestErststimmeResult].[Firstname] AS [Firstname], 
+    [ClosestErststimmeResult].[Lastname] AS [Lastname], 
+    [ClosestErststimmeResult].[Party_Id] AS [Party_Id], 
+    [ClosestErststimmeResult].[Party_Name] AS [Party_Name], 
+    [ClosestErststimmeResult].[Amount] AS [Amount], 
+    [ClosestErststimmeResult].[PreviousAmount] AS [PreviousAmount], 
+    [ClosestErststimmeResult].[Diff] AS [Diff], 
+    [ClosestErststimmeResult].[AbsDiff] AS [AbsDiff]
+    FROM [dbo].[ClosestErststimmeResult] AS [ClosestErststimmeResult]</DefiningQuery>
+          </EntitySet>
+          <EntitySet Name="ClosestZweitstimmeResult" EntityType="Self.ClosestZweitstimmeResult" store:Type="Views" store:Schema="dbo">
+            <DefiningQuery>SELECT 
+    [ClosestZweitstimmeResult].[Election_Id] AS [Election_Id], 
+    [ClosestZweitstimmeResult].[Wahlkreis_Id] AS [Wahlkreis_Id], 
+    [ClosestZweitstimmeResult].[Wahlkreis_Name] AS [Wahlkreis_Name], 
+    [ClosestZweitstimmeResult].[Party_Id] AS [Party_Id], 
+    [ClosestZweitstimmeResult].[Party_Name] AS [Party_Name], 
+    [ClosestZweitstimmeResult].[Amount] AS [Amount], 
+    [ClosestZweitstimmeResult].[PreviousAmount] AS [PreviousAmount], 
+    [ClosestZweitstimmeResult].[Diff] AS [Diff], 
+    [ClosestZweitstimmeResult].[AbsDiff] AS [AbsDiff]
+    FROM [dbo].[ClosestZweitstimmeResult] AS [ClosestZweitstimmeResult]</DefiningQuery>
+          </EntitySet>
+          <EntitySet Name="DistributionWithinStates" EntityType="Self.DistributionWithinStates" store:Type="Views" store:Schema="dbo">
+            <DefiningQuery>SELECT 
+    [DistributionWithinStates].[Election_Id] AS [Election_Id], 
+    [DistributionWithinStates].[Bundesland_Id] AS [Bundesland_Id], 
+    [DistributionWithinStates].[Seats] AS [Seats], 
+    [DistributionWithinStates].[Party_Id] AS [Party_Id]
+    FROM [dbo].[DistributionWithinStates] AS [DistributionWithinStates]</DefiningQuery>
+          </EntitySet>
+          <EntitySet Name="ElectionParticipation" EntityType="Self.ElectionParticipation" store:Type="Views" store:Schema="dbo">
+            <DefiningQuery>SELECT 
+    [ElectionParticipation].[Election_Id] AS [Election_Id], 
+    [ElectionParticipation].[Wahlkreis_Id] AS [Wahlkreis_Id], 
+    [ElectionParticipation].[Participation] AS [Participation]
+    FROM [dbo].[ElectionParticipation] AS [ElectionParticipation]</DefiningQuery>
+          </EntitySet>
+          <EntitySet Name="ErststimmeAggregated" EntityType="Self.ErststimmeAggregated" store:Type="Views" store:Schema="dbo">
+            <DefiningQuery>SELECT 
+    [ErststimmeAggregated].[Election_Id] AS [Election_Id], 
+    [ErststimmeAggregated].[Wahlkreis_Id] AS [Wahlkreis_Id], 
+    [ErststimmeAggregated].[Person_Id] AS [Person_Id], 
+    [ErststimmeAggregated].[Amount] AS [Amount]
+    FROM [dbo].[ErststimmeAggregated] AS [ErststimmeAggregated]</DefiningQuery>
+          </EntitySet>
+          <EntitySet Name="ErststimmeWahlkreisOverview" EntityType="Self.ErststimmeWahlkreisOverview" store:Type="Views" store:Schema="dbo">
+            <DefiningQuery>SELECT 
+    [ErststimmeWahlkreisOverview].[election_id] AS [election_id], 
+    [ErststimmeWahlkreisOverview].[wahlkreis_id] AS [wahlkreis_id], 
+    [ErststimmeWahlkreisOverview].[Wahlkreis_Name] AS [Wahlkreis_Name], 
+    [ErststimmeWahlkreisOverview].[person_id] AS [person_id], 
+    [ErststimmeWahlkreisOverview].[title] AS [title], 
+    [ErststimmeWahlkreisOverview].[firstname] AS [firstname], 
+    [ErststimmeWahlkreisOverview].[lastname] AS [lastname], 
+    [ErststimmeWahlkreisOverview].[Party_Id] AS [Party_Id], 
+    [ErststimmeWahlkreisOverview].[Party_Name] AS [Party_Name], 
+    [ErststimmeWahlkreisOverview].[Votes] AS [Votes], 
+    [ErststimmeWahlkreisOverview].[overall] AS [overall], 
+    [ErststimmeWahlkreisOverview].[PercentVotes] AS [PercentVotes], 
+    [ErststimmeWahlkreisOverview].[Previous] AS [Previous]
+    FROM [dbo].[ErststimmeWahlkreisOverview] AS [ErststimmeWahlkreisOverview]</DefiningQuery>
+          </EntitySet>
+          <EntitySet Name="minSeatsPerParty_Bundeslevel" EntityType="Self.minSeatsPerParty_Bundeslevel" store:Type="Views" store:Schema="dbo">
+            <DefiningQuery>SELECT 
+    [minSeatsPerParty_Bundeslevel].[Election_Id] AS [Election_Id], 
+    [minSeatsPerParty_Bundeslevel].[Party_Id] AS [Party_Id], 
+    [minSeatsPerParty_Bundeslevel].[minSeatsBund] AS [minSeatsBund]
+    FROM [dbo].[minSeatsPerParty_Bundeslevel] AS [minSeatsPerParty_Bundeslevel]</DefiningQuery>
+          </EntitySet>
+          <EntitySet Name="ParliamentMembers" EntityType="Self.ParliamentMembers" store:Type="Views" store:Schema="dbo">
+            <DefiningQuery>SELECT 
+    [ParliamentMembers].[Election_Id] AS [Election_Id], 
+    [ParliamentMembers].[Person_Id] AS [Person_Id], 
+    [ParliamentMembers].[Title] AS [Title], 
+    [ParliamentMembers].[Firstname] AS [Firstname], 
+    [ParliamentMembers].[Lastname] AS [Lastname], 
+    [ParliamentMembers].[HowCome] AS [HowCome], 
+    [ParliamentMembers].[Party_Id] AS [Party_Id], 
+    [ParliamentMembers].[Party_Name] AS [Party_Name], 
+    [ParliamentMembers].[Bundesland_Id] AS [Bundesland_Id], 
+    [ParliamentMembers].[Bundesland_Name] AS [Bundesland_Name], 
+    [ParliamentMembers].[Wahlkreis_Id] AS [Wahlkreis_Id], 
+    [ParliamentMembers].[Wahlkreis_Name] AS [Wahlkreis_Name]
+    FROM [dbo].[ParliamentMembers] AS [ParliamentMembers]</DefiningQuery>
+          </EntitySet>
+          <EntitySet Name="Parties5" EntityType="Self.Parties5" store:Type="Views" store:Schema="dbo">
+            <DefiningQuery>SELECT 
+    [Parties5].[Election_Id] AS [Election_Id], 
+    [Parties5].[Id] AS [Id]
+    FROM [dbo].[Parties5] AS [Parties5]</DefiningQuery>
+          </EntitySet>
+          <EntitySet Name="SeatsGainedByErststimme" EntityType="Self.SeatsGainedByErststimme" store:Type="Views" store:Schema="dbo">
+            <DefiningQuery>SELECT 
+    [SeatsGainedByErststimme].[Election_Id] AS [Election_Id], 
+    [SeatsGainedByErststimme].[Bundesland_Id] AS [Bundesland_Id], 
+    [SeatsGainedByErststimme].[Party_Id] AS [Party_Id], 
+    [SeatsGainedByErststimme].[numberOfVictories] AS [numberOfVictories]
+    FROM [dbo].[SeatsGainedByErststimme] AS [SeatsGainedByErststimme]</DefiningQuery>
+          </EntitySet>
+          <EntitySet Name="seatsGainedByZweitstimme" EntityType="Self.seatsGainedByZweitstimme" store:Type="Views" store:Schema="dbo">
+            <DefiningQuery>SELECT 
+    [seatsGainedByZweitstimme].[Election_Id] AS [Election_Id], 
+    [seatsGainedByZweitstimme].[Bundesland_Id] AS [Bundesland_Id], 
+    [seatsGainedByZweitstimme].[Party_Id] AS [Party_Id], 
+    [seatsGainedByZweitstimme].[seats] AS [seats]
+    FROM [dbo].[seatsGainedByZweitstimme] AS [seatsGainedByZweitstimme]</DefiningQuery>
+          </EntitySet>
+          <EntitySet Name="SeatsPerState" EntityType="Self.SeatsPerState" store:Type="Views" store:Schema="dbo">
+            <DefiningQuery>SELECT 
+    [SeatsPerState].[Election_Id] AS [Election_Id], 
+    [SeatsPerState].[Bundesland_ID] AS [Bundesland_ID], 
+    [SeatsPerState].[Seats] AS [Seats]
+    FROM [dbo].[SeatsPerState] AS [SeatsPerState]</DefiningQuery>
+          </EntitySet>
+          <EntitySet Name="Sitzverteilung" EntityType="Self.Sitzverteilung" store:Type="Views" store:Schema="dbo">
+            <DefiningQuery>SELECT 
+    [Sitzverteilung].[Election_Id] AS [Election_Id], 
+    [Sitzverteilung].[OverallSeats] AS [OverallSeats], 
+    [Sitzverteilung].[Party_Id] AS [Party_Id], 
+    [Sitzverteilung].[PartyName] AS [PartyName], 
+    [Sitzverteilung].[SeatsParty] AS [SeatsParty], 
+    [Sitzverteilung].[PercentParty] AS [PercentParty]
+    FROM [dbo].[Sitzverteilung] AS [Sitzverteilung]</DefiningQuery>
+          </EntitySet>
+          <EntitySet Name="Ueberhangmandate" EntityType="Self.Ueberhangmandate" store:Type="Views" store:Schema="dbo">
+            <DefiningQuery>SELECT 
+    [Ueberhangmandate].[Election_Id] AS [Election_Id], 
+    [Ueberhangmandate].[Bundesland_Id] AS [Bundesland_Id], 
+    [Ueberhangmandate].[Bundesland_Name] AS [Bundesland_Name], 
+    [Ueberhangmandate].[Party_Id] AS [Party_Id], 
+    [Ueberhangmandate].[Party_Name] AS [Party_Name], 
+    [Ueberhangmandate].[Number] AS [Number]
+    FROM [dbo].[Ueberhangmandate] AS [Ueberhangmandate]</DefiningQuery>
+          </EntitySet>
+          <EntitySet Name="Wahlkreissieger" EntityType="Self.Wahlkreissieger" store:Type="Views" store:Schema="dbo">
+            <DefiningQuery>SELECT 
+    [Wahlkreissieger].[ElectionID] AS [ElectionID], 
+    [Wahlkreissieger].[Person_Id] AS [Person_Id], 
+    [Wahlkreissieger].[Wahlkreis_Id] AS [Wahlkreis_Id], 
+    [Wahlkreissieger].[MemberOfParty] AS [MemberOfParty]
+    FROM [dbo].[Wahlkreissieger] AS [Wahlkreissieger]</DefiningQuery>
+          </EntitySet>
+          <EntitySet Name="WinnerErststimme" EntityType="Self.WinnerErststimme" store:Type="Views" store:Schema="dbo">
+            <DefiningQuery>SELECT 
+    [WinnerErststimme].[Election_Id] AS [Election_Id], 
+    [WinnerErststimme].[Wahlkreis_Id] AS [Wahlkreis_Id], 
+    [WinnerErststimme].[Wahlkreis_Name] AS [Wahlkreis_Name], 
+    [WinnerErststimme].[Person_Id] AS [Person_Id], 
+    [WinnerErststimme].[Title] AS [Title], 
+    [WinnerErststimme].[Firstname] AS [Firstname], 
+    [WinnerErststimme].[Lastname] AS [Lastname], 
+    [WinnerErststimme].[Party_Id] AS [Party_Id], 
+    [WinnerErststimme].[Party_Name] AS [Party_Name]
+    FROM [dbo].[WinnerErststimme] AS [WinnerErststimme]</DefiningQuery>
+          </EntitySet>
+          <EntitySet Name="WinnerFirstAndSecondVotes" EntityType="Self.WinnerFirstAndSecondVotes" store:Type="Views" store:Schema="dbo">
+            <DefiningQuery>SELECT 
+    [WinnerFirstAndSecondVotes].[Election_Id] AS [Election_Id], 
+    [WinnerFirstAndSecondVotes].[Bundesland_Id] AS [Bundesland_Id], 
+    [WinnerFirstAndSecondVotes].[Bundesland_Name] AS [Bundesland_Name], 
+    [WinnerFirstAndSecondVotes].[Wahlkreis_Id] AS [Wahlkreis_Id], 
+    [WinnerFirstAndSecondVotes].[Wahlkreis_Name] AS [Wahlkreis_Name], 
+    [WinnerFirstAndSecondVotes].[Person_Id] AS [Person_Id], 
+    [WinnerFirstAndSecondVotes].[Title] AS [Title], 
+    [WinnerFirstAndSecondVotes].[Firstname] AS [Firstname], 
+    [WinnerFirstAndSecondVotes].[Lastname] AS [Lastname], 
+    [WinnerFirstAndSecondVotes].[FirstVote_Party_Id] AS [FirstVote_Party_Id], 
+    [WinnerFirstAndSecondVotes].[FirstVote_Party_Name] AS [FirstVote_Party_Name], 
+    [WinnerFirstAndSecondVotes].[SecondVote_Party_Id] AS [SecondVote_Party_Id], 
+    [WinnerFirstAndSecondVotes].[SecondVote_Party_Name] AS [SecondVote_Party_Name]
+    FROM [dbo].[WinnerFirstAndSecondVotes] AS [WinnerFirstAndSecondVotes]</DefiningQuery>
+          </EntitySet>
+          <EntitySet Name="WinnerZweitstimme" EntityType="Self.WinnerZweitstimme" store:Type="Views" store:Schema="dbo">
+            <DefiningQuery>SELECT 
+    [WinnerZweitstimme].[Election_Id] AS [Election_Id], 
+    [WinnerZweitstimme].[Wahlkreis_Id] AS [Wahlkreis_Id], 
+    [WinnerZweitstimme].[Wahlkreis_Name] AS [Wahlkreis_Name], 
+    [WinnerZweitstimme].[Party_Id] AS [Party_Id], 
+    [WinnerZweitstimme].[Party_Name] AS [Party_Name]
+    FROM [dbo].[WinnerZweitstimme] AS [WinnerZweitstimme]</DefiningQuery>
+          </EntitySet>
+          <EntitySet Name="ZweitstimmeAggregated" EntityType="Self.ZweitstimmeAggregated" store:Type="Views" store:Schema="dbo">
+            <DefiningQuery>SELECT 
+    [ZweitstimmeAggregated].[Election_Id] AS [Election_Id], 
+    [ZweitstimmeAggregated].[Party_Id] AS [Party_Id], 
+    [ZweitstimmeAggregated].[Wahlkreis_Id] AS [Wahlkreis_Id], 
+    [ZweitstimmeAggregated].[Amount] AS [Amount]
+    FROM [dbo].[ZweitstimmeAggregated] AS [ZweitstimmeAggregated]</DefiningQuery>
+          </EntitySet>
+          <EntitySet Name="ZweitstimmenState" EntityType="Self.ZweitstimmenState" store:Type="Views" store:Schema="dbo">
+            <DefiningQuery>SELECT 
+    [ZweitstimmenState].[Election_Id] AS [Election_Id], 
+    [ZweitstimmenState].[Bundesland_Id] AS [Bundesland_Id], 
+    [ZweitstimmenState].[Party_ID] AS [Party_ID], 
+    [ZweitstimmenState].[Amount] AS [Amount]
+    FROM [dbo].[ZweitstimmenState] AS [ZweitstimmenState]</DefiningQuery>
+          </EntitySet>
+          <EntitySet Name="ZweitstimmeWahlkreisOverview" EntityType="Self.ZweitstimmeWahlkreisOverview" store:Type="Views" store:Schema="dbo">
+            <DefiningQuery>SELECT 
+    [ZweitstimmeWahlkreisOverview].[Election_Id] AS [Election_Id], 
+    [ZweitstimmeWahlkreisOverview].[Wahlkreis_Id] AS [Wahlkreis_Id], 
+    [ZweitstimmeWahlkreisOverview].[Wahlkreis_Name] AS [Wahlkreis_Name], 
+    [ZweitstimmeWahlkreisOverview].[Party_Id] AS [Party_Id], 
+    [ZweitstimmeWahlkreisOverview].[Party_Name] AS [Party_Name], 
+    [ZweitstimmeWahlkreisOverview].[Votes] AS [Votes], 
+    [ZweitstimmeWahlkreisOverview].[Overall] AS [Overall], 
+    [ZweitstimmeWahlkreisOverview].[PercentVotes] AS [PercentVotes], 
+    [ZweitstimmeWahlkreisOverview].[Previous] AS [Previous]
+    FROM [dbo].[ZweitstimmeWahlkreisOverview] AS [ZweitstimmeWahlkreisOverview]</DefiningQuery>
+          </EntitySet>
+          <AssociationSet Name="FK__AllowedTo__Elect__6E01572D" Association="Self.FK__AllowedTo__Elect__6E01572D">
+            <End Role="Election" EntitySet="Election" />
+            <End Role="AllowedToElectAmount" EntitySet="AllowedToElectAmount" />
+          </AssociationSet>
+          <AssociationSet Name="FK__AllowedTo__Elect__6FE99F9F" Association="Self.FK__AllowedTo__Elect__6FE99F9F">
+            <End Role="Election" EntitySet="Election" />
+            <End Role="AllowedToElect" EntitySet="AllowedToElect" />
+          </AssociationSet>
+          <AssociationSet Name="FK__AllowedTo__Perso__5CD6CB2B" Association="Self.FK__AllowedTo__Perso__5CD6CB2B">
+            <End Role="Person" EntitySet="Person" />
+            <End Role="AllowedToElect" EntitySet="AllowedToElect" />
+          </AssociationSet>
+          <AssociationSet Name="FK__AllowedTo__Wahlk__267ABA7A" Association="Self.FK__AllowedTo__Wahlk__267ABA7A">
+            <End Role="Wahlkreis" EntitySet="Wahlkreis" />
+            <End Role="AllowedToElect" EntitySet="AllowedToElect" />
+          </AssociationSet>
+          <AssociationSet Name="FK__AllowedTo__Wahlk__2A4B4B5E" Association="Self.FK__AllowedTo__Wahlk__2A4B4B5E">
+            <End Role="Wahlkreis" EntitySet="Wahlkreis" />
+            <End Role="AllowedToElectAmount" EntitySet="AllowedToElectAmount" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Candidate__Bunde__2F10007B" Association="Self.FK__Candidate__Bunde__2F10007B">
+            <End Role="Bundesland" EntitySet="Bundesland" />
+            <End Role="CandidateList" EntitySet="CandidateList" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Candidate__Elect__70DDC3D8" Association="Self.FK__Candidate__Elect__70DDC3D8">
+            <End Role="Election" EntitySet="Election" />
+            <End Role="CandidateList" EntitySet="CandidateList" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Candidate__Perso__5DCAEF64" Association="Self.FK__Candidate__Perso__5DCAEF64">
+            <End Role="Person" EntitySet="Person" />
+            <End Role="CandidateList" EntitySet="CandidateList" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Erststimm__Elect__0B5CAFEA" Association="Self.FK__Erststimm__Elect__0B5CAFEA">
+            <End Role="Election" EntitySet="Election" />
+            <End Role="Erststimme" EntitySet="Erststimme" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Erststimm__Elect__72C60C4A" Association="Self.FK__Erststimm__Elect__72C60C4A">
+            <End Role="Election" EntitySet="Election" />
+            <End Role="ErststimmeAmount" EntitySet="ErststimmeAmount" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Erststimm__Perso__09746778" Association="Self.FK__Erststimm__Perso__09746778">
+            <End Role="Person" EntitySet="Person" />
+            <End Role="Erststimme" EntitySet="Erststimme" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Erststimm__Perso__0A688BB1" Association="Self.FK__Erststimm__Perso__0A688BB1">
+            <End Role="Person" EntitySet="Person" />
+            <End Role="Erststimme" EntitySet="Erststimme" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Erststimm__Perso__60A75C0F" Association="Self.FK__Erststimm__Perso__60A75C0F">
+            <End Role="Person" EntitySet="Person" />
+            <End Role="ErststimmeAmount" EntitySet="ErststimmeAmount" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Erststimm__Wahlk__0880433F" Association="Self.FK__Erststimm__Wahlk__0880433F">
+            <End Role="Wahlkreis" EntitySet="Wahlkreis" />
+            <End Role="Erststimme" EntitySet="Erststimme" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Erststimm__Wahlk__398D8EEE" Association="Self.FK__Erststimm__Wahlk__398D8EEE">
+            <End Role="Wahlkreis" EntitySet="Wahlkreis" />
+            <End Role="ErststimmeAmount" EntitySet="ErststimmeAmount" />
+          </AssociationSet>
+          <AssociationSet Name="FK__IsElectab__Bunde__4316F928" Association="Self.FK__IsElectab__Bunde__4316F928">
+            <End Role="Bundesland" EntitySet="Bundesland" />
+            <End Role="IsElectableParty" EntitySet="IsElectableParty" />
+          </AssociationSet>
+          <AssociationSet Name="FK__IsElectab__Elect__73BA3083" Association="Self.FK__IsElectab__Elect__73BA3083">
+            <End Role="Election" EntitySet="Election" />
+            <End Role="IsElectableCandidate" EntitySet="IsElectableCandidate" />
+          </AssociationSet>
+          <AssociationSet Name="FK__IsElectab__Elect__75A278F5" Association="Self.FK__IsElectab__Elect__75A278F5">
+            <End Role="Election" EntitySet="Election" />
+            <End Role="IsElectableParty" EntitySet="IsElectableParty" />
+          </AssociationSet>
+          <AssociationSet Name="FK__IsElectab__Party__6754599E" Association="Self.FK__IsElectab__Party__6754599E">
+            <End Role="Party" EntitySet="Party" />
+            <End Role="IsElectableParty" EntitySet="IsElectableParty" />
+          </AssociationSet>
+          <AssociationSet Name="FK__IsElectab__Perso__619B8048" Association="Self.FK__IsElectab__Perso__619B8048">
+            <End Role="Person" EntitySet="Person" />
+            <End Role="IsElectableCandidate" EntitySet="IsElectableCandidate" />
+          </AssociationSet>
+          <AssociationSet Name="FK__IsElectab__Wahlk__3E52440B" Association="Self.FK__IsElectab__Wahlk__3E52440B">
+            <End Role="Wahlkreis" EntitySet="Wahlkreis" />
+            <End Role="IsElectableCandidate" EntitySet="IsElectableCandidate" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Participa__Elect__6EF57B66" Association="Self.FK__Participa__Elect__6EF57B66">
+            <End Role="Election" EntitySet="Election" />
+            <End Role="ParticipationAmount" EntitySet="ParticipationAmount" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Participa__Elect__74AE54BC" Association="Self.FK__Participa__Elect__74AE54BC">
+            <End Role="Election" EntitySet="Election" />
+            <End Role="Participation" EntitySet="Participation" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Participa__Perso__628FA481" Association="Self.FK__Participa__Perso__628FA481">
+            <End Role="Person" EntitySet="Person" />
+            <End Role="Participation" EntitySet="Participation" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Participa__Wahlk__4AB81AF0" Association="Self.FK__Participa__Wahlk__4AB81AF0">
+            <End Role="Wahlkreis" EntitySet="Wahlkreis" />
+            <End Role="ParticipationAmount" EntitySet="ParticipationAmount" />
+          </AssociationSet>
+          <AssociationSet Name="FK__PartyAffi__Elect__76969D2E" Association="Self.FK__PartyAffi__Elect__76969D2E">
+            <End Role="Election" EntitySet="Election" />
+            <End Role="PartyAffiliation" EntitySet="PartyAffiliation" />
+          </AssociationSet>
+          <AssociationSet Name="FK__PartyAffi__Party__6A30C649" Association="Self.FK__PartyAffi__Party__6A30C649">
+            <End Role="Party" EntitySet="Party" />
+            <End Role="PartyAffiliation" EntitySet="PartyAffiliation" />
+          </AssociationSet>
+          <AssociationSet Name="FK__PartyAffi__Perso__6383C8BA" Association="Self.FK__PartyAffi__Perso__6383C8BA">
+            <End Role="Person" EntitySet="Person" />
+            <End Role="PartyAffiliation" EntitySet="PartyAffiliation" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Populatio__Bunde__1DE57479" Association="Self.FK__Populatio__Bunde__1DE57479">
+            <End Role="Bundesland" EntitySet="Bundesland" />
+            <End Role="PopulationBundesland" EntitySet="PopulationBundesland" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Populatio__Elect__6D0D32F4" Association="Self.FK__Populatio__Elect__6D0D32F4">
+            <End Role="Election" EntitySet="Election" />
+            <End Role="PopulationBundesland" EntitySet="PopulationBundesland" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Wahlkreis__Bunde__21B6055D" Association="Self.FK__Wahlkreis__Bunde__21B6055D">
+            <End Role="Bundesland" EntitySet="Bundesland" />
+            <End Role="Wahlkreis" EntitySet="Wahlkreis" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Zweitstim__Elect__10216507" Association="Self.FK__Zweitstim__Elect__10216507">
+            <End Role="Election" EntitySet="Election" />
+            <End Role="Zweitstimme" EntitySet="Zweitstimme" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Zweitstim__Elect__787EE5A0" Association="Self.FK__Zweitstim__Elect__787EE5A0">
+            <End Role="Election" EntitySet="Election" />
+            <End Role="ZweitstimmeAmount" EntitySet="ZweitstimmeAmount" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Zweitstim__Party__0F2D40CE" Association="Self.FK__Zweitstim__Party__0F2D40CE">
+            <End Role="Party" EntitySet="Party" />
+            <End Role="Zweitstimme" EntitySet="Zweitstimme" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Zweitstim__Party__693CA210" Association="Self.FK__Zweitstim__Party__693CA210">
+            <End Role="Party" EntitySet="Party" />
+            <End Role="ZweitstimmeAmount" EntitySet="ZweitstimmeAmount" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Zweitstim__Wahlk__0E391C95" Association="Self.FK__Zweitstim__Wahlk__0E391C95">
+            <End Role="Wahlkreis" EntitySet="Wahlkreis" />
+            <End Role="Zweitstimme" EntitySet="Zweitstimme" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Zweitstim__Wahlk__59063A47" Association="Self.FK__Zweitstim__Wahlk__59063A47">
+            <End Role="Wahlkreis" EntitySet="Wahlkreis" />
+            <End Role="ZweitstimmeAmount" EntitySet="ZweitstimmeAmount" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema></edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="DBModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityType Name="AllowedToElect">
+          <Key>
+            <PropertyRef Name="Election_Id" />
+            <PropertyRef Name="Person_Id" />
+          </Key>
+          <Property Name="Election_Id" Type="Int32" Nullable="false" />
+          <Property Name="Person_Id" Type="Int32" Nullable="false" />
+          <Property Name="Wahlkreis_Id" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="Election" Relationship="Self.FK__AllowedTo__Elect__6FE99F9F" FromRole="AllowedToElect" ToRole="Election" />
+          <NavigationProperty Name="Person" Relationship="Self.FK__AllowedTo__Perso__5CD6CB2B" FromRole="AllowedToElect" ToRole="Person" />
+          <NavigationProperty Name="Wahlkrei" Relationship="Self.FK__AllowedTo__Wahlk__267ABA7A" FromRole="AllowedToElect" ToRole="Wahlkreis" />
+        </EntityType>
+        <EntityType Name="AllowedToElectAmount">
+          <Key>
+            <PropertyRef Name="Election_Id" />
+            <PropertyRef Name="Wahlkreis_Id" />
+          </Key>
+          <Property Name="Election_Id" Type="Int32" Nullable="false" />
+          <Property Name="Wahlkreis_Id" Type="Int32" Nullable="false" />
+          <Property Name="Amount" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="Election" Relationship="Self.FK__AllowedTo__Elect__6E01572D" FromRole="AllowedToElectAmount" ToRole="Election" />
+          <NavigationProperty Name="Wahlkrei" Relationship="Self.FK__AllowedTo__Wahlk__2A4B4B5E" FromRole="AllowedToElectAmount" ToRole="Wahlkreis" />
+        </EntityType>
+        <EntityType Name="Bundesland">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" />
+          <Property Name="Name" Type="String" MaxLength="127" FixedLength="false" Unicode="true" Nullable="false" />
+          <NavigationProperty Name="CandidateLists" Relationship="Self.FK__Candidate__Bunde__2F10007B" FromRole="Bundesland" ToRole="CandidateList" />
+          <NavigationProperty Name="IsElectableParties" Relationship="Self.FK__IsElectab__Bunde__4316F928" FromRole="Bundesland" ToRole="IsElectableParty" />
+          <NavigationProperty Name="PopulationBundeslands" Relationship="Self.FK__Populatio__Bunde__1DE57479" FromRole="Bundesland" ToRole="PopulationBundesland" />
+          <NavigationProperty Name="Wahlkreis" Relationship="Self.FK__Wahlkreis__Bunde__21B6055D" FromRole="Bundesland" ToRole="Wahlkreis" />
+        </EntityType>
+        <EntityType Name="CandidateList">
+          <Key>
+            <PropertyRef Name="Person_Id" />
+            <PropertyRef Name="Election_Id" />
+          </Key>
+          <Property Name="Person_Id" Type="Int32" Nullable="false" />
+          <Property Name="Election_Id" Type="Int32" Nullable="false" />
+          <Property Name="Bundesland_Id" Type="Int32" Nullable="false" />
+          <Property Name="Position" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="Bundesland" Relationship="Self.FK__Candidate__Bunde__2F10007B" FromRole="CandidateList" ToRole="Bundesland" />
+          <NavigationProperty Name="Election" Relationship="Self.FK__Candidate__Elect__70DDC3D8" FromRole="CandidateList" ToRole="Election" />
+          <NavigationProperty Name="Person" Relationship="Self.FK__Candidate__Perso__5DCAEF64" FromRole="CandidateList" ToRole="Person" />
+        </EntityType>
+        <EntityType Name="Election">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" />
+          <Property Name="Date" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="SeatsBundestag" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="AllowedToElects" Relationship="Self.FK__AllowedTo__Elect__6FE99F9F" FromRole="Election" ToRole="AllowedToElect" />
+          <NavigationProperty Name="AllowedToElectAmounts" Relationship="Self.FK__AllowedTo__Elect__6E01572D" FromRole="Election" ToRole="AllowedToElectAmount" />
+          <NavigationProperty Name="CandidateLists" Relationship="Self.FK__Candidate__Elect__70DDC3D8" FromRole="Election" ToRole="CandidateList" />
+          <NavigationProperty Name="Erststimmes" Relationship="Self.FK__Erststimm__Elect__0B5CAFEA" FromRole="Election" ToRole="Erststimme" />
+          <NavigationProperty Name="ErststimmeAmounts" Relationship="Self.FK__Erststimm__Elect__72C60C4A" FromRole="Election" ToRole="ErststimmeAmount" />
+          <NavigationProperty Name="IsElectableCandidates" Relationship="Self.FK__IsElectab__Elect__73BA3083" FromRole="Election" ToRole="IsElectableCandidate" />
+          <NavigationProperty Name="IsElectableParties" Relationship="Self.FK__IsElectab__Elect__75A278F5" FromRole="Election" ToRole="IsElectableParty" />
+          <NavigationProperty Name="ParticipationAmounts" Relationship="Self.FK__Participa__Elect__6EF57B66" FromRole="Election" ToRole="ParticipationAmount" />
+          <NavigationProperty Name="PartyAffiliations" Relationship="Self.FK__PartyAffi__Elect__76969D2E" FromRole="Election" ToRole="PartyAffiliation" />
+          <NavigationProperty Name="PopulationBundeslands" Relationship="Self.FK__Populatio__Elect__6D0D32F4" FromRole="Election" ToRole="PopulationBundesland" />
+          <NavigationProperty Name="Zweitstimmes" Relationship="Self.FK__Zweitstim__Elect__10216507" FromRole="Election" ToRole="Zweitstimme" />
+          <NavigationProperty Name="ZweitstimmeAmounts" Relationship="Self.FK__Zweitstim__Elect__787EE5A0" FromRole="Election" ToRole="ZweitstimmeAmount" />
+          <NavigationProperty Name="People" Relationship="Self.Participation" FromRole="Election" ToRole="Person" />
+        </EntityType>
+        <EntityType Name="Erststimme">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Election_Id" Type="Int32" Nullable="false" />
+          <Property Name="Wahlkreis_Id" Type="Int32" Nullable="false" />
+          <Property Name="Person_Id" Type="Int32" />
+          <NavigationProperty Name="Election" Relationship="Self.FK__Erststimm__Elect__0B5CAFEA" FromRole="Erststimme" ToRole="Election" />
+          <NavigationProperty Name="Person" Relationship="Self.FK__Erststimm__Perso__09746778" FromRole="Erststimme" ToRole="Person" />
+          <NavigationProperty Name="Person1" Relationship="Self.FK__Erststimm__Perso__0A688BB1" FromRole="Erststimme" ToRole="Person" />
+          <NavigationProperty Name="Wahlkrei" Relationship="Self.FK__Erststimm__Wahlk__0880433F" FromRole="Erststimme" ToRole="Wahlkreis" />
+        </EntityType>
+        <EntityType Name="ErststimmeAmount">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Election_Id" Type="Int32" Nullable="false" />
+          <Property Name="Wahlkreis_Id" Type="Int32" Nullable="false" />
+          <Property Name="Person_Id" Type="Int32" />
+          <Property Name="Amount" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="Election" Relationship="Self.FK__Erststimm__Elect__72C60C4A" FromRole="ErststimmeAmount" ToRole="Election" />
+          <NavigationProperty Name="Person" Relationship="Self.FK__Erststimm__Perso__60A75C0F" FromRole="ErststimmeAmount" ToRole="Person" />
+          <NavigationProperty Name="Wahlkrei" Relationship="Self.FK__Erststimm__Wahlk__398D8EEE" FromRole="ErststimmeAmount" ToRole="Wahlkreis" />
+        </EntityType>
+        <EntityType Name="InvalidTokenRequest">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="IP" Type="String" MaxLength="127" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="Token" Type="String" MaxLength="127" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="Timestamp" Type="DateTime" Nullable="false" Precision="3" />
+        </EntityType>
+        <EntityType Name="IsElectableCandidate">
+          <Key>
+            <PropertyRef Name="Election_Id" />
+            <PropertyRef Name="Person_Id" />
+          </Key>
+          <Property Name="Election_Id" Type="Int32" Nullable="false" />
+          <Property Name="Person_Id" Type="Int32" Nullable="false" />
+          <Property Name="Wahlkreis_Id" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="Election" Relationship="Self.FK__IsElectab__Elect__73BA3083" FromRole="IsElectableCandidate" ToRole="Election" />
+          <NavigationProperty Name="Person" Relationship="Self.FK__IsElectab__Perso__619B8048" FromRole="IsElectableCandidate" ToRole="Person" />
+          <NavigationProperty Name="Wahlkrei" Relationship="Self.FK__IsElectab__Wahlk__3E52440B" FromRole="IsElectableCandidate" ToRole="Wahlkreis" />
+        </EntityType>
+        <EntityType Name="IsElectableParty">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Election_Id" Type="Int32" Nullable="false" />
+          <Property Name="Party_Id" Type="Int32" Nullable="false" />
+          <Property Name="Bundesland_Id" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="Bundesland" Relationship="Self.FK__IsElectab__Bunde__4316F928" FromRole="IsElectableParty" ToRole="Bundesland" />
+          <NavigationProperty Name="Election" Relationship="Self.FK__IsElectab__Elect__75A278F5" FromRole="IsElectableParty" ToRole="Election" />
+          <NavigationProperty Name="Party" Relationship="Self.FK__IsElectab__Party__6754599E" FromRole="IsElectableParty" ToRole="Party" />
+        </EntityType>
+        <EntityType Name="ParticipationAmount">
+          <Key>
+            <PropertyRef Name="Election_Id" />
+            <PropertyRef Name="Wahlkreis_Id" />
+          </Key>
+          <Property Name="Election_Id" Type="Int32" Nullable="false" />
+          <Property Name="Wahlkreis_Id" Type="Int32" Nullable="false" />
+          <Property Name="Amount" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="Election" Relationship="Self.FK__Participa__Elect__6EF57B66" FromRole="ParticipationAmount" ToRole="Election" />
+          <NavigationProperty Name="Wahlkrei" Relationship="Self.FK__Participa__Wahlk__4AB81AF0" FromRole="ParticipationAmount" ToRole="Wahlkreis" />
+        </EntityType>
+        <EntityType Name="Party">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" />
+          <Property Name="Name" Type="String" MaxLength="127" FixedLength="false" Unicode="true" Nullable="false" />
+          <NavigationProperty Name="IsElectableParties" Relationship="Self.FK__IsElectab__Party__6754599E" FromRole="Party" ToRole="IsElectableParty" />
+          <NavigationProperty Name="PartyAffiliations" Relationship="Self.FK__PartyAffi__Party__6A30C649" FromRole="Party" ToRole="PartyAffiliation" />
+          <NavigationProperty Name="Zweitstimmes" Relationship="Self.FK__Zweitstim__Party__0F2D40CE" FromRole="Party" ToRole="Zweitstimme" />
+          <NavigationProperty Name="ZweitstimmeAmounts" Relationship="Self.FK__Zweitstim__Party__693CA210" FromRole="Party" ToRole="ZweitstimmeAmount" />
+        </EntityType>
+        <EntityType Name="PartyAffiliation">
+          <Key>
+            <PropertyRef Name="Person_Id" />
+            <PropertyRef Name="Election_Id" />
+          </Key>
+          <Property Name="Person_Id" Type="Int32" Nullable="false" />
+          <Property Name="Election_Id" Type="Int32" Nullable="false" />
+          <Property Name="Party_Id" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="Election" Relationship="Self.FK__PartyAffi__Elect__76969D2E" FromRole="PartyAffiliation" ToRole="Election" />
+          <NavigationProperty Name="Party" Relationship="Self.FK__PartyAffi__Party__6A30C649" FromRole="PartyAffiliation" ToRole="Party" />
+          <NavigationProperty Name="Person" Relationship="Self.FK__PartyAffi__Perso__6383C8BA" FromRole="PartyAffiliation" ToRole="Person" />
+        </EntityType>
+        <EntityType Name="Person">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" />
+          <Property Name="Title" Type="String" MaxLength="31" FixedLength="false" Unicode="false" />
+          <Property Name="Firstname" Type="String" MaxLength="127" FixedLength="false" Unicode="true" />
+          <Property Name="Lastname" Type="String" MaxLength="127" FixedLength="false" Unicode="true" Nullable="false" />
+          <NavigationProperty Name="AllowedToElects" Relationship="Self.FK__AllowedTo__Perso__5CD6CB2B" FromRole="Person" ToRole="AllowedToElect" />
+          <NavigationProperty Name="CandidateLists" Relationship="Self.FK__Candidate__Perso__5DCAEF64" FromRole="Person" ToRole="CandidateList" />
+          <NavigationProperty Name="Erststimmes" Relationship="Self.FK__Erststimm__Perso__09746778" FromRole="Person" ToRole="Erststimme" />
+          <NavigationProperty Name="Erststimmes1" Relationship="Self.FK__Erststimm__Perso__0A688BB1" FromRole="Person" ToRole="Erststimme" />
+          <NavigationProperty Name="ErststimmeAmounts" Relationship="Self.FK__Erststimm__Perso__60A75C0F" FromRole="Person" ToRole="ErststimmeAmount" />
+          <NavigationProperty Name="IsElectableCandidates" Relationship="Self.FK__IsElectab__Perso__619B8048" FromRole="Person" ToRole="IsElectableCandidate" />
+          <NavigationProperty Name="PartyAffiliations" Relationship="Self.FK__PartyAffi__Perso__6383C8BA" FromRole="Person" ToRole="PartyAffiliation" />
+          <NavigationProperty Name="Elections" Relationship="Self.Participation" FromRole="Person" ToRole="Election" />
+        </EntityType>
+        <EntityType Name="PopulationBundesland">
+          <Key>
+            <PropertyRef Name="Election_Id" />
+            <PropertyRef Name="Bundesland_Id" />
+          </Key>
+          <Property Name="Election_Id" Type="Int32" Nullable="false" />
+          <Property Name="Bundesland_Id" Type="Int32" Nullable="false" />
+          <Property Name="Count" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="Bundesland" Relationship="Self.FK__Populatio__Bunde__1DE57479" FromRole="PopulationBundesland" ToRole="Bundesland" />
+          <NavigationProperty Name="Election" Relationship="Self.FK__Populatio__Elect__6D0D32F4" FromRole="PopulationBundesland" ToRole="Election" />
+        </EntityType>
+        <EntityType Name="UsedToken">
+          <Key>
+            <PropertyRef Name="TokenString" />
+          </Key>
+          <Property Name="TokenString" Type="String" MaxLength="127" FixedLength="false" Unicode="false" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Wahlkrei">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" />
+          <Property Name="Name" Type="String" MaxLength="127" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="Bundesland_Id" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="AllowedToElects" Relationship="Self.FK__AllowedTo__Wahlk__267ABA7A" FromRole="Wahlkreis" ToRole="AllowedToElect" />
+          <NavigationProperty Name="AllowedToElectAmounts" Relationship="Self.FK__AllowedTo__Wahlk__2A4B4B5E" FromRole="Wahlkreis" ToRole="AllowedToElectAmount" />
+          <NavigationProperty Name="Bundesland" Relationship="Self.FK__Wahlkreis__Bunde__21B6055D" FromRole="Wahlkreis" ToRole="Bundesland" />
+          <NavigationProperty Name="Erststimmes" Relationship="Self.FK__Erststimm__Wahlk__0880433F" FromRole="Wahlkreis" ToRole="Erststimme" />
+          <NavigationProperty Name="ErststimmeAmounts" Relationship="Self.FK__Erststimm__Wahlk__398D8EEE" FromRole="Wahlkreis" ToRole="ErststimmeAmount" />
+          <NavigationProperty Name="IsElectableCandidates" Relationship="Self.FK__IsElectab__Wahlk__3E52440B" FromRole="Wahlkreis" ToRole="IsElectableCandidate" />
+          <NavigationProperty Name="ParticipationAmounts" Relationship="Self.FK__Participa__Wahlk__4AB81AF0" FromRole="Wahlkreis" ToRole="ParticipationAmount" />
+          <NavigationProperty Name="Zweitstimmes" Relationship="Self.FK__Zweitstim__Wahlk__0E391C95" FromRole="Wahlkreis" ToRole="Zweitstimme" />
+          <NavigationProperty Name="ZweitstimmeAmounts" Relationship="Self.FK__Zweitstim__Wahlk__59063A47" FromRole="Wahlkreis" ToRole="ZweitstimmeAmount" />
+        </EntityType>
+        <EntityType Name="Zweitstimme">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Election_Id" Type="Int32" Nullable="false" />
+          <Property Name="Party_Id" Type="Int32" />
+          <Property Name="Wahlkreis_Id" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="Election" Relationship="Self.FK__Zweitstim__Elect__10216507" FromRole="Zweitstimme" ToRole="Election" />
+          <NavigationProperty Name="Party" Relationship="Self.FK__Zweitstim__Party__0F2D40CE" FromRole="Zweitstimme" ToRole="Party" />
+          <NavigationProperty Name="Wahlkrei" Relationship="Self.FK__Zweitstim__Wahlk__0E391C95" FromRole="Zweitstimme" ToRole="Wahlkreis" />
+        </EntityType>
+        <EntityType Name="ZweitstimmeAmount">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Election_Id" Type="Int32" Nullable="false" />
+          <Property Name="Party_Id" Type="Int32" />
+          <Property Name="Wahlkreis_Id" Type="Int32" Nullable="false" />
+          <Property Name="Amount" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="Election" Relationship="Self.FK__Zweitstim__Elect__787EE5A0" FromRole="ZweitstimmeAmount" ToRole="Election" />
+          <NavigationProperty Name="Party" Relationship="Self.FK__Zweitstim__Party__693CA210" FromRole="ZweitstimmeAmount" ToRole="Party" />
+          <NavigationProperty Name="Wahlkrei" Relationship="Self.FK__Zweitstim__Wahlk__59063A47" FromRole="ZweitstimmeAmount" ToRole="Wahlkreis" />
+        </EntityType>
+        <EntityType Name="BasicWahlkreisOverview">
+          <Key>
+            <PropertyRef Name="Election_Id" />
+            <PropertyRef Name="Wahlkreis_Id" />
+            <PropertyRef Name="Wahlkreis_Name" />
+            <PropertyRef Name="Party_Id" />
+            <PropertyRef Name="Party_Name" />
+          </Key>
+          <Property Name="Election_Id" Type="Int32" Nullable="false" />
+          <Property Name="Wahlkreis_Id" Type="Int32" Nullable="false" />
+          <Property Name="Wahlkreis_Name" Type="String" MaxLength="127" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="Participation" Type="Decimal" Precision="24" Scale="12" />
+          <Property Name="Person_Id" Type="Int32" />
+          <Property Name="Title" Type="String" MaxLength="31" FixedLength="false" Unicode="false" />
+          <Property Name="Firstname" Type="String" MaxLength="127" FixedLength="false" Unicode="true" />
+          <Property Name="Lastname" Type="String" MaxLength="127" FixedLength="false" Unicode="true" />
+          <Property Name="Party_Id" Type="Int32" Nullable="false" />
+          <Property Name="Party_Name" Type="String" MaxLength="127" FixedLength="false" Unicode="true" Nullable="false" />
+        </EntityType>
+        <EntityType Name="ClosestErststimmeResult">
+          <Key>
+            <PropertyRef Name="Election_Id" />
+            <PropertyRef Name="Wahlkreis_Id" />
+            <PropertyRef Name="Wahlkreis_Name" />
+            <PropertyRef Name="Lastname" />
+            <PropertyRef Name="Amount" />
+            <PropertyRef Name="PreviousAmount" />
+          </Key>
+          <Property Name="Election_Id" Type="Int32" Nullable="false" />
+          <Property Name="Wahlkreis_Id" Type="Int32" Nullable="false" />
+          <Property Name="Wahlkreis_Name" Type="String" MaxLength="127" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="Person_Id" Type="Int32" />
+          <Property Name="Title" Type="String" MaxLength="31" FixedLength="false" Unicode="false" />
+          <Property Name="Firstname" Type="String" MaxLength="127" FixedLength="false" Unicode="true" />
+          <Property Name="Lastname" Type="String" MaxLength="127" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="Party_Id" Type="Int32" />
+          <Property Name="Party_Name" Type="String" MaxLength="127" FixedLength="false" Unicode="true" />
+          <Property Name="Amount" Type="Int32" Nullable="false" />
+          <Property Name="PreviousAmount" Type="Int32" Nullable="false" />
+          <Property Name="Diff" Type="Int32" />
+          <Property Name="AbsDiff" Type="Int32" />
+        </EntityType>
+        <EntityType Name="ClosestZweitstimmeResult">
+          <Key>
+            <PropertyRef Name="Election_Id" />
+            <PropertyRef Name="Wahlkreis_Id" />
+            <PropertyRef Name="Wahlkreis_Name" />
+            <PropertyRef Name="Party_Name" />
+            <PropertyRef Name="Amount" />
+            <PropertyRef Name="PreviousAmount" />
+          </Key>
+          <Property Name="Election_Id" Type="Int32" Nullable="false" />
+          <Property Name="Wahlkreis_Id" Type="Int32" Nullable="false" />
+          <Property Name="Wahlkreis_Name" Type="String" MaxLength="127" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="Party_Id" Type="Int32" />
+          <Property Name="Party_Name" Type="String" MaxLength="127" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="Amount" Type="Int32" Nullable="false" />
+          <Property Name="PreviousAmount" Type="Int32" Nullable="false" />
+          <Property Name="Diff" Type="Int32" />
+          <Property Name="AbsDiff" Type="Int32" />
+        </EntityType>
+        <EntityType Name="DistributionWithinState">
+          <Key>
+            <PropertyRef Name="Election_Id" />
+            <PropertyRef Name="Bundesland_Id" />
+          </Key>
+          <Property Name="Election_Id" Type="Int32" Nullable="false" />
+          <Property Name="Bundesland_Id" Type="Int32" Nullable="false" />
+          <Property Name="Seats" Type="Int32" />
+          <Property Name="Party_Id" Type="Int32" />
+        </EntityType>
+        <EntityType Name="ElectionParticipation">
+          <Key>
+            <PropertyRef Name="Election_Id" />
+            <PropertyRef Name="Wahlkreis_Id" />
+          </Key>
+          <Property Name="Election_Id" Type="Int32" Nullable="false" />
+          <Property Name="Wahlkreis_Id" Type="Int32" Nullable="false" />
+          <Property Name="Participation" Type="Decimal" Precision="24" Scale="12" />
+        </EntityType>
+        <EntityType Name="ErststimmeAggregated">
+          <Key>
+            <PropertyRef Name="Election_Id" />
+            <PropertyRef Name="Wahlkreis_Id" />
+            <PropertyRef Name="Amount" />
+          </Key>
+          <Property Name="Election_Id" Type="Int32" Nullable="false" />
+          <Property Name="Wahlkreis_Id" Type="Int32" Nullable="false" />
+          <Property Name="Person_Id" Type="Int32" />
+          <Property Name="Amount" Type="Int32" Nullable="false" />
+        </EntityType>
+        <EntityType Name="ErststimmeWahlkreisOverview">
+          <Key>
+            <PropertyRef Name="election_id" />
+            <PropertyRef Name="wahlkreis_id" />
+            <PropertyRef Name="Wahlkreis_Name" />
+            <PropertyRef Name="Votes" />
+          </Key>
+          <Property Name="election_id" Type="Int32" Nullable="false" />
+          <Property Name="wahlkreis_id" Type="Int32" Nullable="false" />
+          <Property Name="Wahlkreis_Name" Type="String" MaxLength="127" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="person_id" Type="Int32" />
+          <Property Name="title" Type="String" MaxLength="31" FixedLength="false" Unicode="false" />
+          <Property Name="firstname" Type="String" MaxLength="127" FixedLength="false" Unicode="true" />
+          <Property Name="lastname" Type="String" MaxLength="127" FixedLength="false" Unicode="true" />
+          <Property Name="Party_Id" Type="Int32" />
+          <Property Name="Party_Name" Type="String" MaxLength="127" FixedLength="false" Unicode="true" />
+          <Property Name="Votes" Type="Int32" Nullable="false" />
+          <Property Name="overall" Type="Int32" />
+          <Property Name="PercentVotes" Type="Decimal" Precision="24" Scale="12" />
+          <Property Name="Previous" Type="Decimal" Precision="25" Scale="12" />
+        </EntityType>
+        <EntityType Name="minSeatsPerParty_Bundeslevel">
+          <Key>
+            <PropertyRef Name="Election_Id" />
+          </Key>
+          <Property Name="Election_Id" Type="Int32" Nullable="false" />
+          <Property Name="Party_Id" Type="Int32" />
+          <Property Name="minSeatsBund" Type="Int32" />
+        </EntityType>
+        <EntityType Name="ParliamentMember">
+          <Key>
+            <PropertyRef Name="Election_Id" />
+            <PropertyRef Name="Person_Id" />
+            <PropertyRef Name="Lastname" />
+            <PropertyRef Name="HowCome" />
+            <PropertyRef Name="Party_Id" />
+            <PropertyRef Name="Party_Name" />
+            <PropertyRef Name="Bundesland_Id" />
+            <PropertyRef Name="Bundesland_Name" />
+          </Key>
+          <Property Name="Election_Id" Type="Int32" Nullable="false" />
+          <Property Name="Person_Id" Type="Int32" Nullable="false" />
+          <Property Name="Title" Type="String" MaxLength="31" FixedLength="false" Unicode="false" />
+          <Property Name="Firstname" Type="String" MaxLength="127" FixedLength="false" Unicode="true" />
+          <Property Name="Lastname" Type="String" MaxLength="127" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="HowCome" Type="String" MaxLength="11" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="Party_Id" Type="Int32" Nullable="false" />
+          <Property Name="Party_Name" Type="String" MaxLength="127" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="Bundesland_Id" Type="Int32" Nullable="false" />
+          <Property Name="Bundesland_Name" Type="String" MaxLength="127" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="Wahlkreis_Id" Type="Int32" />
+          <Property Name="Wahlkreis_Name" Type="String" MaxLength="127" FixedLength="false" Unicode="true" />
+        </EntityType>
+        <EntityType Name="Parties5">
+          <Key>
+            <PropertyRef Name="Election_Id" />
+          </Key>
+          <Property Name="Election_Id" Type="Int32" Nullable="false" />
+          <Property Name="Id" Type="Int32" />
+        </EntityType>
+        <EntityType Name="SeatsGainedByErststimme">
+          <Key>
+            <PropertyRef Name="Election_Id" />
+            <PropertyRef Name="Bundesland_Id" />
+          </Key>
+          <Property Name="Election_Id" Type="Int32" Nullable="false" />
+          <Property Name="Bundesland_Id" Type="Int32" Nullable="false" />
+          <Property Name="Party_Id" Type="Int32" />
+          <Property Name="numberOfVictories" Type="Int32" />
+        </EntityType>
+        <EntityType Name="seatsGainedByZweitstimme">
+          <Key>
+            <PropertyRef Name="Election_Id" />
+            <PropertyRef Name="Bundesland_Id" />
+          </Key>
+          <Property Name="Election_Id" Type="Int32" Nullable="false" />
+          <Property Name="Bundesland_Id" Type="Int32" Nullable="false" />
+          <Property Name="Party_Id" Type="Int32" />
+          <Property Name="seats" Type="Int32" />
+        </EntityType>
+        <EntityType Name="SeatsPerState">
+          <Key>
+            <PropertyRef Name="Election_Id" />
+            <PropertyRef Name="Bundesland_ID" />
+          </Key>
+          <Property Name="Election_Id" Type="Int32" Nullable="false" />
+          <Property Name="Bundesland_ID" Type="Int32" Nullable="false" />
+          <Property Name="Seats" Type="Int32" />
+        </EntityType>
+        <EntityType Name="Sitzverteilung">
+          <Key>
+            <PropertyRef Name="Election_Id" />
+            <PropertyRef Name="PartyName" />
+          </Key>
+          <Property Name="Election_Id" Type="Int32" Nullable="false" />
+          <Property Name="OverallSeats" Type="Int32" />
+          <Property Name="Party_Id" Type="Int32" />
+          <Property Name="PartyName" Type="String" MaxLength="127" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="SeatsParty" Type="Int32" />
+          <Property Name="PercentParty" Type="Decimal" Precision="26" Scale="12" />
+        </EntityType>
+        <EntityType Name="Ueberhangmandate">
+          <Key>
+            <PropertyRef Name="Election_Id" />
+            <PropertyRef Name="Bundesland_Id" />
+            <PropertyRef Name="Bundesland_Name" />
+            <PropertyRef Name="Party_Name" />
+          </Key>
+          <Property Name="Election_Id" Type="Int32" Nullable="false" />
+          <Property Name="Bundesland_Id" Type="Int32" Nullable="false" />
+          <Property Name="Bundesland_Name" Type="String" MaxLength="127" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="Party_Id" Type="Int32" />
+          <Property Name="Party_Name" Type="String" MaxLength="127" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="Number" Type="Int32" />
+        </EntityType>
+        <EntityType Name="Wahlkreissieger">
+          <Key>
+            <PropertyRef Name="ElectionID" />
+            <PropertyRef Name="Wahlkreis_Id" />
+          </Key>
+          <Property Name="ElectionID" Type="Int32" Nullable="false" />
+          <Property Name="Person_Id" Type="Int32" />
+          <Property Name="Wahlkreis_Id" Type="Int32" Nullable="false" />
+          <Property Name="MemberOfParty" Type="Int32" />
+        </EntityType>
+        <EntityType Name="WinnerErststimme">
+          <Key>
+            <PropertyRef Name="Election_Id" />
+            <PropertyRef Name="Wahlkreis_Id" />
+            <PropertyRef Name="Wahlkreis_Name" />
+            <PropertyRef Name="Party_Id" />
+            <PropertyRef Name="Party_Name" />
+          </Key>
+          <Property Name="Election_Id" Type="Int32" Nullable="false" />
+          <Property Name="Wahlkreis_Id" Type="Int32" Nullable="false" />
+          <Property Name="Wahlkreis_Name" Type="String" MaxLength="127" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="Person_Id" Type="Int32" />
+          <Property Name="Title" Type="String" MaxLength="31" FixedLength="false" Unicode="false" />
+          <Property Name="Firstname" Type="String" MaxLength="127" FixedLength="false" Unicode="true" />
+          <Property Name="Lastname" Type="String" MaxLength="127" FixedLength="false" Unicode="true" />
+          <Property Name="Party_Id" Type="Int32" Nullable="false" />
+          <Property Name="Party_Name" Type="String" MaxLength="127" FixedLength="false" Unicode="true" Nullable="false" />
+        </EntityType>
+        <EntityType Name="WinnerFirstAndSecondVote">
+          <Key>
+            <PropertyRef Name="Election_Id" />
+            <PropertyRef Name="Bundesland_Id" />
+            <PropertyRef Name="Bundesland_Name" />
+            <PropertyRef Name="Wahlkreis_Id" />
+            <PropertyRef Name="Wahlkreis_Name" />
+            <PropertyRef Name="FirstVote_Party_Id" />
+            <PropertyRef Name="FirstVote_Party_Name" />
+          </Key>
+          <Property Name="Election_Id" Type="Int32" Nullable="false" />
+          <Property Name="Bundesland_Id" Type="Int32" Nullable="false" />
+          <Property Name="Bundesland_Name" Type="String" MaxLength="127" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="Wahlkreis_Id" Type="Int32" Nullable="false" />
+          <Property Name="Wahlkreis_Name" Type="String" MaxLength="127" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="Person_Id" Type="Int32" />
+          <Property Name="Title" Type="String" MaxLength="31" FixedLength="false" Unicode="false" />
+          <Property Name="Firstname" Type="String" MaxLength="127" FixedLength="false" Unicode="true" />
+          <Property Name="Lastname" Type="String" MaxLength="127" FixedLength="false" Unicode="true" />
+          <Property Name="FirstVote_Party_Id" Type="Int32" Nullable="false" />
+          <Property Name="FirstVote_Party_Name" Type="String" MaxLength="127" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="SecondVote_Party_Id" Type="Int32" />
+          <Property Name="SecondVote_Party_Name" Type="String" MaxLength="127" FixedLength="false" Unicode="true" />
+        </EntityType>
+        <EntityType Name="WinnerZweitstimme">
+          <Key>
+            <PropertyRef Name="Election_Id" />
+            <PropertyRef Name="Wahlkreis_Id" />
+            <PropertyRef Name="Wahlkreis_Name" />
+          </Key>
+          <Property Name="Election_Id" Type="Int32" Nullable="false" />
+          <Property Name="Wahlkreis_Id" Type="Int32" Nullable="false" />
+          <Property Name="Wahlkreis_Name" Type="String" MaxLength="127" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="Party_Id" Type="Int32" />
+          <Property Name="Party_Name" Type="String" MaxLength="127" FixedLength="false" Unicode="true" />
+        </EntityType>
+        <EntityType Name="ZweitstimmeAggregated">
+          <Key>
+            <PropertyRef Name="Election_Id" />
+            <PropertyRef Name="Wahlkreis_Id" />
+            <PropertyRef Name="Amount" />
+          </Key>
+          <Property Name="Election_Id" Type="Int32" Nullable="false" />
+          <Property Name="Party_Id" Type="Int32" />
+          <Property Name="Wahlkreis_Id" Type="Int32" Nullable="false" />
+          <Property Name="Amount" Type="Int32" Nullable="false" />
+        </EntityType>
+        <EntityType Name="ZweitstimmenState">
+          <Key>
+            <PropertyRef Name="Election_Id" />
+            <PropertyRef Name="Bundesland_Id" />
+          </Key>
+          <Property Name="Election_Id" Type="Int32" Nullable="false" />
+          <Property Name="Bundesland_Id" Type="Int32" Nullable="false" />
+          <Property Name="Party_ID" Type="Int32" />
+          <Property Name="Amount" Type="Int32" />
+        </EntityType>
+        <EntityType Name="ZweitstimmeWahlkreisOverview">
+          <Key>
+            <PropertyRef Name="Election_Id" />
+            <PropertyRef Name="Wahlkreis_Id" />
+            <PropertyRef Name="Wahlkreis_Name" />
+            <PropertyRef Name="Votes" />
+          </Key>
+          <Property Name="Election_Id" Type="Int32" Nullable="false" />
+          <Property Name="Wahlkreis_Id" Type="Int32" Nullable="false" />
+          <Property Name="Wahlkreis_Name" Type="String" MaxLength="127" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="Party_Id" Type="Int32" />
+          <Property Name="Party_Name" Type="String" MaxLength="127" FixedLength="false" Unicode="true" />
+          <Property Name="Votes" Type="Int32" Nullable="false" />
+          <Property Name="Overall" Type="Int32" />
+          <Property Name="PercentVotes" Type="Decimal" Precision="24" Scale="12" />
+          <Property Name="Previous" Type="Decimal" Precision="25" Scale="12" />
+        </EntityType>
+        <Association Name="FK__AllowedTo__Elect__6FE99F9F">
+          <End Role="Election" Type="Self.Election" Multiplicity="1" />
+          <End Role="AllowedToElect" Type="Self.AllowedToElect" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Election">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="AllowedToElect">
+              <PropertyRef Name="Election_Id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__AllowedTo__Perso__5CD6CB2B">
+          <End Role="Person" Type="Self.Person" Multiplicity="1" />
+          <End Role="AllowedToElect" Type="Self.AllowedToElect" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Person">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="AllowedToElect">
+              <PropertyRef Name="Person_Id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__AllowedTo__Wahlk__267ABA7A">
+          <End Role="Wahlkreis" Type="Self.Wahlkrei" Multiplicity="1" />
+          <End Role="AllowedToElect" Type="Self.AllowedToElect" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Wahlkreis">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="AllowedToElect">
+              <PropertyRef Name="Wahlkreis_Id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__AllowedTo__Elect__6E01572D">
+          <End Role="Election" Type="Self.Election" Multiplicity="1" />
+          <End Role="AllowedToElectAmount" Type="Self.AllowedToElectAmount" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Election">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="AllowedToElectAmount">
+              <PropertyRef Name="Election_Id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__AllowedTo__Wahlk__2A4B4B5E">
+          <End Role="Wahlkreis" Type="Self.Wahlkrei" Multiplicity="1" />
+          <End Role="AllowedToElectAmount" Type="Self.AllowedToElectAmount" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Wahlkreis">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="AllowedToElectAmount">
+              <PropertyRef Name="Wahlkreis_Id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Candidate__Bunde__2F10007B">
+          <End Role="Bundesland" Type="Self.Bundesland" Multiplicity="1" />
+          <End Role="CandidateList" Type="Self.CandidateList" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Bundesland">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="CandidateList">
+              <PropertyRef Name="Bundesland_Id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__IsElectab__Bunde__4316F928">
+          <End Role="Bundesland" Type="Self.Bundesland" Multiplicity="1" />
+          <End Role="IsElectableParty" Type="Self.IsElectableParty" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Bundesland">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="IsElectableParty">
+              <PropertyRef Name="Bundesland_Id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Populatio__Bunde__1DE57479">
+          <End Role="Bundesland" Type="Self.Bundesland" Multiplicity="1" />
+          <End Role="PopulationBundesland" Type="Self.PopulationBundesland" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Bundesland">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="PopulationBundesland">
+              <PropertyRef Name="Bundesland_Id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Wahlkreis__Bunde__21B6055D">
+          <End Role="Bundesland" Type="Self.Bundesland" Multiplicity="1" />
+          <End Role="Wahlkreis" Type="Self.Wahlkrei" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Bundesland">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Wahlkreis">
+              <PropertyRef Name="Bundesland_Id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Candidate__Elect__70DDC3D8">
+          <End Role="Election" Type="Self.Election" Multiplicity="1" />
+          <End Role="CandidateList" Type="Self.CandidateList" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Election">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="CandidateList">
+              <PropertyRef Name="Election_Id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Candidate__Perso__5DCAEF64">
+          <End Role="Person" Type="Self.Person" Multiplicity="1" />
+          <End Role="CandidateList" Type="Self.CandidateList" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Person">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="CandidateList">
+              <PropertyRef Name="Person_Id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Erststimm__Elect__0B5CAFEA">
+          <End Role="Election" Type="Self.Election" Multiplicity="1" />
+          <End Role="Erststimme" Type="Self.Erststimme" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Election">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Erststimme">
+              <PropertyRef Name="Election_Id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Erststimm__Elect__72C60C4A">
+          <End Role="Election" Type="Self.Election" Multiplicity="1" />
+          <End Role="ErststimmeAmount" Type="Self.ErststimmeAmount" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Election">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="ErststimmeAmount">
+              <PropertyRef Name="Election_Id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__IsElectab__Elect__73BA3083">
+          <End Role="Election" Type="Self.Election" Multiplicity="1" />
+          <End Role="IsElectableCandidate" Type="Self.IsElectableCandidate" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Election">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="IsElectableCandidate">
+              <PropertyRef Name="Election_Id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__IsElectab__Elect__75A278F5">
+          <End Role="Election" Type="Self.Election" Multiplicity="1" />
+          <End Role="IsElectableParty" Type="Self.IsElectableParty" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Election">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="IsElectableParty">
+              <PropertyRef Name="Election_Id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Participa__Elect__6EF57B66">
+          <End Role="Election" Type="Self.Election" Multiplicity="1" />
+          <End Role="ParticipationAmount" Type="Self.ParticipationAmount" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Election">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="ParticipationAmount">
+              <PropertyRef Name="Election_Id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__PartyAffi__Elect__76969D2E">
+          <End Role="Election" Type="Self.Election" Multiplicity="1" />
+          <End Role="PartyAffiliation" Type="Self.PartyAffiliation" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Election">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="PartyAffiliation">
+              <PropertyRef Name="Election_Id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Populatio__Elect__6D0D32F4">
+          <End Role="Election" Type="Self.Election" Multiplicity="1" />
+          <End Role="PopulationBundesland" Type="Self.PopulationBundesland" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Election">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="PopulationBundesland">
+              <PropertyRef Name="Election_Id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Zweitstim__Elect__10216507">
+          <End Role="Election" Type="Self.Election" Multiplicity="1" />
+          <End Role="Zweitstimme" Type="Self.Zweitstimme" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Election">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Zweitstimme">
+              <PropertyRef Name="Election_Id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Zweitstim__Elect__787EE5A0">
+          <End Role="Election" Type="Self.Election" Multiplicity="1" />
+          <End Role="ZweitstimmeAmount" Type="Self.ZweitstimmeAmount" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Election">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="ZweitstimmeAmount">
+              <PropertyRef Name="Election_Id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Erststimm__Perso__09746778">
+          <End Role="Person" Type="Self.Person" Multiplicity="0..1" />
+          <End Role="Erststimme" Type="Self.Erststimme" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Person">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Erststimme">
+              <PropertyRef Name="Person_Id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Erststimm__Perso__0A688BB1">
+          <End Role="Person" Type="Self.Person" Multiplicity="0..1" />
+          <End Role="Erststimme" Type="Self.Erststimme" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Person">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Erststimme">
+              <PropertyRef Name="Person_Id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Erststimm__Wahlk__0880433F">
+          <End Role="Wahlkreis" Type="Self.Wahlkrei" Multiplicity="1" />
+          <End Role="Erststimme" Type="Self.Erststimme" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Wahlkreis">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Erststimme">
+              <PropertyRef Name="Wahlkreis_Id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Erststimm__Perso__60A75C0F">
+          <End Role="Person" Type="Self.Person" Multiplicity="0..1" />
+          <End Role="ErststimmeAmount" Type="Self.ErststimmeAmount" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Person">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="ErststimmeAmount">
+              <PropertyRef Name="Person_Id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Erststimm__Wahlk__398D8EEE">
+          <End Role="Wahlkreis" Type="Self.Wahlkrei" Multiplicity="1" />
+          <End Role="ErststimmeAmount" Type="Self.ErststimmeAmount" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Wahlkreis">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="ErststimmeAmount">
+              <PropertyRef Name="Wahlkreis_Id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__IsElectab__Perso__619B8048">
+          <End Role="Person" Type="Self.Person" Multiplicity="1" />
+          <End Role="IsElectableCandidate" Type="Self.IsElectableCandidate" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Person">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="IsElectableCandidate">
+              <PropertyRef Name="Person_Id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__IsElectab__Wahlk__3E52440B">
+          <End Role="Wahlkreis" Type="Self.Wahlkrei" Multiplicity="1" />
+          <End Role="IsElectableCandidate" Type="Self.IsElectableCandidate" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Wahlkreis">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="IsElectableCandidate">
+              <PropertyRef Name="Wahlkreis_Id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__IsElectab__Party__6754599E">
+          <End Role="Party" Type="Self.Party" Multiplicity="1" />
+          <End Role="IsElectableParty" Type="Self.IsElectableParty" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Party">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="IsElectableParty">
+              <PropertyRef Name="Party_Id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Participa__Wahlk__4AB81AF0">
+          <End Role="Wahlkreis" Type="Self.Wahlkrei" Multiplicity="1" />
+          <End Role="ParticipationAmount" Type="Self.ParticipationAmount" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Wahlkreis">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="ParticipationAmount">
+              <PropertyRef Name="Wahlkreis_Id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__PartyAffi__Party__6A30C649">
+          <End Role="Party" Type="Self.Party" Multiplicity="1" />
+          <End Role="PartyAffiliation" Type="Self.PartyAffiliation" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Party">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="PartyAffiliation">
+              <PropertyRef Name="Party_Id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Zweitstim__Party__0F2D40CE">
+          <End Role="Party" Type="Self.Party" Multiplicity="0..1" />
+          <End Role="Zweitstimme" Type="Self.Zweitstimme" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Party">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Zweitstimme">
+              <PropertyRef Name="Party_Id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Zweitstim__Party__693CA210">
+          <End Role="Party" Type="Self.Party" Multiplicity="0..1" />
+          <End Role="ZweitstimmeAmount" Type="Self.ZweitstimmeAmount" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Party">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="ZweitstimmeAmount">
+              <PropertyRef Name="Party_Id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__PartyAffi__Perso__6383C8BA">
+          <End Role="Person" Type="Self.Person" Multiplicity="1" />
+          <End Role="PartyAffiliation" Type="Self.PartyAffiliation" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Person">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="PartyAffiliation">
+              <PropertyRef Name="Person_Id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Zweitstim__Wahlk__0E391C95">
+          <End Role="Wahlkreis" Type="Self.Wahlkrei" Multiplicity="1" />
+          <End Role="Zweitstimme" Type="Self.Zweitstimme" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Wahlkreis">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Zweitstimme">
+              <PropertyRef Name="Wahlkreis_Id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Zweitstim__Wahlk__59063A47">
+          <End Role="Wahlkreis" Type="Self.Wahlkrei" Multiplicity="1" />
+          <End Role="ZweitstimmeAmount" Type="Self.ZweitstimmeAmount" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Wahlkreis">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="ZweitstimmeAmount">
+              <PropertyRef Name="Wahlkreis_Id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="Participation">
+          <End Role="Election" Type="Self.Election" Multiplicity="*" />
+          <End Role="Person" Type="Self.Person" Multiplicity="*" />
+        </Association>
+        <EntityContainer Name="ElectionDBEntities" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="AllowedToElects" EntityType="Self.AllowedToElect" />
+          <EntitySet Name="AllowedToElectAmounts" EntityType="Self.AllowedToElectAmount" />
+          <EntitySet Name="Bundeslands" EntityType="Self.Bundesland" />
+          <EntitySet Name="CandidateLists" EntityType="Self.CandidateList" />
+          <EntitySet Name="Elections" EntityType="Self.Election" />
+          <EntitySet Name="Erststimmes" EntityType="Self.Erststimme" />
+          <EntitySet Name="ErststimmeAmounts" EntityType="Self.ErststimmeAmount" />
+          <EntitySet Name="InvalidTokenRequests" EntityType="Self.InvalidTokenRequest" />
+          <EntitySet Name="IsElectableCandidates" EntityType="Self.IsElectableCandidate" />
+          <EntitySet Name="IsElectableParties" EntityType="Self.IsElectableParty" />
+          <EntitySet Name="ParticipationAmounts" EntityType="Self.ParticipationAmount" />
+          <EntitySet Name="Parties" EntityType="Self.Party" />
+          <EntitySet Name="PartyAffiliations" EntityType="Self.PartyAffiliation" />
+          <EntitySet Name="People" EntityType="Self.Person" />
+          <EntitySet Name="PopulationBundeslands" EntityType="Self.PopulationBundesland" />
+          <EntitySet Name="UsedTokens" EntityType="Self.UsedToken" />
+          <EntitySet Name="Wahlkreis" EntityType="Self.Wahlkrei" />
+          <EntitySet Name="Zweitstimmes" EntityType="Self.Zweitstimme" />
+          <EntitySet Name="ZweitstimmeAmounts" EntityType="Self.ZweitstimmeAmount" />
+          <EntitySet Name="BasicWahlkreisOverviews" EntityType="Self.BasicWahlkreisOverview" />
+          <EntitySet Name="ClosestErststimmeResults" EntityType="Self.ClosestErststimmeResult" />
+          <EntitySet Name="ClosestZweitstimmeResults" EntityType="Self.ClosestZweitstimmeResult" />
+          <EntitySet Name="DistributionWithinStates" EntityType="Self.DistributionWithinState" />
+          <EntitySet Name="ElectionParticipations" EntityType="Self.ElectionParticipation" />
+          <EntitySet Name="ErststimmeAggregateds" EntityType="Self.ErststimmeAggregated" />
+          <EntitySet Name="ErststimmeWahlkreisOverviews" EntityType="Self.ErststimmeWahlkreisOverview" />
+          <EntitySet Name="minSeatsPerParty_Bundeslevel" EntityType="Self.minSeatsPerParty_Bundeslevel" />
+          <EntitySet Name="ParliamentMembers" EntityType="Self.ParliamentMember" />
+          <EntitySet Name="Parties5" EntityType="Self.Parties5" />
+          <EntitySet Name="SeatsGainedByErststimmes" EntityType="Self.SeatsGainedByErststimme" />
+          <EntitySet Name="seatsGainedByZweitstimmes" EntityType="Self.seatsGainedByZweitstimme" />
+          <EntitySet Name="SeatsPerStates" EntityType="Self.SeatsPerState" />
+          <EntitySet Name="Sitzverteilungs" EntityType="Self.Sitzverteilung" />
+          <EntitySet Name="Ueberhangmandates" EntityType="Self.Ueberhangmandate" />
+          <EntitySet Name="Wahlkreissiegers" EntityType="Self.Wahlkreissieger" />
+          <EntitySet Name="WinnerErststimmes" EntityType="Self.WinnerErststimme" />
+          <EntitySet Name="WinnerFirstAndSecondVotes" EntityType="Self.WinnerFirstAndSecondVote" />
+          <EntitySet Name="WinnerZweitstimmes" EntityType="Self.WinnerZweitstimme" />
+          <EntitySet Name="ZweitstimmeAggregateds" EntityType="Self.ZweitstimmeAggregated" />
+          <EntitySet Name="ZweitstimmenStates" EntityType="Self.ZweitstimmenState" />
+          <EntitySet Name="ZweitstimmeWahlkreisOverviews" EntityType="Self.ZweitstimmeWahlkreisOverview" />
+          <AssociationSet Name="FK__AllowedTo__Elect__6FE99F9F" Association="Self.FK__AllowedTo__Elect__6FE99F9F">
+            <End Role="Election" EntitySet="Elections" />
+            <End Role="AllowedToElect" EntitySet="AllowedToElects" />
+          </AssociationSet>
+          <AssociationSet Name="FK__AllowedTo__Perso__5CD6CB2B" Association="Self.FK__AllowedTo__Perso__5CD6CB2B">
+            <End Role="Person" EntitySet="People" />
+            <End Role="AllowedToElect" EntitySet="AllowedToElects" />
+          </AssociationSet>
+          <AssociationSet Name="FK__AllowedTo__Wahlk__267ABA7A" Association="Self.FK__AllowedTo__Wahlk__267ABA7A">
+            <End Role="Wahlkreis" EntitySet="Wahlkreis" />
+            <End Role="AllowedToElect" EntitySet="AllowedToElects" />
+          </AssociationSet>
+          <AssociationSet Name="FK__AllowedTo__Elect__6E01572D" Association="Self.FK__AllowedTo__Elect__6E01572D">
+            <End Role="Election" EntitySet="Elections" />
+            <End Role="AllowedToElectAmount" EntitySet="AllowedToElectAmounts" />
+          </AssociationSet>
+          <AssociationSet Name="FK__AllowedTo__Wahlk__2A4B4B5E" Association="Self.FK__AllowedTo__Wahlk__2A4B4B5E">
+            <End Role="Wahlkreis" EntitySet="Wahlkreis" />
+            <End Role="AllowedToElectAmount" EntitySet="AllowedToElectAmounts" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Candidate__Bunde__2F10007B" Association="Self.FK__Candidate__Bunde__2F10007B">
+            <End Role="Bundesland" EntitySet="Bundeslands" />
+            <End Role="CandidateList" EntitySet="CandidateLists" />
+          </AssociationSet>
+          <AssociationSet Name="FK__IsElectab__Bunde__4316F928" Association="Self.FK__IsElectab__Bunde__4316F928">
+            <End Role="Bundesland" EntitySet="Bundeslands" />
+            <End Role="IsElectableParty" EntitySet="IsElectableParties" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Populatio__Bunde__1DE57479" Association="Self.FK__Populatio__Bunde__1DE57479">
+            <End Role="Bundesland" EntitySet="Bundeslands" />
+            <End Role="PopulationBundesland" EntitySet="PopulationBundeslands" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Wahlkreis__Bunde__21B6055D" Association="Self.FK__Wahlkreis__Bunde__21B6055D">
+            <End Role="Bundesland" EntitySet="Bundeslands" />
+            <End Role="Wahlkreis" EntitySet="Wahlkreis" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Candidate__Elect__70DDC3D8" Association="Self.FK__Candidate__Elect__70DDC3D8">
+            <End Role="Election" EntitySet="Elections" />
+            <End Role="CandidateList" EntitySet="CandidateLists" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Candidate__Perso__5DCAEF64" Association="Self.FK__Candidate__Perso__5DCAEF64">
+            <End Role="Person" EntitySet="People" />
+            <End Role="CandidateList" EntitySet="CandidateLists" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Erststimm__Elect__0B5CAFEA" Association="Self.FK__Erststimm__Elect__0B5CAFEA">
+            <End Role="Election" EntitySet="Elections" />
+            <End Role="Erststimme" EntitySet="Erststimmes" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Erststimm__Elect__72C60C4A" Association="Self.FK__Erststimm__Elect__72C60C4A">
+            <End Role="Election" EntitySet="Elections" />
+            <End Role="ErststimmeAmount" EntitySet="ErststimmeAmounts" />
+          </AssociationSet>
+          <AssociationSet Name="FK__IsElectab__Elect__73BA3083" Association="Self.FK__IsElectab__Elect__73BA3083">
+            <End Role="Election" EntitySet="Elections" />
+            <End Role="IsElectableCandidate" EntitySet="IsElectableCandidates" />
+          </AssociationSet>
+          <AssociationSet Name="FK__IsElectab__Elect__75A278F5" Association="Self.FK__IsElectab__Elect__75A278F5">
+            <End Role="Election" EntitySet="Elections" />
+            <End Role="IsElectableParty" EntitySet="IsElectableParties" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Participa__Elect__6EF57B66" Association="Self.FK__Participa__Elect__6EF57B66">
+            <End Role="Election" EntitySet="Elections" />
+            <End Role="ParticipationAmount" EntitySet="ParticipationAmounts" />
+          </AssociationSet>
+          <AssociationSet Name="FK__PartyAffi__Elect__76969D2E" Association="Self.FK__PartyAffi__Elect__76969D2E">
+            <End Role="Election" EntitySet="Elections" />
+            <End Role="PartyAffiliation" EntitySet="PartyAffiliations" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Populatio__Elect__6D0D32F4" Association="Self.FK__Populatio__Elect__6D0D32F4">
+            <End Role="Election" EntitySet="Elections" />
+            <End Role="PopulationBundesland" EntitySet="PopulationBundeslands" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Zweitstim__Elect__10216507" Association="Self.FK__Zweitstim__Elect__10216507">
+            <End Role="Election" EntitySet="Elections" />
+            <End Role="Zweitstimme" EntitySet="Zweitstimmes" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Zweitstim__Elect__787EE5A0" Association="Self.FK__Zweitstim__Elect__787EE5A0">
+            <End Role="Election" EntitySet="Elections" />
+            <End Role="ZweitstimmeAmount" EntitySet="ZweitstimmeAmounts" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Erststimm__Perso__09746778" Association="Self.FK__Erststimm__Perso__09746778">
+            <End Role="Person" EntitySet="People" />
+            <End Role="Erststimme" EntitySet="Erststimmes" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Erststimm__Perso__0A688BB1" Association="Self.FK__Erststimm__Perso__0A688BB1">
+            <End Role="Person" EntitySet="People" />
+            <End Role="Erststimme" EntitySet="Erststimmes" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Erststimm__Wahlk__0880433F" Association="Self.FK__Erststimm__Wahlk__0880433F">
+            <End Role="Wahlkreis" EntitySet="Wahlkreis" />
+            <End Role="Erststimme" EntitySet="Erststimmes" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Erststimm__Perso__60A75C0F" Association="Self.FK__Erststimm__Perso__60A75C0F">
+            <End Role="Person" EntitySet="People" />
+            <End Role="ErststimmeAmount" EntitySet="ErststimmeAmounts" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Erststimm__Wahlk__398D8EEE" Association="Self.FK__Erststimm__Wahlk__398D8EEE">
+            <End Role="Wahlkreis" EntitySet="Wahlkreis" />
+            <End Role="ErststimmeAmount" EntitySet="ErststimmeAmounts" />
+          </AssociationSet>
+          <AssociationSet Name="FK__IsElectab__Perso__619B8048" Association="Self.FK__IsElectab__Perso__619B8048">
+            <End Role="Person" EntitySet="People" />
+            <End Role="IsElectableCandidate" EntitySet="IsElectableCandidates" />
+          </AssociationSet>
+          <AssociationSet Name="FK__IsElectab__Wahlk__3E52440B" Association="Self.FK__IsElectab__Wahlk__3E52440B">
+            <End Role="Wahlkreis" EntitySet="Wahlkreis" />
+            <End Role="IsElectableCandidate" EntitySet="IsElectableCandidates" />
+          </AssociationSet>
+          <AssociationSet Name="FK__IsElectab__Party__6754599E" Association="Self.FK__IsElectab__Party__6754599E">
+            <End Role="Party" EntitySet="Parties" />
+            <End Role="IsElectableParty" EntitySet="IsElectableParties" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Participa__Wahlk__4AB81AF0" Association="Self.FK__Participa__Wahlk__4AB81AF0">
+            <End Role="Wahlkreis" EntitySet="Wahlkreis" />
+            <End Role="ParticipationAmount" EntitySet="ParticipationAmounts" />
+          </AssociationSet>
+          <AssociationSet Name="FK__PartyAffi__Party__6A30C649" Association="Self.FK__PartyAffi__Party__6A30C649">
+            <End Role="Party" EntitySet="Parties" />
+            <End Role="PartyAffiliation" EntitySet="PartyAffiliations" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Zweitstim__Party__0F2D40CE" Association="Self.FK__Zweitstim__Party__0F2D40CE">
+            <End Role="Party" EntitySet="Parties" />
+            <End Role="Zweitstimme" EntitySet="Zweitstimmes" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Zweitstim__Party__693CA210" Association="Self.FK__Zweitstim__Party__693CA210">
+            <End Role="Party" EntitySet="Parties" />
+            <End Role="ZweitstimmeAmount" EntitySet="ZweitstimmeAmounts" />
+          </AssociationSet>
+          <AssociationSet Name="FK__PartyAffi__Perso__6383C8BA" Association="Self.FK__PartyAffi__Perso__6383C8BA">
+            <End Role="Person" EntitySet="People" />
+            <End Role="PartyAffiliation" EntitySet="PartyAffiliations" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Zweitstim__Wahlk__0E391C95" Association="Self.FK__Zweitstim__Wahlk__0E391C95">
+            <End Role="Wahlkreis" EntitySet="Wahlkreis" />
+            <End Role="Zweitstimme" EntitySet="Zweitstimmes" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Zweitstim__Wahlk__59063A47" Association="Self.FK__Zweitstim__Wahlk__59063A47">
+            <End Role="Wahlkreis" EntitySet="Wahlkreis" />
+            <End Role="ZweitstimmeAmount" EntitySet="ZweitstimmeAmounts" />
+          </AssociationSet>
+          <AssociationSet Name="Participation" Association="Self.Participation">
+            <End Role="Election" EntitySet="Elections" />
+            <End Role="Person" EntitySet="People" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="DBModelStoreContainer" CdmEntityContainer="ElectionDBEntities">
+          <EntitySetMapping Name="AllowedToElects">
+            <EntityTypeMapping TypeName="DBModel.AllowedToElect">
+              <MappingFragment StoreEntitySet="AllowedToElect">
+                <ScalarProperty Name="Election_Id" ColumnName="Election_Id" />
+                <ScalarProperty Name="Person_Id" ColumnName="Person_Id" />
+                <ScalarProperty Name="Wahlkreis_Id" ColumnName="Wahlkreis_Id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="AllowedToElectAmounts">
+            <EntityTypeMapping TypeName="DBModel.AllowedToElectAmount">
+              <MappingFragment StoreEntitySet="AllowedToElectAmount">
+                <ScalarProperty Name="Election_Id" ColumnName="Election_Id" />
+                <ScalarProperty Name="Wahlkreis_Id" ColumnName="Wahlkreis_Id" />
+                <ScalarProperty Name="Amount" ColumnName="Amount" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Bundeslands">
+            <EntityTypeMapping TypeName="DBModel.Bundesland">
+              <MappingFragment StoreEntitySet="Bundesland">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="CandidateLists">
+            <EntityTypeMapping TypeName="DBModel.CandidateList">
+              <MappingFragment StoreEntitySet="CandidateList">
+                <ScalarProperty Name="Person_Id" ColumnName="Person_Id" />
+                <ScalarProperty Name="Election_Id" ColumnName="Election_Id" />
+                <ScalarProperty Name="Bundesland_Id" ColumnName="Bundesland_Id" />
+                <ScalarProperty Name="Position" ColumnName="Position" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Elections">
+            <EntityTypeMapping TypeName="DBModel.Election">
+              <MappingFragment StoreEntitySet="Election">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="Date" ColumnName="Date" />
+                <ScalarProperty Name="SeatsBundestag" ColumnName="SeatsBundestag" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Erststimmes">
+            <EntityTypeMapping TypeName="DBModel.Erststimme">
+              <MappingFragment StoreEntitySet="Erststimme">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="Election_Id" ColumnName="Election_Id" />
+                <ScalarProperty Name="Wahlkreis_Id" ColumnName="Wahlkreis_Id" />
+                <ScalarProperty Name="Person_Id" ColumnName="Person_Id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="ErststimmeAmounts">
+            <EntityTypeMapping TypeName="DBModel.ErststimmeAmount">
+              <MappingFragment StoreEntitySet="ErststimmeAmount">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="Election_Id" ColumnName="Election_Id" />
+                <ScalarProperty Name="Wahlkreis_Id" ColumnName="Wahlkreis_Id" />
+                <ScalarProperty Name="Person_Id" ColumnName="Person_Id" />
+                <ScalarProperty Name="Amount" ColumnName="Amount" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="InvalidTokenRequests">
+            <EntityTypeMapping TypeName="DBModel.InvalidTokenRequest">
+              <MappingFragment StoreEntitySet="InvalidTokenRequest">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="IP" ColumnName="IP" />
+                <ScalarProperty Name="Token" ColumnName="Token" />
+                <ScalarProperty Name="Timestamp" ColumnName="Timestamp" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="IsElectableCandidates">
+            <EntityTypeMapping TypeName="DBModel.IsElectableCandidate">
+              <MappingFragment StoreEntitySet="IsElectableCandidate">
+                <ScalarProperty Name="Election_Id" ColumnName="Election_Id" />
+                <ScalarProperty Name="Person_Id" ColumnName="Person_Id" />
+                <ScalarProperty Name="Wahlkreis_Id" ColumnName="Wahlkreis_Id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="IsElectableParties">
+            <EntityTypeMapping TypeName="DBModel.IsElectableParty">
+              <MappingFragment StoreEntitySet="IsElectableParty">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="Election_Id" ColumnName="Election_Id" />
+                <ScalarProperty Name="Party_Id" ColumnName="Party_Id" />
+                <ScalarProperty Name="Bundesland_Id" ColumnName="Bundesland_Id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="ParticipationAmounts">
+            <EntityTypeMapping TypeName="DBModel.ParticipationAmount">
+              <MappingFragment StoreEntitySet="ParticipationAmount">
+                <ScalarProperty Name="Election_Id" ColumnName="Election_Id" />
+                <ScalarProperty Name="Wahlkreis_Id" ColumnName="Wahlkreis_Id" />
+                <ScalarProperty Name="Amount" ColumnName="Amount" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Parties">
+            <EntityTypeMapping TypeName="DBModel.Party">
+              <MappingFragment StoreEntitySet="Party">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="PartyAffiliations">
+            <EntityTypeMapping TypeName="DBModel.PartyAffiliation">
+              <MappingFragment StoreEntitySet="PartyAffiliation">
+                <ScalarProperty Name="Person_Id" ColumnName="Person_Id" />
+                <ScalarProperty Name="Election_Id" ColumnName="Election_Id" />
+                <ScalarProperty Name="Party_Id" ColumnName="Party_Id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="People">
+            <EntityTypeMapping TypeName="DBModel.Person">
+              <MappingFragment StoreEntitySet="Person">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="Title" ColumnName="Title" />
+                <ScalarProperty Name="Firstname" ColumnName="Firstname" />
+                <ScalarProperty Name="Lastname" ColumnName="Lastname" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="PopulationBundeslands">
+            <EntityTypeMapping TypeName="DBModel.PopulationBundesland">
+              <MappingFragment StoreEntitySet="PopulationBundesland">
+                <ScalarProperty Name="Election_Id" ColumnName="Election_Id" />
+                <ScalarProperty Name="Bundesland_Id" ColumnName="Bundesland_Id" />
+                <ScalarProperty Name="Count" ColumnName="Count" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="UsedTokens">
+            <EntityTypeMapping TypeName="DBModel.UsedToken">
+              <MappingFragment StoreEntitySet="UsedToken">
+                <ScalarProperty Name="TokenString" ColumnName="TokenString" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Wahlkreis">
+            <EntityTypeMapping TypeName="DBModel.Wahlkrei">
+              <MappingFragment StoreEntitySet="Wahlkreis">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
+                <ScalarProperty Name="Bundesland_Id" ColumnName="Bundesland_Id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Zweitstimmes">
+            <EntityTypeMapping TypeName="DBModel.Zweitstimme">
+              <MappingFragment StoreEntitySet="Zweitstimme">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="Election_Id" ColumnName="Election_Id" />
+                <ScalarProperty Name="Party_Id" ColumnName="Party_Id" />
+                <ScalarProperty Name="Wahlkreis_Id" ColumnName="Wahlkreis_Id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="ZweitstimmeAmounts">
+            <EntityTypeMapping TypeName="DBModel.ZweitstimmeAmount">
+              <MappingFragment StoreEntitySet="ZweitstimmeAmount">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="Election_Id" ColumnName="Election_Id" />
+                <ScalarProperty Name="Party_Id" ColumnName="Party_Id" />
+                <ScalarProperty Name="Wahlkreis_Id" ColumnName="Wahlkreis_Id" />
+                <ScalarProperty Name="Amount" ColumnName="Amount" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="BasicWahlkreisOverviews">
+            <EntityTypeMapping TypeName="DBModel.BasicWahlkreisOverview">
+              <MappingFragment StoreEntitySet="BasicWahlkreisOverview">
+                <ScalarProperty Name="Election_Id" ColumnName="Election_Id" />
+                <ScalarProperty Name="Wahlkreis_Id" ColumnName="Wahlkreis_Id" />
+                <ScalarProperty Name="Wahlkreis_Name" ColumnName="Wahlkreis_Name" />
+                <ScalarProperty Name="Participation" ColumnName="Participation" />
+                <ScalarProperty Name="Person_Id" ColumnName="Person_Id" />
+                <ScalarProperty Name="Title" ColumnName="Title" />
+                <ScalarProperty Name="Firstname" ColumnName="Firstname" />
+                <ScalarProperty Name="Lastname" ColumnName="Lastname" />
+                <ScalarProperty Name="Party_Id" ColumnName="Party_Id" />
+                <ScalarProperty Name="Party_Name" ColumnName="Party_Name" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="ClosestErststimmeResults">
+            <EntityTypeMapping TypeName="DBModel.ClosestErststimmeResult">
+              <MappingFragment StoreEntitySet="ClosestErststimmeResult">
+                <ScalarProperty Name="Election_Id" ColumnName="Election_Id" />
+                <ScalarProperty Name="Wahlkreis_Id" ColumnName="Wahlkreis_Id" />
+                <ScalarProperty Name="Wahlkreis_Name" ColumnName="Wahlkreis_Name" />
+                <ScalarProperty Name="Person_Id" ColumnName="Person_Id" />
+                <ScalarProperty Name="Title" ColumnName="Title" />
+                <ScalarProperty Name="Firstname" ColumnName="Firstname" />
+                <ScalarProperty Name="Lastname" ColumnName="Lastname" />
+                <ScalarProperty Name="Party_Id" ColumnName="Party_Id" />
+                <ScalarProperty Name="Party_Name" ColumnName="Party_Name" />
+                <ScalarProperty Name="Amount" ColumnName="Amount" />
+                <ScalarProperty Name="PreviousAmount" ColumnName="PreviousAmount" />
+                <ScalarProperty Name="Diff" ColumnName="Diff" />
+                <ScalarProperty Name="AbsDiff" ColumnName="AbsDiff" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="ClosestZweitstimmeResults">
+            <EntityTypeMapping TypeName="DBModel.ClosestZweitstimmeResult">
+              <MappingFragment StoreEntitySet="ClosestZweitstimmeResult">
+                <ScalarProperty Name="Election_Id" ColumnName="Election_Id" />
+                <ScalarProperty Name="Wahlkreis_Id" ColumnName="Wahlkreis_Id" />
+                <ScalarProperty Name="Wahlkreis_Name" ColumnName="Wahlkreis_Name" />
+                <ScalarProperty Name="Party_Id" ColumnName="Party_Id" />
+                <ScalarProperty Name="Party_Name" ColumnName="Party_Name" />
+                <ScalarProperty Name="Amount" ColumnName="Amount" />
+                <ScalarProperty Name="PreviousAmount" ColumnName="PreviousAmount" />
+                <ScalarProperty Name="Diff" ColumnName="Diff" />
+                <ScalarProperty Name="AbsDiff" ColumnName="AbsDiff" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="DistributionWithinStates">
+            <EntityTypeMapping TypeName="DBModel.DistributionWithinState">
+              <MappingFragment StoreEntitySet="DistributionWithinStates">
+                <ScalarProperty Name="Election_Id" ColumnName="Election_Id" />
+                <ScalarProperty Name="Bundesland_Id" ColumnName="Bundesland_Id" />
+                <ScalarProperty Name="Seats" ColumnName="Seats" />
+                <ScalarProperty Name="Party_Id" ColumnName="Party_Id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="ElectionParticipations">
+            <EntityTypeMapping TypeName="DBModel.ElectionParticipation">
+              <MappingFragment StoreEntitySet="ElectionParticipation">
+                <ScalarProperty Name="Election_Id" ColumnName="Election_Id" />
+                <ScalarProperty Name="Wahlkreis_Id" ColumnName="Wahlkreis_Id" />
+                <ScalarProperty Name="Participation" ColumnName="Participation" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="ErststimmeAggregateds">
+            <EntityTypeMapping TypeName="DBModel.ErststimmeAggregated">
+              <MappingFragment StoreEntitySet="ErststimmeAggregated">
+                <ScalarProperty Name="Election_Id" ColumnName="Election_Id" />
+                <ScalarProperty Name="Wahlkreis_Id" ColumnName="Wahlkreis_Id" />
+                <ScalarProperty Name="Person_Id" ColumnName="Person_Id" />
+                <ScalarProperty Name="Amount" ColumnName="Amount" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="ErststimmeWahlkreisOverviews">
+            <EntityTypeMapping TypeName="DBModel.ErststimmeWahlkreisOverview">
+              <MappingFragment StoreEntitySet="ErststimmeWahlkreisOverview">
+                <ScalarProperty Name="election_id" ColumnName="election_id" />
+                <ScalarProperty Name="wahlkreis_id" ColumnName="wahlkreis_id" />
+                <ScalarProperty Name="Wahlkreis_Name" ColumnName="Wahlkreis_Name" />
+                <ScalarProperty Name="person_id" ColumnName="person_id" />
+                <ScalarProperty Name="title" ColumnName="title" />
+                <ScalarProperty Name="firstname" ColumnName="firstname" />
+                <ScalarProperty Name="lastname" ColumnName="lastname" />
+                <ScalarProperty Name="Party_Id" ColumnName="Party_Id" />
+                <ScalarProperty Name="Party_Name" ColumnName="Party_Name" />
+                <ScalarProperty Name="Votes" ColumnName="Votes" />
+                <ScalarProperty Name="overall" ColumnName="overall" />
+                <ScalarProperty Name="PercentVotes" ColumnName="PercentVotes" />
+                <ScalarProperty Name="Previous" ColumnName="Previous" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="minSeatsPerParty_Bundeslevel">
+            <EntityTypeMapping TypeName="DBModel.minSeatsPerParty_Bundeslevel">
+              <MappingFragment StoreEntitySet="minSeatsPerParty_Bundeslevel">
+                <ScalarProperty Name="Election_Id" ColumnName="Election_Id" />
+                <ScalarProperty Name="Party_Id" ColumnName="Party_Id" />
+                <ScalarProperty Name="minSeatsBund" ColumnName="minSeatsBund" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="ParliamentMembers">
+            <EntityTypeMapping TypeName="DBModel.ParliamentMember">
+              <MappingFragment StoreEntitySet="ParliamentMembers">
+                <ScalarProperty Name="Election_Id" ColumnName="Election_Id" />
+                <ScalarProperty Name="Person_Id" ColumnName="Person_Id" />
+                <ScalarProperty Name="Title" ColumnName="Title" />
+                <ScalarProperty Name="Firstname" ColumnName="Firstname" />
+                <ScalarProperty Name="Lastname" ColumnName="Lastname" />
+                <ScalarProperty Name="HowCome" ColumnName="HowCome" />
+                <ScalarProperty Name="Party_Id" ColumnName="Party_Id" />
+                <ScalarProperty Name="Party_Name" ColumnName="Party_Name" />
+                <ScalarProperty Name="Bundesland_Id" ColumnName="Bundesland_Id" />
+                <ScalarProperty Name="Bundesland_Name" ColumnName="Bundesland_Name" />
+                <ScalarProperty Name="Wahlkreis_Id" ColumnName="Wahlkreis_Id" />
+                <ScalarProperty Name="Wahlkreis_Name" ColumnName="Wahlkreis_Name" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Parties5">
+            <EntityTypeMapping TypeName="DBModel.Parties5">
+              <MappingFragment StoreEntitySet="Parties5">
+                <ScalarProperty Name="Election_Id" ColumnName="Election_Id" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="SeatsGainedByErststimmes">
+            <EntityTypeMapping TypeName="DBModel.SeatsGainedByErststimme">
+              <MappingFragment StoreEntitySet="SeatsGainedByErststimme">
+                <ScalarProperty Name="Election_Id" ColumnName="Election_Id" />
+                <ScalarProperty Name="Bundesland_Id" ColumnName="Bundesland_Id" />
+                <ScalarProperty Name="Party_Id" ColumnName="Party_Id" />
+                <ScalarProperty Name="numberOfVictories" ColumnName="numberOfVictories" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="seatsGainedByZweitstimmes">
+            <EntityTypeMapping TypeName="DBModel.seatsGainedByZweitstimme">
+              <MappingFragment StoreEntitySet="seatsGainedByZweitstimme">
+                <ScalarProperty Name="Election_Id" ColumnName="Election_Id" />
+                <ScalarProperty Name="Bundesland_Id" ColumnName="Bundesland_Id" />
+                <ScalarProperty Name="Party_Id" ColumnName="Party_Id" />
+                <ScalarProperty Name="seats" ColumnName="seats" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="SeatsPerStates">
+            <EntityTypeMapping TypeName="DBModel.SeatsPerState">
+              <MappingFragment StoreEntitySet="SeatsPerState">
+                <ScalarProperty Name="Election_Id" ColumnName="Election_Id" />
+                <ScalarProperty Name="Bundesland_ID" ColumnName="Bundesland_ID" />
+                <ScalarProperty Name="Seats" ColumnName="Seats" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Sitzverteilungs">
+            <EntityTypeMapping TypeName="DBModel.Sitzverteilung">
+              <MappingFragment StoreEntitySet="Sitzverteilung">
+                <ScalarProperty Name="Election_Id" ColumnName="Election_Id" />
+                <ScalarProperty Name="OverallSeats" ColumnName="OverallSeats" />
+                <ScalarProperty Name="Party_Id" ColumnName="Party_Id" />
+                <ScalarProperty Name="PartyName" ColumnName="PartyName" />
+                <ScalarProperty Name="SeatsParty" ColumnName="SeatsParty" />
+                <ScalarProperty Name="PercentParty" ColumnName="PercentParty" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Ueberhangmandates">
+            <EntityTypeMapping TypeName="DBModel.Ueberhangmandate">
+              <MappingFragment StoreEntitySet="Ueberhangmandate">
+                <ScalarProperty Name="Election_Id" ColumnName="Election_Id" />
+                <ScalarProperty Name="Bundesland_Id" ColumnName="Bundesland_Id" />
+                <ScalarProperty Name="Bundesland_Name" ColumnName="Bundesland_Name" />
+                <ScalarProperty Name="Party_Id" ColumnName="Party_Id" />
+                <ScalarProperty Name="Party_Name" ColumnName="Party_Name" />
+                <ScalarProperty Name="Number" ColumnName="Number" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Wahlkreissiegers">
+            <EntityTypeMapping TypeName="DBModel.Wahlkreissieger">
+              <MappingFragment StoreEntitySet="Wahlkreissieger">
+                <ScalarProperty Name="ElectionID" ColumnName="ElectionID" />
+                <ScalarProperty Name="Person_Id" ColumnName="Person_Id" />
+                <ScalarProperty Name="Wahlkreis_Id" ColumnName="Wahlkreis_Id" />
+                <ScalarProperty Name="MemberOfParty" ColumnName="MemberOfParty" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="WinnerErststimmes">
+            <EntityTypeMapping TypeName="DBModel.WinnerErststimme">
+              <MappingFragment StoreEntitySet="WinnerErststimme">
+                <ScalarProperty Name="Election_Id" ColumnName="Election_Id" />
+                <ScalarProperty Name="Wahlkreis_Id" ColumnName="Wahlkreis_Id" />
+                <ScalarProperty Name="Wahlkreis_Name" ColumnName="Wahlkreis_Name" />
+                <ScalarProperty Name="Person_Id" ColumnName="Person_Id" />
+                <ScalarProperty Name="Title" ColumnName="Title" />
+                <ScalarProperty Name="Firstname" ColumnName="Firstname" />
+                <ScalarProperty Name="Lastname" ColumnName="Lastname" />
+                <ScalarProperty Name="Party_Id" ColumnName="Party_Id" />
+                <ScalarProperty Name="Party_Name" ColumnName="Party_Name" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="WinnerFirstAndSecondVotes">
+            <EntityTypeMapping TypeName="DBModel.WinnerFirstAndSecondVote">
+              <MappingFragment StoreEntitySet="WinnerFirstAndSecondVotes">
+                <ScalarProperty Name="Election_Id" ColumnName="Election_Id" />
+                <ScalarProperty Name="Bundesland_Id" ColumnName="Bundesland_Id" />
+                <ScalarProperty Name="Bundesland_Name" ColumnName="Bundesland_Name" />
+                <ScalarProperty Name="Wahlkreis_Id" ColumnName="Wahlkreis_Id" />
+                <ScalarProperty Name="Wahlkreis_Name" ColumnName="Wahlkreis_Name" />
+                <ScalarProperty Name="Person_Id" ColumnName="Person_Id" />
+                <ScalarProperty Name="Title" ColumnName="Title" />
+                <ScalarProperty Name="Firstname" ColumnName="Firstname" />
+                <ScalarProperty Name="Lastname" ColumnName="Lastname" />
+                <ScalarProperty Name="FirstVote_Party_Id" ColumnName="FirstVote_Party_Id" />
+                <ScalarProperty Name="FirstVote_Party_Name" ColumnName="FirstVote_Party_Name" />
+                <ScalarProperty Name="SecondVote_Party_Id" ColumnName="SecondVote_Party_Id" />
+                <ScalarProperty Name="SecondVote_Party_Name" ColumnName="SecondVote_Party_Name" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="WinnerZweitstimmes">
+            <EntityTypeMapping TypeName="DBModel.WinnerZweitstimme">
+              <MappingFragment StoreEntitySet="WinnerZweitstimme">
+                <ScalarProperty Name="Election_Id" ColumnName="Election_Id" />
+                <ScalarProperty Name="Wahlkreis_Id" ColumnName="Wahlkreis_Id" />
+                <ScalarProperty Name="Wahlkreis_Name" ColumnName="Wahlkreis_Name" />
+                <ScalarProperty Name="Party_Id" ColumnName="Party_Id" />
+                <ScalarProperty Name="Party_Name" ColumnName="Party_Name" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="ZweitstimmeAggregateds">
+            <EntityTypeMapping TypeName="DBModel.ZweitstimmeAggregated">
+              <MappingFragment StoreEntitySet="ZweitstimmeAggregated">
+                <ScalarProperty Name="Election_Id" ColumnName="Election_Id" />
+                <ScalarProperty Name="Party_Id" ColumnName="Party_Id" />
+                <ScalarProperty Name="Wahlkreis_Id" ColumnName="Wahlkreis_Id" />
+                <ScalarProperty Name="Amount" ColumnName="Amount" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="ZweitstimmenStates">
+            <EntityTypeMapping TypeName="DBModel.ZweitstimmenState">
+              <MappingFragment StoreEntitySet="ZweitstimmenState">
+                <ScalarProperty Name="Election_Id" ColumnName="Election_Id" />
+                <ScalarProperty Name="Bundesland_Id" ColumnName="Bundesland_Id" />
+                <ScalarProperty Name="Party_ID" ColumnName="Party_ID" />
+                <ScalarProperty Name="Amount" ColumnName="Amount" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="ZweitstimmeWahlkreisOverviews">
+            <EntityTypeMapping TypeName="DBModel.ZweitstimmeWahlkreisOverview">
+              <MappingFragment StoreEntitySet="ZweitstimmeWahlkreisOverview">
+                <ScalarProperty Name="Election_Id" ColumnName="Election_Id" />
+                <ScalarProperty Name="Wahlkreis_Id" ColumnName="Wahlkreis_Id" />
+                <ScalarProperty Name="Wahlkreis_Name" ColumnName="Wahlkreis_Name" />
+                <ScalarProperty Name="Party_Id" ColumnName="Party_Id" />
+                <ScalarProperty Name="Party_Name" ColumnName="Party_Name" />
+                <ScalarProperty Name="Votes" ColumnName="Votes" />
+                <ScalarProperty Name="Overall" ColumnName="Overall" />
+                <ScalarProperty Name="PercentVotes" ColumnName="PercentVotes" />
+                <ScalarProperty Name="Previous" ColumnName="Previous" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <AssociationSetMapping Name="Participation" TypeName="DBModel.Participation" StoreEntitySet="Participation">
+            <EndProperty Name="Election">
+              <ScalarProperty Name="Id" ColumnName="Election_Id" />
+            </EndProperty>
+            <EndProperty Name="Person">
+              <ScalarProperty Name="Id" ColumnName="Person_Id" />
+            </EndProperty>
+          </AssociationSetMapping>
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="true" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
+        <DesignerProperty Name="UseLegacyProvider" Value="false" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="None" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>
