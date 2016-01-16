@@ -1,4 +1,3 @@
-*.xml
 *.manifest
 *.user
 *.sln
@@ -6,13 +5,9 @@
 *.mdf
 *.ldf
 *.csproj
-*.asax
-*.asax.cs
-*.ico
 
 packages
 
-ElectionTool/bin/*
 ElectionTool/fonts/*
 ElectionTool/obj/*
 ElectionTool/Properties
