@@ -35,6 +35,8 @@
 
     var showMenu = url.StartsWith("/Home") || url.Length <= 1;
     var showSidebar = !url.StartsWith("/Vote") && !showMenu;
+	
+	var descriptionColSize = ViewBag.DescriptionColSize as int? ?? 12;
 
     var messageBag = TempData["Messages"] as ElectionTool.Models.MessageBag ?? new ElectionTool.Models.MessageBag();
 
@@ -118,7 +120,7 @@
                     </div>
 
                     <div class="row" style="padding-left: 20px;">
-                        <div class="@string.Format("description-{0}", showSidebar ? "analysis" : "vote") @string.Format("{0}", isError ? "text-danger" : "")">
+                        <div class="@string.Format("description-{0}", showSidebar ? "analysis" : "vote") @string.Format("{0}", isError ? "text-danger" : "") @string.Format("col-md-{0}", descriptionColSize)">
                             @ViewBag.Description
                         </div>
                     </div>
